@@ -100,7 +100,10 @@ def create_coupon(request):
 					sender = coupon_obj.sender_name
 				else:
 					sender = coupon_obj.sender_email
-				message = "Hi there,\n\n{} sent you a coupon. Coupon Code: {}".format(sender, coupon_obj.coupon)
+				if coupon_obj.msg_for_rcvr:
+					message = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\nMessage from sender: {}".format(sender, coupon_obj.coupon,coupon_obj.msg_for_rcvr)
+				else:
+					message = "Hi there,\n\n{} sent you a coupon. Coupon Code: {}".format(sender, coupon_obj.coupon)
 				print(send_mail(subject, message, 'admin@project.com',[coupon_obj.receiver_email]))
 			if coupon_obj.sender_email:
 				subject = "Generated coupons"
