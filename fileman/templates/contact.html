@@ -1,0 +1,121 @@
+{% load staticfiles %}
+{% load bootstrap %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Apito</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/modern-business.css' %}" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ 
+
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">Apito</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+         <li class="nav-item">
+            <a class="nav-link" href="#">What's this about</a>
+          </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'product' %}">Product</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Promo codes / donations</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">About us</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Contact us</a>
+        </li>
+
+
+        </ul>
+        
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+
+    <br>
+{% if messages %}
+{% for message in messages %}
+{% if message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+{% else %}
+<div class="alert alert-danger" role="alert">
+{% endif %}
+  {{message}}
+
+</div>
+
+{% endfor %}
+{% endif %}
+    <!-- Page Heading/Breadcrumbs -->
+    <br>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="breadcrumb-item active">Contact</li>
+    </ol>
+   
+    
+    <br>
+    <form action="{% url 'contact' %}" method="post">
+      {{contact_form|bootstrap}}
+      {% csrf_token %}
+    <button type="submit" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;Send Message&nbsp;&nbsp;&nbsp;&nbsp;</button> 
+
+<br>
+
+
+  
+ 
+
+
+    </form>
+<div id="content"></div>
+
+
+<br>
+<br>
+
+
+
+  <!-- /.container -->
+
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+</html>
