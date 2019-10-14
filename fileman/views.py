@@ -39,8 +39,8 @@ def index(request):
 			if country:
 				new_file.country = country
 			new_file.save()
-			dwnld_link = "http://127.0.0.1:8000/dwnid/?i=" + new_file.url
-			rspns = "File successfully uploaded. share this download link {}".format(dwnld_link)
+			dwnld_link = "apito.pythonanywhere.com/dwnid/?i=" + new_file.url
+			rspns = "File successfully uploaded. share this download link \n\n{}".format(dwnld_link)
 			return HttpResponse(rspns)
 		else:
 			file_form = FileModelForm()
