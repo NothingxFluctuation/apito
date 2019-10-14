@@ -3,6 +3,5 @@ django-bootstrap-form==3.4
 libmagic==1.0
 Pillow==5.4.1
 python-magic==0.4.15
-python-magic-bin
 pytz==2019.3
 sqlparse==0.3.0
