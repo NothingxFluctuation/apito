@@ -87,8 +87,39 @@ var x = setInterval(function() {
 
 <script>
   function showAgreement() {
+    var mera_file = id_file_here.value;
+    var mera_file1 = id_file_here1.value;
+    var mera_file2 = id_file_here2.value;
+    var mera_file3 = id_file_here3.value;
+    var mera_file4 = id_file_here4.value;
+    if (mera_file != "" && id_text.value == "" ) {
+      $("#kamlakh").modal("show");
+      return 1;
+    }
+    if (mera_file1 != "" && id_text1.value == "") {
+      $("#kamlakh").modal("show");
+      return 1;
+    }
+    if (mera_file2 != "" && id_text2.value == "") {
+      $("#kamlakh").modal("show");
+      return 1;
+    }
+    if (mera_file3 != "" && id_text3.value =="") {
+      $("#kamlakh").modal("show");
+      return 1;
+    }
+    if (mera_file4 != "" && id_text4.value == "") {
+      $("#kamlakh").modal("show");
+      return 1;
+    }
+
+
+
+
+
     agree.style.display = "block";
     btnui.style.display = "none";
+    $("#exampleModalLong").modal("show");
   }
   
   function showcoup() {
@@ -445,6 +476,25 @@ $(document).ready(function () {
           </div>
           <div class="modal-body">
             <p>Please pay the remaining amount before uploading the files.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="kamlakh" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Text not entered</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Please write text before clicking continue.</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -936,7 +986,7 @@ $(document).ready(function () {
           
           {% csrf_token %}
           <div id="btnui">
-              <button type="button" onclick="showAgreement()" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">&nbsp;&nbsp;&nbsp;&nbsp;Continue&nbsp;&nbsp;&nbsp;&nbsp;</button> <button type="button" id="showdilbar1" onclick="showDilbar(this)" class="btn btn-primary"><span class="fas fa-plus"></span></button> 
+              <button type="button" onclick="showAgreement()" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;Continue&nbsp;&nbsp;&nbsp;&nbsp;</button> <button type="button" id="showdilbar1" onclick="showDilbar(this)" class="btn btn-primary"><span class="fas fa-plus"></span></button> 
           </div>
               <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div class="modal-dialog" role="document">
