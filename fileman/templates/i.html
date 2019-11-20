@@ -4,7 +4,7 @@
 <html lang="en">
 
 <head>
-  <title>APITO</title>
+  <title>APITO - HOME</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -112,12 +112,13 @@ var x = setInterval(function() {
     var filefivepath = id_file_here4.value;
     var dic = fileonepath + "xxxhumkohumhisaychuraloxxx" + filetwopath + "xxxhumkohumhisaychuraloxxx" + filethreepath + "xxxhumkohumhisaychuraloxxx" + filefourpath + "xxxhumkohumhisaychuraloxxx" + filefivepath
     
-    alert(dic);
     $.ajax("{% url 'calculate_price' %}", {
       type: 'GET',
       data: {lol: dic},
       success: function(result) {
-        billagi.innerHTML = "$" + result
+        billagi.innerHTML = "$" + result;
+        sohniprice = result;
+
         
       }
     }
@@ -172,7 +173,7 @@ function showmeme() {
     var munna = document.getElementById("couponinput").value;
     $.ajax("{% url 'check_coupon' %}", {
       type: 'GET',
-      data: {c: munna},
+      data: {c: munna,papa:sohniprice},
       success: function(data, status, xhr) {
         if (data == 'valid') {
           $('#kampachees').modal('show')
@@ -181,8 +182,12 @@ function showmeme() {
           kama.style.display = "none";
           $('#payme').remove();
 
+        } else if (data == 'invalid') {
+            $('kamchabees').modal('show')
         } else {
-          $('#kamchabees').modal('show')
+            lululu.innerHTML = "You are $" + data + " short on eGift credit.";
+            $('#kampachas').modal('show')
+            payme.style.display = "block";
         }
         
       }
@@ -271,13 +276,22 @@ function uploadfilesforme () {
   filewalaform.submit();
 }
 
-
+function hasExtension(inputID, exts) {
+    var fileName = document.getElementById(inputID).value;
+    return (new RegExp('(' + exts.join('|').replace(/\./g, '\\.') + ')$',"i")).test(fileName);
+}
 
 function checkFileSize(th) {
   var fiLesiZe = th.files[0].size;
   if (fiLesiZe > 104857600) {
     th.value = th.defaultValue;
   }
+
+  if (!hasExtension(th.id,['.png','.jpg','.jpeg','.mp4','.mkv','.avi','.wmv','.mov','.flv'])) {
+    th.value = th.defaultValue;
+  }
+    
+
 
 
 }
@@ -287,10 +301,77 @@ function checkFileSize(th) {
 </script>
 
 
+
+
+
   
 
 
 <!--braintree-->
+
+
+<style>
+/*sticky header position*/
+.sticky.is-sticky {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+nav {
+  background: #1089ff;
+  min-height: 85px;
+}
+
+#showingtheworst.hover {
+  text-decoration: none;
+  transition: none;
+}
+
+</style>
+
+<script>
+
+
+// Sticky navbar
+// =========================
+$(document).ready(function () {
+                // Custom function which toggles between sticky class (is-sticky)
+                var stickyToggle = function (sticky, stickyWrapper, scrollElement) {
+                    var stickyHeight = sticky.outerHeight();
+                    var stickyTop = stickyWrapper.offset().top;
+                    if (scrollElement.scrollTop() >= stickyTop) {
+                        stickyWrapper.height(stickyHeight);
+                        sticky.addClass("is-sticky");
+                    }
+                    else {
+                        sticky.removeClass("is-sticky");
+                        stickyWrapper.height('auto');
+                    }
+                };
+
+                // Find all data-toggle="sticky-onscroll" elements
+                $('[data-toggle="sticky-onscroll"]').each(function () {
+                    var sticky = $(this);
+                    var stickyWrapper = $('<div>').addClass('sticky-wrapper'); // insert hidden element to maintain actual top offset on page
+                    sticky.before(stickyWrapper);
+                    sticky.addClass('sticky');
+
+                    // Scroll & resize events
+                    $(window).on('scroll.sticky-onscroll resize.sticky-onscroll', function () {
+                        stickyToggle(sticky, stickyWrapper, $(this));
+                    });
+
+                    // On page load
+                    stickyToggle(sticky, stickyWrapper, $(window));
+                });
+            });
+
+</script>
+
 
 
 
@@ -312,13 +393,13 @@ function checkFileSize(th) {
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Valid Coupon</h5>
+            <h5 class="modal-title" id="khikhikhi">Valid Coupon</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <p>You entered a valid coupon. You can upload this file now.</p>
+            <p id="shishishi">You entered a valid coupon. You can upload this file now.</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -327,33 +408,51 @@ function checkFileSize(th) {
       </div>
     </div>
 
-    
-
-
-      
-      <div class="site-navbar py-2 js-sticky-header site-navbar-target d-block" role="banner">
-
-      <div class="container">
-        <div class="d-flex align-items-center">
-          
-          <div class="mx-auto">
-            <nav class="site-navigation position-relative text-right" role="navigation">
-                    <ul class="site-menu main-menu js-clone-nav mr-auto d-block">
-                            <li class="active">
-                              <a href="{% url 'm' %}" class="nav-link text-left">Home</a>
-                            </li>
-                            <li>
-                              <a href="{% url 'thisabout' %}" class="nav-link text-left">FAQ</a>
-                            </li>
-                          </ul>                                                                                                                                                                                                                                                                                           </ul>
-            </nav>
-
+    <div class="modal" id="kampachas" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="lululu">You are low on eGift credit</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-         
+          <div class="modal-body">
+            <p>Please pay the remaining amount before uploading the files.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
-
     </div>
+
+
+    <nav class="navbar  navbar-expand-lg navbar-light top-navbar" data-toggle="sticky-onscroll">
+        <div class="container">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+                
+              <ul class="navbar-nav">
+                  
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/" style="font-size: 16px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 20px;padding-right: 20px;padding-bottom: 20px;padding-left: 20px;"><b><u>HOME</u></b></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'thisabout' %}" style="font-size: 16px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 20px;padding-right: 20px;padding-bottom: 20px;padding-left: 20px;"><b>FAQ</b></a>
+                    </li>
+                  
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
     
     </div>
     
@@ -442,8 +541,6 @@ function checkFileSize(th) {
                     <div id="fileTypeArea">
                       <img src="https://cdn3.iconfinder.com/data/icons/basic-icons-5/64/GALLERY-512.png" width="80" height="80" id="fileTypeImage" onclick="javascript:topipopi(this);" />
                       <span class="mx-4"></span>
-                      <span class="mx-4"></span>
-                      <span class="mx-4"></span>
                       <img src="http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/512/Video-icon.png" width="80" height="80" id="fileTypeVideo" onclick="javascript:popitopi(this);" />
                     </div>
                   </div>
@@ -521,8 +618,6 @@ function checkFileSize(th) {
                 <div id="fileTypeArea1">
                   <img src="https://cdn3.iconfinder.com/data/icons/basic-icons-5/64/GALLERY-512.png" width="80" height="80" id="fileTypeImage1" onclick="topipopi(this);" />
                   <span class="mx-4"></span>
-                  <span class="mx-4"></span>
-                  <span class="mx-4"></span>
                   <img src="http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/512/Video-icon.png" width="80" height="80" id="fileTypeVideo1" onclick="popitopi(this);" />
                 </div>
               </div>
@@ -586,8 +681,6 @@ function checkFileSize(th) {
         
           <div id="fileTypeArea2">
             <img src="https://cdn3.iconfinder.com/data/icons/basic-icons-5/64/GALLERY-512.png" width="80" height="80" id="fileTypeImage2" onclick="topipopi(this);" />
-            <span class="mx-4"></span>
-            <span class="mx-4"></span>
             <span class="mx-4"></span>
             <img src="http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/512/Video-icon.png" width="80" height="80" id="fileTypeVideo2" onclick="popitopi(this);" />
           </div>
@@ -653,8 +746,6 @@ function checkFileSize(th) {
       <div id="fileTypeArea3">
         <img src="https://cdn3.iconfinder.com/data/icons/basic-icons-5/64/GALLERY-512.png" width="80" height="80" id="fileTypeImage3" onclick="topipopi(this);" />
         <span class="mx-4"></span>
-        <span class="mx-4"></span>
-        <span class="mx-4"></span>
         <img src="http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/512/Video-icon.png" width="80" height="80" id="fileTypeVideo3" onclick="popitopi(this);" />
       </div>
     </div>
@@ -718,8 +809,6 @@ function checkFileSize(th) {
     
       <div id="fileTypeArea4">
         <img src="https://cdn3.iconfinder.com/data/icons/basic-icons-5/64/GALLERY-512.png" width="80" height="80" id="fileTypeImage4" onclick="topipopi(this);" />
-        <span class="mx-4"></span>
-        <span class="mx-4"></span>
         <span class="mx-4"></span>
         <img src="http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/512/Video-icon.png" width="80" height="80" id="fileTypeVideo4" onclick="popitopi(this);" />
       </div>
@@ -792,6 +881,7 @@ function checkFileSize(th) {
                       <h5 class="modal-title" id="exampleModalLongTitle">Terms and Conditions</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
+
                       </button>
                     </div>
                     <div class="modal-body">
@@ -830,9 +920,9 @@ function checkFileSize(th) {
               </div>
           <div id="kama" style="display:none; ">
               
-                  <div class='form-control total btn btn-success '>
+                  <div id="showingtheworst" class='form-control total btn btn-success ' style="text-decoration: none; transition: none; hover">
                     Total Charges:
-                    <span class='amount' id="billagi">$1</span>
+                    <span class='amount' id="billagi">$0</span>
                   
                 </div>
                 <br>
@@ -933,8 +1023,9 @@ function checkFileSize(th) {
             </div>
           </div>
               <div style="display: none;" id="coupon">
-                <input type="input" id="couponinput" name="couponinput"/>
-                <button type="button" id="coupig" onclick="copa()" class="btn btn-primary">Enter eGift</button>
+                <br>
+                <input type="input" id="couponinput" name="couponinput" style="height: 30px; font-size: 14px;" />
+                <button type="button" id="coupig" onclick="copa()" class="btn btn-primary" style="line-height: 30px; font-size:12px">Enter eGift</button>
 
                 
                 <div class="modal" id="kamchabees" tabindex="-1" role="dialog">
@@ -956,7 +1047,7 @@ function checkFileSize(th) {
                   </div>
                 </div>
                 
-
+                
                 <p><a href="javascript:showpayme()">or Pay</a></p>
                 <br>
                 
@@ -1716,17 +1807,17 @@ function checkFileSize(th) {
           </div>
         {% endif %}
         <div class="braintree-notifications"></div>
-        <div id="braintree-dropin"></div>
-        <input style="background-color: #0783ca" id="submit-button" class="btn btn-success btn-lg btn-block" type="button" value="Pay now!" />
+        <div id="braintree-dropinu"></div>
+        <input style="background-color: #0783ca" id="submit-buttonu" class="btn btn-success btn-lg btn-block" type="button" value="Pay now!" />
       </form>
   
       <script>
         var braintree_client_token = "{{ braintree_client_token }}";
-        var button = document.querySelector('#submit-button');
+        var button = document.querySelector('#submit-buttonu');
     
         braintree.dropin.create({
           authorization: braintree_client_token,
-          container: '#braintree-dropin',
+          container: '#braintree-dropinu',
           card: {
             cardholderName: {
                 required: false

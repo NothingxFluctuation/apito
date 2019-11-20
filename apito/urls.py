@@ -40,6 +40,7 @@ urlpatterns = [
     path('t/', fv.t, name='t'),
     path('calculate_price/',fv.calculate_price, name='calculate_price'),
     path('payment/', fv.payment, name='payment'),
+    path('egifts_admin/', fv.egifts_admin, name="egifts_admin"),
 
 
     path('contact/', fv.contact, name='contact'),

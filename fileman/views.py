@@ -145,7 +145,7 @@ def calculate_price(request):
 	fileslist = b.split("xxxhumkohumhisaychuraloxxx")
 	print('ff: ',fileslist)
 	image_ext = ['png','jpg','jpeg']
-	video_ext = ['avi','flv','wmv','mov','mp4']
+	video_ext = ['avi','flv','wmv','mov','mp4','mkv']
 	price = 0
 	
 	for f in fileslist:
@@ -153,7 +153,7 @@ def calculate_price(request):
 		f = f.lower()
 		if f.endswith('png') or f.endswith('jpg') or f.endswith('jpeg'):
 			price += 1
-		elif f.endswith('avi') or f.endswith('flv') or f.endswith('wmv') or f.endswith('mov') or f.endswith('mp4'):
+		elif f.endswith('avi') or f.endswith('flv') or f.endswith('wmv') or f.endswith('mov') or f.endswith('mp4') or f.endswith('mkv'):
 			price += 3
 		else:
 			pass
@@ -170,11 +170,46 @@ def aja(request):
 	print(rspns)
 	return HttpResponse(rspns)
 
+def egifts_admin(request):
+	if not request.user.is_superuser:
+		return HttpResponse("error: not authorized")
+	
+	else:
+		am = request.GET.get('amount')
+		am = int(am)
+		qnt = request.GET.get('quantity')
+		qnt = int(qnt)
+
+		if am and qnt:
+			if am > 0 and qnt > 0:
+				counter = 0
+				codes = ""
+				while counter < qnt:
+					cpn = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(15))
+					cpn_obj = CouponModel.objects.create(amount=am, coupon=cpn)
+					codes = codes + cpn + "\n"
+					counter +=1
+				return HttpResponse(codes, content_type="text/plain")
+				
+		return render(request,'razi.html')
+	
+
 
 def check_coupon(request):
 	c = request.GET.get('c')
 	cpn = CouponModel.objects.filter(coupon=c, active = True)
+
+	price = request.GET.get('papa')
+	print('Price: ',price)
 	if len(cpn) > 0:
+		cpn = CouponModel.objects.get(coupon=c)
+		amount = cpn.amount
+		price = int(price)
+		if price > amount:
+			rspns = str(int(price-amount))
+			print(rspns)
+			return HttpResponse(rspns)
+
 		return HttpResponse("valid")
 	else:
 		return HttpResponse("invalid")
@@ -236,7 +271,7 @@ def create_coupon(request):
 					message = "Hi there,\n\n{} sent you a coupon. Coupon Code: {}".format(sender, coupon_obj.coupon)
 				print(send_mail(subject, message, 'admin@project.com',[coupon_obj.receiver_email]))
 			
-			
+
 
 
 			if coupon_obj.sender_email:

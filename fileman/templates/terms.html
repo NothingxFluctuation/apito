@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-  <title>APITO</title>
+  <title>APITO - Terms and Conditions</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -27,38 +27,65 @@
 
   <link rel="stylesheet" href="{% static 'v1/css/style.css' %}">
 
-<script>
-// Set the date we're counting down to
-var countDownDate = new Date("Jan 5, 2020 15:37:25").getTime();
 
-// Update the count down every 1 second
-var x = setInterval(function() {
-
-  // Get todays date and time
-  var now = new Date().getTime();
-
-  // Find the distance between now an the count down date
-  var distance = countDownDate - now;
-
-  // Time calculations for days, hours, minutes and seconds
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  // Display the result in an element with id="demo"
-  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-  + minutes + "m " + seconds + "s ";
-
-  // If the count down is finished, write some text
-  if (distance < 0) {
-    clearInterval(x);
-    document.getElementById("demo").innerHTML = "EXPIRED";
-  }
-}, 1000);
-
-</script>
-
+  <style>
+    /*sticky header position*/
+    .sticky.is-sticky {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+    }
+    
+    nav {
+      background: #1089ff;
+      min-height: 85px;
+    }
+    
+    
+    </style>
+    
+    <script>
+    
+    
+    // Sticky navbar
+    // =========================
+    $(document).ready(function () {
+                    // Custom function which toggles between sticky class (is-sticky)
+                    var stickyToggle = function (sticky, stickyWrapper, scrollElement) {
+                        var stickyHeight = sticky.outerHeight();
+                        var stickyTop = stickyWrapper.offset().top;
+                        if (scrollElement.scrollTop() >= stickyTop) {
+                            stickyWrapper.height(stickyHeight);
+                            sticky.addClass("is-sticky");
+                        }
+                        else {
+                            sticky.removeClass("is-sticky");
+                            stickyWrapper.height('auto');
+                        }
+                    };
+    
+                    // Find all data-toggle="sticky-onscroll" elements
+                    $('[data-toggle="sticky-onscroll"]').each(function () {
+                        var sticky = $(this);
+                        var stickyWrapper = $('<div>').addClass('sticky-wrapper'); // insert hidden element to maintain actual top offset on page
+                        sticky.before(stickyWrapper);
+                        sticky.addClass('sticky');
+    
+                        // Scroll & resize events
+                        $(window).on('scroll.sticky-onscroll resize.sticky-onscroll', function () {
+                            stickyToggle(sticky, stickyWrapper, $(this));
+                        });
+    
+                        // On page load
+                        stickyToggle(sticky, stickyWrapper, $(window));
+                    });
+                });
+    
+    </script>
+    
 
 
 </head>
@@ -80,30 +107,30 @@ var x = setInterval(function() {
     
 
 
-      
-      <div class="site-navbar py-2 js-sticky-header site-navbar-target d-none pl-0 d-lg-block" role="banner">
-
+    <nav class="navbar  navbar-expand-lg navbar-light top-navbar" data-toggle="sticky-onscroll">
       <div class="container">
-        <div class="d-flex align-items-center">
-          
-          <div class="mx-auto">
-            <nav class="site-navigation position-relative text-right" role="navigation">
-                    <ul class="site-menu main-menu js-clone-nav mr-auto d-none pl-0 d-lg-block">
-                            <li>
-                              <a href="{% url 'm' %}" class="nav-link text-left">Home</a>
-                            </li>
-                            <li>
-                              <a href="{% url 'thisabout' %}" class="nav-link text-left">FAQ</a>
-                            </li>
-                          </ul>                                                                                                                                                                                                                                                                                          </ul>
-            </nav>
+          <a class="navbar-brand" href="#"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+              
+            <ul class="navbar-nav">
+                
+                  <li class="nav-item">
+                      <a class="nav-link active" href="/" style="font-size: 16px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 20px;padding-right: 20px;padding-bottom: 20px;padding-left: 20px;"><b>HOME</b></a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'thisabout' %}" style="font-size: 16px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 20px;padding-right: 20px;padding-bottom: 20px;padding-left: 20px;"><b>FAQ</b></a>
+                  </li>
+                
+
+              </ul>
 
           </div>
-         
-        </div>
       </div>
-
-    </div>
+  </nav>
     
     </div>
     
