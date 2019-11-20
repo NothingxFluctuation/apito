@@ -185,8 +185,8 @@ function showmeme() {
         } else if (data == 'invalid') {
             $('kamchabees').modal('show')
         } else {
-            lululu.innerHTML = "You are $" + data + " short on eGift credit.";
-            $('#kampachas').modal('show')
+            lululu.innerHTML = "You are $" + data + " short on eGift credit";
+            $('#kampachas').modal('show');
             payme.style.display = "block";
         }
         
@@ -290,7 +290,33 @@ function checkFileSize(th) {
   if (!hasExtension(th.id,['.png','.jpg','.jpeg','.mp4','.mkv','.avi','.wmv','.mov','.flv'])) {
     th.value = th.defaultValue;
   }
-    
+
+  if (th.id == "id_file_here") {
+    var file_value = file_type.value;
+  } else if (th.id == "id_file_here1") {
+    var file_value = file_type1.value;
+  } else if (th.id == "id_file_here2") {
+    var file_value = file_type2.value;
+  } else if (th.id == "id_file_here3") {
+    var file_value = file_type3.value;
+  } else {
+    var file_value = file_type4.value;
+  }
+
+
+
+  if (file_value == "") {
+    th.value = th.defaultValue;
+    $("#kamhzar").modal("show");
+  }  
+  if (file_value == "im" && !hasExtension(th.id,['.png','.jpg','.jpeg'])) {
+    th.value = th.defaultValue;
+    $("#kamsokam").modal("show");
+  }
+  if (file_value == "vid" && !hasExtension(th.id,['.mp4','.mkv','.avi','.wmv','.mov','.flv'])) {
+    th.value = th.defaultValue;
+    $("#kamsokam").modal("show");
+  }
 
 
 
@@ -419,6 +445,44 @@ $(document).ready(function () {
           </div>
           <div class="modal-body">
             <p>Please pay the remaining amount before uploading the files.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="kamhzar" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">No file type selected</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Please select a file type by clicking image or video icon before selecting a file.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="kamsokam" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Selected file type and selected file not same</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Please select the same file type that you selected above.</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -1331,6 +1395,7 @@ $(document).ready(function () {
                 </select>
               
             </div>
+            
             <!-- /.container -->
           
             <br>

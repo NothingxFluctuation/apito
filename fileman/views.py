@@ -112,11 +112,11 @@ def index(request):
 		if file_form.is_valid():
 			#disable coupon
 			cpn = request.POST.get('couponinput')
-			cpni = CouponModel.objects.filter(coupon=cpn, active = True)
+			cpni = CouponModel.objects.filter(coupon=cpn)
+			print('cpni',cpni)
 			if len(cpni) > 0:
-				cpna = CouponModel.objects.get(coupon=cpn, active=True)
-				cpna.active = False
-				cpna.save()
+				cpna = CouponModel.objects.get(coupon=cpn)
+				print(cpna)
 
 
 			new_file = file_form.save(commit=False)
@@ -209,7 +209,10 @@ def check_coupon(request):
 			rspns = str(int(price-amount))
 			print(rspns)
 			return HttpResponse(rspns)
-
+		new_amount = amount - price
+		cpn.amount = int(new_amount)
+		print("new_amount,",new_amount)
+		cpn.save()
 		return HttpResponse("valid")
 	else:
 		return HttpResponse("invalid")
