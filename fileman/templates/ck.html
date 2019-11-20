@@ -1,0 +1,64 @@
+<head>
+  <meta charset="utf-8">
+  <script src="https://js.braintreegateway.com/web/dropin/1.20.4/js/dropin.min.js"></script>
+  <script src="https://js.braintreegateway.com/web/3.55.0/js/venmo.min.js"></script>
+<script src="https://js.braintreegateway.com/web/3.55.0/js/data-collector.min.js"></script>
+
+</head>
+<body>
+  <div id="dropin-container"></div>
+  <button id="submit-button">Request payment method</button>
+  <script>
+    var button = document.querySelector('#submit-button');
+
+    braintree.dropin.create({
+      authorization: '{{ braintree_client_token }}',
+      container: '#dropin-container',
+      paypal: {
+          flow: 'checkout',
+          amount: '10.00',
+          currency: 'USD',
+      },
+      venmo: {
+          allowNewBrowserTab: false
+      },
+      applePay: {
+          displayName: 'My Store',
+          paymentRequest: {
+              total: {
+                  label: 'My Store',
+                  amount: '19.99'
+              },
+              requiredBillingContactFields:["postalAddress"]
+          }
+      },
+      googlePay: {
+            googlePayVersion: 2,
+            merchantId: 'merchant-id-from-google',
+            transactionInfo: {
+            totalPriceStatus: 'FINAL',
+            totalPrice: '123.45',
+            currencyCode: 'USD'
+        },
+        cardRequirements: {
+        // We recommend collecting and passing billing address information with all Google Pay transactions as a best practice.
+            billingAddressRequired: true
+        }
+    },
+
+    }, function (createErr, instance) {
+      button.addEventListener('click', function () {
+        instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
+            $.ajax({
+                    type: 'POST',
+                    url: '{% url "payment" %}',
+                    data: {'paymentMethodNonce': payload.nonce,
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'}
+            }).done(function (result) {
+                    alert("Payment Successful. Now you can upload files.");
+            });
+        });
+      });
+    });
+  </script>
+</body>

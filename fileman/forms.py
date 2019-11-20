@@ -9,7 +9,7 @@ class UploadForm(forms.Form):
 class FileModelForm(forms.ModelForm):
 	class Meta:
 		model = FileModel
-		fields = ('file_type','file_here','text')
+		fields = ('file_type','file_here','text','file_here1','text1')
 
 		labels = {
 			"file_here" : ("Select File"),
@@ -21,7 +21,7 @@ class CouponModelForm(forms.ModelForm):
 	sender_email = forms.EmailField(label="Your Email",required=True, widget=forms.EmailInput(attrs={'maxlength':150}))
 	class Meta:
 		model = CouponModel
-		fields = ('receiver_email','msg_for_rcvr','sender_name','sender_email',)
+		fields = ('amount','receiver_email','msg_for_rcvr','sender_name','sender_email',)
 
 		labels = {
 			"receiver_email" : ("Receiver's Email"),

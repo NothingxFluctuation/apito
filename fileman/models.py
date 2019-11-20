@@ -28,6 +28,18 @@ class FileModel(models.Model):
 	file_type = models.CharField(max_length=50, choices=ftype, default='im')
 	text = models.TextField(max_length=3000)
 	file_here = models.FileField(upload_to='file_content/',null=True, max_length=400)
+	file_type1 = models.CharField(max_length=50, choices=ftype, default='im')
+	text1 = models.TextField(max_length=3000, null=True, blank=True)
+	file_here1 = models.FileField(upload_to='file_content/', null=True, blank=True, max_length=400)
+	file_type2 = models.CharField(max_length=50, choices=ftype, default='im')
+	text2 = models.TextField(max_length=3000, null=True, blank=True)
+	file_here2 = models.FileField(upload_to='file_content/', null=True, blank=True, max_length=400)
+	file_type3 = models.CharField(max_length=50, choices=ftype, default='im')
+	text3 = models.TextField(max_length=3000, null=True, blank=True)
+	file_here3 = models.FileField(upload_to='file_content/', null=True, blank=True, max_length=400)
+	file_type4 = models.CharField(max_length=50, choices=ftype, default='im')
+	text4 = models.TextField(max_length=3000, null=True, blank=True)
+	file_here4 = models.FileField(upload_to='file_content/', null=True, blank=True, max_length=400)	
 	created = models.DateTimeField(default=timezone.now)
 	url = models.CharField(max_length=2000, null=True, blank = True)
 	info = models.CharField(max_length=2000, null=True, blank=True)
@@ -39,6 +51,7 @@ class FileModel(models.Model):
 
 
 class CouponModel(models.Model):
+	amount = models.FloatField(max_length=100,blank=True, null=True)
 	coupon = models.CharField(max_length=100, blank=True, null=True)
 	receiver_email = models.CharField(max_length=100, blank=True, null=True)
 	msg_for_rcvr = models.TextField(max_length=3000, blank=True, null=True)

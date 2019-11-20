@@ -25,7 +25,7 @@ SECRET_KEY = '@f*e5ry6&$t0(vci-=3-rysc%6_pepr_&2lrvsmiu9&yn2e=sn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','apito.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1','apito.pythonanywhere.com','7e55701b.ngrok.io','dc3a007e.ngrok.io','10549217.ngrok.io','192.168.8.101']
 
 
 # Application definition
@@ -42,6 +42,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+import sys
+
+BRAINTREE_PRODUCTION = False
+BRAINTREE_MERCHANT_ID = "sht8v5qnqrdqrjkx"
+BRAINTREE_PUBLIC_KEY = "h6xq75n49jjpb3dk"
+BRAINTREE_PRIVATE_KEY = "e71041c2a1feb7c0dcc723626d809b80"
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

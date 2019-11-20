@@ -24,11 +24,23 @@ import fileman.views as fv
 urlpatterns = [
 
 	path('', fv.main, name='main'),
+    path('pa/',fv.pp, name='pp'),
 	path('product/',fv.index, name='product'),
     path('aja/',fv.aja, name='aja'),
     path('coupon/',fv.check_coupon, name='check_coupon'),
     path('create_coupon/',fv.create_coupon, name='create_coupon'),
     path('dwnid/', fv.file_download, name='file_download'),
+
+    path('m/', fv.m, name='m'),
+    path('thisabout/', fv.thisabout, name='thisabout'),
+    path('us/',fv.us, name='us'),
+    path('cntct/',fv.cntct, name='cntct'),
+    path('p/', fv.p, name='p'),
+    path('cpn/', fv.cpn, name='cpn'),
+    path('t/', fv.t, name='t'),
+    path('calculate_price/',fv.calculate_price, name='calculate_price'),
+    path('payment/', fv.payment, name='payment'),
+
 
     path('contact/', fv.contact, name='contact'),
 
