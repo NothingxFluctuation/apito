@@ -525,7 +525,7 @@ $(document).ready(function () {
             </button>
           </div>
           <div class="modal-body">
-            <p id="shishishi">You entered a valid coupon. You can upload this file now. Your remaining balanance is</p>
+            <p id="shishishi">You entered a valid coupon. You can upload this file now. Your remaining balance is</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -641,14 +641,14 @@ $(document).ready(function () {
                 
               <ul class="navbar-nav">
                     <li class="nav-item">
-                      <img src="{% static 'Apito-04.png' %}" height="300" widht="300"/>
+                      <a href="/"><img src="{% static 'apito-logo.png' %}" height="100" width="100"/></a>
                     </li>
                   
                     <li class="nav-item">
-                        <a class="nav-link active" href="/" style="font-size: 16px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 20px;padding-right: 20px;padding-bottom: 20px;padding-left: 20px;"><b><u>HOME</u></b></a>
+                        <a class="nav-link active" href="/" style="font-size: 30px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 20px;padding-right: 20px;padding-bottom: 20px;padding-left: 20px;"><b><u>HOME</u></b></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'thisabout' %}" style="font-size: 16px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 20px;padding-right: 20px;padding-bottom: 20px;padding-left: 20px;"><b>FAQ</b></a>
+                        <a class="nav-link" href="{% url 'thisabout' %}" style="font-size: 30px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 20px;padding-right: 20px;padding-bottom: 20px;padding-left: 20px;"><b>FAQ</b></a>
                     </li>
                   
 
@@ -669,7 +669,7 @@ $(document).ready(function () {
           <div class="row align-items-center">
             <div class="col-lg-7 mx-auto text-center" data-aos="fade-up">
               <h1 id="demo" style="font-size: 400%;"></h1>
-              <p>Remaining time until time capsule is locked</p>
+              <p style="color: black; font-weight: 800;">Remaining time until time capsule is locked</p>
               
             </div>
           </div>
@@ -693,13 +693,13 @@ $(document).ready(function () {
             </div>
           </div>
         </div>
-<br>
+<br><br>
 
         <div class="row d-flex justify-content-center">
            
           <div class="col-md-6">
-            <span class="text-serif text-primary d-flex justify-content-center" style="font-size: 50px;"><img src="{% static 'Apito-02.png' %}" width="900" height="600"/></span>
-            <h6 class="heading-92913 text-black d-flex justify-content-center" style="font-size: 20px;">Be a part of history. Throw your pebble into the ocean.</h6>
+            <span class="text-serif text-primary d-flex justify-content-center" style="font-size: 50px;"><img src="{% static 'apitog.png' %}" width="600" height="300"/></span>
+            <h6 class="heading-92913 text-black d-flex justify-content-center" style="font-size: 20px; ">Be a part of history. Throw your pebble into the ocean.</h6>
             <div style="font-size: 25px;">
             <p><mark>Time is not measured by clocks or by the breaths that we take. It is measured by those
 moments that take our breath away, the ones that stay in our memories forever.</mark></p>
@@ -2139,34 +2139,34 @@ satisfied with the purchase you are making before finalizing the transaction.</p
       
         <div class="row">
           
-          <div class="col-lg-3">
+          <div class="col-lg-3 ml-auto">
             <h3 class="footer-heading"><span>Site Links</span></h3>
             <ul class="list-unstyled">
 
-                <li><a href="#">Contact us</a></li>
+                <li><a href="mailto:apito.help.center@gmail.com">Contact us</a></li>
                 <li><a href="{% url 't' %}">Terms and Conditions</a></li>
             </ul>
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-3 mr-auto">
               <h3 class="footer-heading"><span>Social Media</span></h3>
               <ul class="list-unstyled">
-                  <li><a href="#"><span class="fab fa-facebook fa-lg"></span> Facebook </a></li>
-                  <li><a href="#"><span class="fab fa-instagram fa-lg"></span> Instagram</a></li>
-                  <li><a href="#"><span class="fab fa-youtube fa-lg"></span> YouTube</a></li>
-                  <li><a href="#"><span class="fab fa-twitch fa-lg"></span> Twitch</a></li>
+                  <li><a href="https://www.facebook.com/Apito-106229387484222/"><span class="fab fa-facebook fa-lg"></span> Facebook </a></li>
+                  <li><a href="https://www.instagram.com/apebbleintheocean/"><span class="fab fa-instagram fa-lg"></span> Instagram</a></li>
+                  <li><a href="https://www.youtube.com/channel/UCRLnvpXOc8nwdwNYaLU6nJA"><span class="fab fa-youtube fa-lg"></span> YouTube</a></li>
+                  <li><a href="https://www.twitch.tv/g_ioo"><span class="fab fa-twitch fa-lg"></span> Twitch</a></li>
               </ul>
           </div>
 
         </div>
-        <div class="row">
-          <div class="center">
+        <div class="row" style="margin-bottom: 0;">
+          <div class="center mx-auto">
             <img src="{% static 'Apito-01.png' %}" height="300" width="300"/>
           </div>
         </div>
         <div class="row">
           <div class="col-12">
-            <div class="copyright">
-                <p>
+            <div>
+                <p class="text-center">
                     Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved</p>
             </div>
           </div>
