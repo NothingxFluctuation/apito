@@ -144,14 +144,14 @@ def calculate_price(request):
 	b = request.GET.get('lol')
 	fileslist = b.split("xxxhumkohumhisaychuraloxxx")
 	print('ff: ',fileslist)
-	image_ext = ['png','jpg','jpeg']
+	image_ext = ['png','jpg','jpeg','heic','gif']
 	video_ext = ['avi','flv','wmv','mov','mp4','mkv']
 	price = 0
 	
 	for f in fileslist:
 		print('FFF:', f)
 		f = f.lower()
-		if f.endswith('png') or f.endswith('jpg') or f.endswith('jpeg'):
+		if f.endswith('png') or f.endswith('jpg') or f.endswith('jpeg') or f.endswith('heic') or f.endswith('gif'):
 			price += 1
 		elif f.endswith('avi') or f.endswith('flv') or f.endswith('wmv') or f.endswith('mov') or f.endswith('mp4') or f.endswith('mkv'):
 			price += 3
@@ -176,9 +176,11 @@ def egifts_admin(request):
 	
 	else:
 		am = request.GET.get('amount')
-		am = int(am)
+		if am:
+			am = int(am)
 		qnt = request.GET.get('quantity')
-		qnt = int(qnt)
+		if qnt:
+			qnt = int(qnt)
 
 		if am and qnt:
 			if am > 0 and qnt > 0:
@@ -206,6 +208,8 @@ def check_coupon(request):
 		amount = cpn.amount
 		price = int(price)
 		if price > amount:
+			cpn.amount = 0
+			cpn.save()
 			rspns = str(int(price-amount))
 			print(rspns)
 			return HttpResponse(rspns)
@@ -213,7 +217,8 @@ def check_coupon(request):
 		cpn.amount = int(new_amount)
 		print("new_amount,",new_amount)
 		cpn.save()
-		return HttpResponse("valid")
+		rsp = "valid " + str(new_amount)
+		return HttpResponse(rsp)
 	else:
 		return HttpResponse("invalid")
 	

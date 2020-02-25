@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load fileman_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,6 +16,7 @@
   <link rel="stylesheet" href="{% static 'v1/css/owl.carousel.min.css' %}">
   <link rel="stylesheet" href="{% static 'v1/css/owl.theme.default.min.css' %}">
   <link rel="stylesheet" href="{% static 'v1/css/owl.theme.default.min.css' %}">
+  <link rel="stylesheet" https:="{% '//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' %}">
 
   <link rel="stylesheet" href="{% static 'v1/css/jquery.fancybox.min.css' %}">
 
@@ -119,7 +121,7 @@
                       <a class="nav-link active" href="/" style="font-size: 16px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 20px;padding-right: 20px;padding-bottom: 20px;padding-left: 20px;"><b>HOME</b></a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="{% url 'thisabout' %}" style="font-size: 16px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 20px;padding-right: 20px;padding-bottom: 20px;padding-left: 20px;"><b><u>FAQ</u></b></a>
+                      <a class="nav-link" href="{% url 'thisabout' %}" style="font-size: 16px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 20px;padding-right: 20px;padding-bottom: 20px;padding-left: 20px;"><b>FAQ</b></a>
                   </li>
                 
 
@@ -141,14 +143,13 @@
     
         <div class="container">
             <div class="jumbotron">
-                <h1>Success</h1>
+                <h1>Success. Welcome to the team.</h1>
                 </div>
                 <br>
-          <h1>Successfully Uploaded</h1>
 
           <br>
           <div class="d-flex justify-content-center"> 
-          <p class="align-items-center"><img src="https://media.tenor.com/images/246201afa588d1b25d773b3611e1df28/tenor.gif" /></p>
+          <p class="align-items-center"><img src='{{ no_matter|random_image }}' width="350" height="350" /></p>
           </div>
         </div>
     </div>
@@ -173,6 +174,7 @@
                   <li><a href="#"><span class="fab fa-facebook fa-lg"></span> Facebook </a></li>
                   <li><a href="#"><span class="fab fa-instagram fa-lg"></span> Instagram</a></li>
                   <li><a href="#"><span class="fab fa-youtube fa-lg"></span> YouTube</a></li>
+                  <li><a href="#"><span class="fab fa-twitch fa-lg"></span> Twitch</a></li>
               </ul>
           </div>
 

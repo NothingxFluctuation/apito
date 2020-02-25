@@ -1,5 +1,6 @@
 from django.contrib import admin
 from fileman.models import VideoModel, ImageModel, FileModel, CouponModel
+from django.http import HttpResponse
 
 # Register your models here.
 
@@ -24,6 +25,7 @@ class ImageModelAdmin(admin.ModelAdmin):
 
 class FileModelAdmin(admin.ModelAdmin):
 	list_display = ('id','text','file_here','url','created')
+	exclude = ('country','info')
 	actions = [download_all_files,]
 admin.site.register(FileModel, FileModelAdmin)
 
