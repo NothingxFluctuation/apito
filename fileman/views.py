@@ -77,15 +77,17 @@ def cpn(request):
 
 def payment(request):
     nonce_from_the_client = request.POST['paymentMethodNonce']
+    price = request.POST['pp']
+    print(price)
     customer_kwargs = {
-        "first_name": "mehmud",
-        "last_name": "shahkar",
-        "email": "bad199614@gmail.com",
+        "first_name": "apito",
+        "last_name": "apito",
+        "email": "apebbleintheocean@gmail.com",
     }
     customer_create = braintree.Customer.create(customer_kwargs)
     customer_id = customer_create.customer.id
     result = braintree.Transaction.sale({
-        "amount": "10.00",
+        "amount": price,
         "payment_method_nonce": nonce_from_the_client,
         "options": {
             "submit_for_settlement": True

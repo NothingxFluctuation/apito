@@ -146,6 +146,7 @@ var x = setInterval(function() {
   }
   
   function showpayme() {
+//    $("#DivPaymentForm").appendTo("#payme")
     coupon.style.display = "none";
     agree.style.display = "none";
     popupbtn.style.display = "none";
@@ -184,7 +185,6 @@ function showmeme() {
 }
 
 function showegiftpayme() {
-  memegifta.style.display = "block";
   egiftagree.style.display = "none";
   var pp = exampleInputAmount.value;
   pp = parseInt(pp);
@@ -211,7 +211,7 @@ function showegiftpayme() {
   var egiftpriceresult = parseInt(pp) + parseInt(pp1) + parseInt(pp2) + parseInt(pp3) + parseInt(pp4);
   egiftpriceresult = "$" + egiftpriceresult + " USD";
   billagir.innerHTML = egiftpriceresult;
-
+  $("#DivPaymentForm").appendTo("#kaman")
   kaman.style.display = "block";
 }
 
@@ -284,12 +284,50 @@ function showegiftpayme() {
     );
   }
 
+
+dharti = "files";
+
+function WhichTab(t) {
+  if (t == "pills-home-tab") {
+    dharti = "files";
+  } else if (t == "pills-profile-tab") {
+    dharti = "egift";
+  } else if (t == "pills-contact-tab") {
+    dharti = "donation"
+  }
+};
+
+
+
+
+
+
+
+
+
   function apoc() {
-    optnlinfo.style.display = "block";
-    coupon.style.display = "none";
-    payme.style.display = "none";
-    kama.style.display = "none";
-    $('#kampayment').modal('show')
+    if (dharti == "files") {
+        optnlinfo.style.display = "block";
+        coupon.style.display = "none";
+        payme.style.display = "none";
+        kama.style.display = "none";
+        $('#kampayment').modal('show')
+
+        fileTypeImage = 0;
+        fileTypeImage1 = 0;
+        fileTypeImage2 = 0;
+        fileTypeImage3 = 0;
+        fileTypeImage4 = 0
+        fileTypeVideo = 0;
+        fileTypeVideo1 = 0;
+        fileTypeVideo2 = 0;
+        fileTypeVideo3 = 0;
+        filetypeVideo4 = 0;
+
+    } else if (dharti == "egift") {
+        alert("please allow egift generation");
+    }
+
 
   }
 
@@ -409,7 +447,30 @@ function checkFileSize(th) {
 
 
 
+
+  var fileonepath = id_file_here.value;
+  var filetwopath = id_file_here1.value;
+  var filethreepath = id_file_here2.value;
+  var filefourpath = id_file_here3.value;
+  var filefivepath = id_file_here4.value;
+  var dic = fileonepath + "xxxhumkohumhisaychuraloxxx" + filetwopath + "xxxhumkohumhisaychuraloxxx" + filethreepath + "xxxhumkohumhisaychuraloxxx" + filefourpath + "xxxhumkohumhisaychuraloxxx" + filefivepath
+  
+  $.ajax("{% url 'calculate_price' %}", {
+    type: 'GET',
+    data: {lol: dic},
+    success: function(result) {
+      billagi.innerHTML = "$" + result + " USD";
+      sohniprice = result;
+
+      
+    }
+  }
+  );
+
+
 }
+
+
 
 
 
@@ -725,13 +786,13 @@ to contribute as well and spread our message throughout the community.</mark></p
 <div class="container">
     <ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><span class="fas fa-photo-video"></span> Upload Pebbles</a>
+      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true" onclick="WhichTab(this);"><span class="fas fa-photo-video"></span> Upload Pebbles</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><span class="fas fa-gift"></span> Buy eGifts</a>
+      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false" onclick="WhichTab(this);"><span class="fas fa-gift"></span> Buy eGifts</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false"><span class="fas fa-donate"></span> Donate</a>
+      <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false" onclick="WhichTab(this);"><span class="fas fa-donate"></span> Donate</a>
     </li>
   </ul>
   <div class="tab-content" id="pills-tabContent">
@@ -776,12 +837,14 @@ capsule.
                       fileTypeImage.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
                       fileTypeVideo.style = "none";
                       document.getElementById('file_type').value = "im";
+                      para1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include __(.jpg, .png, .heic, .gif)__"
                   }, false);
                 
                   fileTypeVideo.addEventListener('click', function() {
                       fileTypeVideo.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;";
                       fileTypeImage.style = "none";
                       document.getElementById('file_type').value = "vid";
+                      para1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include __(.mp4, .mkv, .avi, .mov, .flv)__"
                   }, false);
                 </script>
 
@@ -793,7 +856,7 @@ capsule.
               
                   
                       <label class="control-label  " id="merisohnifile" for="id_file_here">2) Select File</label>
-                      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include __(.jpg, .png, .heic, .gif)__</p>
+                      <p id='para1'></p>
                   
           
                   <div class=" ">
@@ -852,12 +915,14 @@ capsule.
                     fileTypeImage1.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
                     fileTypeVideo1.style = "none";
                     document.getElementById('file_type1').value = "im";
+                    para2.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include __(.jpg, .png, .heic, .gif)__"
                 }, false);
               
                 fileTypeVideo1.addEventListener('click', function() {
                     fileTypeVideo1.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
                     fileTypeImage1.style = "none";
                     document.getElementById('file_type1').value = "vid";
+                    para2.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include __(.mp4, .mkv, .avi, .mov, .flv)__"
                 }, false);
               </script>
       
@@ -866,7 +931,7 @@ capsule.
               
             
               <label class="control-label  " id="merisohnifile" for="id_file_here1">2) Select File</label>
-<p>Note: Compatible file types include __(.jpg, .png, .heic, .gif)__</p>
+<p id='para2'></p>
       
               <div class=" ">
                   <input type="file" name="file_here1" id="id_file_here1" onchange="checkFileSize(this);">
@@ -917,19 +982,21 @@ capsule.
               fileTypeImage2.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
               fileTypeVideo2.style = "none";
               document.getElementById('file_type2').value = "im";
+              para3.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include __(.jpg, .png, .heic, .gif)__"
           }, false);
         
           fileTypeVideo2.addEventListener('click', function() {
               fileTypeVideo2.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
               fileTypeImage2.style = "none";
               document.getElementById('file_type2').value = "vid";
+              para3.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include __(.mp4, .mkv, .avi, .mov, .flv)__"
           }, false);
         </script>
 
 <div class="form-group">
     
         <label class="control-label  " id="merisohnifile" for="id_file_here2">2) Select File</label>
-<p>Note: Compatible file types include __(.jpg, .png, .heic, .gif)__</p>
+<p id='para3'></p>
         
 
         <div class=" ">
@@ -981,19 +1048,21 @@ capsule.
           fileTypeImage3.style =  "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
           fileTypeVideo3.style = "none";
           document.getElementById('file_type3').value = "im";
+          para4.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include __(.jpg, .png, .heic, .gif)__"
       }, false);
     
       fileTypeVideo3.addEventListener('click', function() {
           fileTypeVideo3.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
           fileTypeImage3.style = "none";
           document.getElementById('file_type3').value = "vid";
+          para4.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include __(.mp4, .mkv, .avi, .mov, .flv)__"
       }, false);
     </script>
 
 <div class="form-group">
 
     <label class="control-label  " id="merisohnifile" for="id_file_here3">2) Select File</label>
-<p>Note: Compatible file types include __(.jpg, .png, .heic, .gif)__</p>
+<p id='para4'></p>
     
 
     <div class=" ">
@@ -1045,19 +1114,21 @@ capsule.
           fileTypeImage4.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
           fileTypeVideo4.style = "none";
           document.getElementById('file_type4').value = "im";
+          para5.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include __(.jpg, .png, .heic, .gif)__"
       }, false);
     
       fileTypeVideo4.addEventListener('click', function() {
           fileTypeVideo4.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
           fileTypeImage4.style = "none";
           document.getElementById('file_type4').value = "vid";
+          para5.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include __(.mp4, .mkv, .avi, .mov, .flv)__"
       }, false);
     </script>
 
 <div class="form-group">
 
     <label class="control-label  " id="merisohnifile" for="id_file_here4">2) Select File</label>
-<p>Note: Compatible file types include __(.jpg, .png, .heic, .gif)__</p>
+<p id='para5'></p>
     
 
     <div class=" ">
@@ -1145,7 +1216,8 @@ satisfied with the purchase you are making before finalizing the transaction.</p
           <br>
           <div style="display: none;" id="payme">
             <p><a href="javascript:showcoup()">Have any eGift?</a></p>
-              <form autocomplete="off">
+            <div id="DivPaymentForm"> 
+              <form autocomplete="off" id="PaymentForm">
                   {% if braintree_error %}
                     <div class="alert alert-danger fade in">
                         <button class="close" data-dismiss="alert">&times;</button>
@@ -1158,7 +1230,7 @@ satisfied with the purchase you are making before finalizing the transaction.</p
                 </form>
                 
             
-      <script>
+      <script id="me-files-script">
           var braintree_client_token = "{{ braintree_client_token }}";
           var button = document.querySelector('#submit-button');
       
@@ -1208,15 +1280,17 @@ satisfied with the purchase you are making before finalizing the transaction.</p
                           type: 'POST',
                           url: '{% url "payment" %}',
                           data: {'paymentMethodNonce': payload.nonce,
-                                  'csrfmiddlewaretoken': '{{ csrf_token }}'}
+                                  'csrfmiddlewaretoken': '{{ csrf_token }}',
+                                  'pp': sohniprice}
                       }).done(function (result) {
                          apoc();
+
                       });
                   });
               });
           });
       </script>
-          
+          </div>
           
           </div>
           <div class="modal" id="kampayment" tabindex="-1" role="dialog">
@@ -1907,82 +1981,6 @@ satisfied with the purchase you are making before finalizing the transaction.</p
 <br>
 </div>
   
-  <div id="memegifta" style="display: none;">
-    <br>
-  <form autocomplete="off">
-      {% if braintree_error %}
-        <div class="alert alert-danger fade in">
-            <button class="close" data-dismiss="alert">&times;</button>
-            {{ braintree_error|safe }}
-        </div>
-      {% endif %}
-      <div class="braintree-notifications"></div>
-      <div id="braintree-dropina"></div>
-      <input style="background-color: #0783ca" id="submit-buttona" class="btn btn-success btn-lg btn-block" type="button" value="Pay!" />
-    </form>
-
-    <script>
-      var braintree_client_token = "{{ braintree_client_token }}";
-      var button = document.querySelector('#submit-buttona');
-  
-      braintree.dropin.create({
-        authorization: braintree_client_token,
-        container: '#braintree-dropina',
-        card: {
-          cardholderName: {
-              required: false
-          }
-        },
-        paypal: {
-          flow: 'checkout',
-          amount: '10.00',
-          currency: 'USD',
-      },
-      venmo: {
-          allowNewBrowserTab: false
-      },
-      applePay: {
-          displayName: 'My Store',
-          paymentRequest: {
-              total: {
-                  label: 'My Store',
-                  amount: '19.99'
-              },
-              requiredBillingContactFields:["postalAddress"]
-          }
-      },
-      googlePay: {
-            googlePayVersion: 2,
-            merchantId: 'merchant-id-from-google',
-            transactionInfo: {
-            totalPriceStatus: 'FINAL',
-            totalPrice: '123.45',
-            currencyCode: 'USD'
-        },
-        cardRequirements: {
-        // We recommend collecting and passing billing address information with all Google Pay transactions as a best practice.
-            billingAddressRequired: true
-        }
-    },
-      }, function (createErr, instance) {
-          button.addEventListener('click', function () {
-              instance.requestPaymentMethod(function (err, payload) {
-                  $.ajax({
-                      type: 'POST',
-                      url: '{% url "payment" %}',
-                      data: {'paymentMethodNonce': payload.nonce,
-                              'csrfmiddlewaretoken': '{{ csrf_token }}'}
-                  }).done(function (result) {
-                    apoc();
-                  });
-              });
-          });
-      });
-  </script>
-</div>
-    
-   
-  
   
       </form>
 
@@ -2047,80 +2045,6 @@ satisfied with the purchase you are making before finalizing the transaction.</p
 </div>
 
 
-<div id="donationpayform" style="display: none;">
-    <form autocomplete="off">
-        {% if braintree_error %}
-          <div class="alert alert-danger fade in">
-              <button class="close" data-dismiss="alert">&times;</button>
-              {{ braintree_error|safe }}
-          </div>
-        {% endif %}
-        <div class="braintree-notifications"></div>
-        <div id="braintree-dropinu"></div>
-        <input style="background-color: #0783ca" id="submit-buttonu" class="btn btn-success btn-lg btn-block" type="button" value="Pay now!" />
-      </form>
-  
-      <script>
-        var braintree_client_token = "{{ braintree_client_token }}";
-        var button = document.querySelector('#submit-buttonu');
-    
-        braintree.dropin.create({
-          authorization: braintree_client_token,
-          container: '#braintree-dropinu',
-          card: {
-            cardholderName: {
-                required: false
-            }
-          },
-          paypal: {
-          flow: 'checkout',
-          amount: '10.00',
-          currency: 'USD',
-      },
-      venmo: {
-          allowNewBrowserTab: false
-      },
-      applePay: {
-          displayName: 'My Store',
-          paymentRequest: {
-              total: {
-                  label: 'My Store',
-                  amount: '19.99'
-              },
-              requiredBillingContactFields:["postalAddress"]
-          }
-      },
-      googlePay: {
-            googlePayVersion: 2,
-            merchantId: 'merchant-id-from-google',
-            transactionInfo: {
-            totalPriceStatus: 'FINAL',
-            totalPrice: '123.45',
-            currencyCode: 'USD'
-        },
-        cardRequirements: {
-        // We recommend collecting and passing billing address information with all Google Pay transactions as a best practice.
-            billingAddressRequired: true
-        }
-    },
-          
-        }, function (createErr, instance) {
-            button.addEventListener('click', function () {
-                instance.requestPaymentMethod(function (err, payload) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '{% url "payment" %}',
-                        data: {'paymentMethodNonce': payload.nonce,
-                                'csrfmiddlewaretoken': '{{ csrf_token }}'}
-                    }).done(function (result) {
-                      apoc();
-                    });
-                });
-            });
-        });
-    </script>
-<br>
-</div>
 
 
 
