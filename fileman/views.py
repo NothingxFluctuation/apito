@@ -262,59 +262,79 @@ def file_download(request):
 @csrf_exempt
 def create_coupon(request):
 	if request.method=='POST':
-		print(request.POST)
-		coupon_form = CouponModelForm(request.POST)
-		if coupon_form.is_valid():
-			coupon_obj = coupon_form.save(commit = False)
-			coupon_obj.coupon = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(15))
-			coupon_obj.save()
-			sender_email = coupon_obj.sender_email
-			if coupon_obj.receiver_email:
-				subject = "Get your coupons"
-				if coupon_obj.sender_name:
-					sender = coupon_obj.sender_name
+		sender_email = request.POST['sender_email']
+		sender_name = request.POST['sender_name']
+
+		amount = request.POST['amount']
+		amount1 = request.POST['amount1']
+		amount2 = request.POST['amount2']
+		amount3 = request.POST['amount3']
+		amount4 = request.POST['amount4']
+
+		amounts = (amount, amount1, amount2, amount3, amount4)
+
+
+		receiver1email = request.POST['receiver1email']
+		receiver2email = request.POST['receiver2email']
+		receiver3email = request.POST['receiver3email']
+		receiver4email = request.POST['receiver4email']
+		receiver5email = request.POST['receiver5email']
+
+		#receivers = {1: receiver1email, 2: receiver2email, 3: receiver3email, 4: receiver4email, 5: receiver5email}
+		receivers = (receiver1email, receiver2email, receiver3email, receiver4email, receiver5email)
+
+		receiver1message = request.POST['receiver1message']
+		receiver2message = request.POST['receiver2message']
+		receiver3message = request.POST['receiver3message']
+		receiver4message = request.POST['receiver4message']
+		receiver5message = request.POST['receiver5message']
+
+		#messages = {1: receiver1message, 2: receiver2message, 3: receiver3message, 4: receiver4message, 5: receiver5message}
+		messages = (receiver1message, receiver2message, receiver3message, receiver4message, receiver5message)
+
+		send_codes = []
+
+		cnt = 0
+		for r in receivers:
+			amount = amounts[cnt]
+			if '.' in amount:
+				amount = int(amount.split('.')[0])
+			if r !='' and int(amount) > 0:
+				coupon = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(15))
+				m = messages[cnt]
+				CouponModel.objects.create(amount=amount, coupon=coupon, receiver_email=r, msg_for_rcvr = m, sender_name=sender_name, sender_email=sender_email)
+				receiver = r
+				if messages[cnt] != '':
+					message = messages[cnt]
+					subject = 'Get your coupons'
+					if sender_name:
+						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\nMessage from sender: {}".format(sender_name, coupon, message)
+					else:
+						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\nMessage from sender: {}".format(sender_email, coupon, message)
+					print(send_mail(subject,msg, 'apebbleintheocean@gmail.com',[receiver]))
 				else:
-					sender = coupon_obj.sender_email
-				if coupon_obj.msg_for_rcvr:
-					message = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\nMessage from sender: {}".format(sender, coupon_obj.coupon,coupon_obj.msg_for_rcvr)
-				else:
-					message = "Hi there,\n\n{} sent you a coupon. Coupon Code: {}".format(sender, coupon_obj.coupon)
-				print(send_mail(subject, message, 'admin@project.com',[coupon_obj.receiver_email]))
-			
+					subject = 'Get your coupons'
+					if sender_name:
+						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\n".format(sender_name,coupon)
+					else:
+						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\n".format(sender_email, coupon)
+					print(send_mail(subject,msg,'apebbleintheocean@gmail.com',[receiver]))
+				
+				send_codes.append(coupon)
+			cnt +=1
+
+
+		sender_subject = "Generated Coupons"
+		cpns = '   '.join(send_codes)
+		msg = "Hi there, Please note your generated coupon codes: {}".format(cpns)
+		print(send_mail(sender_subject, msg, 'apebbleintheocean@gmail.com',[sender_email]))
+		return render(request,'coupon_success.html')
+	return render('/')
 
 
 
-			if coupon_obj.sender_email:
-				subject = "Generated coupons"
-				if coupon_obj.sender_name:
-					sender = coupon_obj.sender_name
-				else:
-					sender = coupon_obj.sender_email
-				message = "Hi there,\n\n{} you have generated this coupon code: {}".format(sender, coupon_obj.coupon)
-				print(send_mail(subject,message,'admin@project.com',[coupon_obj.sender_email]))
-			
-			return render(request,'coupon_success.html')
-		else:
-			coupon_form = CouponModelForm()
-			return render(request,'i.html',{'coupon_form':coupon_form})
-
-	else:
-		
-		coupon_form = CouponModelForm()
-		return render(request,'i.html',{'coupon_form':coupon_form})
-
-@csrf_exempt
-def contact(request):
-	if request.method == 'POST':
-		contact_form = ContactModelForm(request.POST)
-		if contact_form.is_valid():
-			contact_form.save()
-			return HttpResponse("thanks for your feedback.")
-		else:
-			contact_form = ContactModelForm()
-			return render(request,'contact.html',{'contact_form':contact_form})
-	contact_form = ContactModelForm()
-	return render(request,'contact.html',{'contact_form':contact_form})
+def donation_success(request):
+	return render(request, 'donation_success.html')
 
 
 

@@ -43,7 +43,7 @@ urlpatterns = [
     path('egifts_admin/', fv.egifts_admin, name="egifts_admin"),
 
 
-    path('contact/', fv.contact, name='contact'),
+    path('donation_success/', fv.donation_success, name='donation_success'),
 
 
     path('admin/', admin.site.urls),
