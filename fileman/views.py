@@ -122,18 +122,14 @@ def index(request):
 
 
 			new_file = file_form.save(commit=False)
-			url_code = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(40))
-			new_file.url = url_code
-			chki = request.POST.get('chki')
-			if chki:
-				if chki == 'on':
-					new_file.info = 'student'
+			rinfo = request.POST.get('info')
+			if rinfo:
+				new_file.info = rinfo
 			country = request.POST.get('country')
 			if country:
 				new_file.country = country
 			new_file.save()
-			dwnld_link = "http://127.0.0.1:8000/dwnid/?i=" + new_file.url
-			return render(request,'upload_success.html',{'dwnld_link':dwnld_link})
+			return render(request,'upload_success.html')
 		else:
 			file_form = FileModelForm()
 			messages.error(request,'There was some problem with your upload.')
@@ -223,9 +219,104 @@ def check_coupon(request):
 		return HttpResponse(rsp)
 	else:
 		return HttpResponse("invalid")
-	
 
+
+
+import csv
+from django.utils.encoding import smart_str
+
+def download_csv(request):
+	if not request.user.is_superuser:
+		return HttpResponse('denied.')
+	fmobjects = FileModel.objects.all()
+	response = HttpResponse(content_type='text/css')
+	response['Content-Disposition'] = 'attachment; filename=apitodata.csv'
+	writer = csv.writer(response,csv.excel)
+	response.write(u'\ufeff'.encode('utf8'))
+	writer.writerow([
+		smart_str(u"ID"),
+		smart_str(u"File0 Type"),
+		smart_str(u"File0"),
+		smart_str(u"Text0"),
+		smart_str(u"File1 Type"),
+		smart_str(u"File1"),
+		smart_str(u"Text1"),
+		smart_str(u"File2 Type"),
+		smart_str(u"File2"),
+		smart_str(u"Text2"),
+		smart_str(u"File3 Type"),
+		smart_str(u"File3"),
+		smart_str(u"Text3"),
+		smart_str(u"File4 Type"),
+		smart_str(u"File4"),
+		smart_str(u"Text4"),
+		smart_str(u"Duration"),
+		smart_str(u"Country"),
+		smart_str(u"Uploaded At"),
+
+	])
+
+	for object in fmobjects:
+		writer.writerow([
+			smart_str(object.id),
+			smart_str(object.file_type),
+			smart_str(object.file_here),
+			smart_str(object.text),
+			smart_str(object.file_type1),
+			smart_str(object.file_here1),
+			smart_str(object.text1),
+			smart_str(object.file_type2),
+			smart_str(object.file_here2),
+			smart_str(object.text2),
+			smart_str(object.file_type3),
+			smart_str(object.file_here3),
+			smart_str(object.text3),
+			smart_str(object.file_type4),
+			smart_str(object.file_here4),
+			smart_str(object.text4),
+			smart_str(object.info),
+			smart_str(object.country),
+			smart_str(object.created),
+			])
+	return response
+
+
+
+
+
+import shutil
+from django.conf import settings
+from wsgiref.util import FileWrapper
 import os
+from django.http import FileResponse
+
+
+
+def download_all_files(request):
+	if request.user.is_superuser:
+
+		path = settings.MEDIA_ROOT + 'file_content'
+		archive_name = settings.MEDIA_ROOT + 'apito-media-files'
+		shutil.make_archive(archive_name,'zip',path)
+		filename = archive_name + '.zip'
+		print('ff: ',filename)
+		# wrapper = FileWrapper(file(filename))
+		# response = HttpResponse(wrapper, content_type='text/plain')
+		# response['Content-Disposition'] = 'attachment; filename=%s' % os.path.basename(filename)
+		# response['Content-Length'] = os.path.getsize(filename)
+		# myfile = open(filename,'rb').read()
+		# response = FileResponse(myfile, content_type="application/zip")
+		# response['Content-Disposition'] = 'attachment; filename=apito-media-files.zip'
+		fl = open('E://DP/apito/apito/media/apito-media-files.zip','rb')
+		response = FileResponse(fl)
+		return response
+	return HttpResponse("denied.")
+
+
+
+
+
+
 import zipfile
 from io import BytesIO
 

@@ -25,7 +25,7 @@ SECRET_KEY = '@f*e5ry6&$t0(vci-=3-rysc%6_pepr_&2lrvsmiu9&yn2e=sn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','apito.pythonanywhere.com','7e55701b.ngrok.io','dc3a007e.ngrok.io','10549217.ngrok.io','192.168.8.101']
+ALLOWED_HOSTS = ['127.0.0.1','apito.pythonanywhere.com','68.183.100.62','apebbleintheocean.com','www.apebbleintheocean.com']
 
 
 # Application definition
@@ -49,6 +49,7 @@ BRAINTREE_PRODUCTION = False
 BRAINTREE_MERCHANT_ID = "sht8v5qnqrdqrjkx"
 BRAINTREE_PUBLIC_KEY = "h6xq75n49jjpb3dk"
 BRAINTREE_PRIVATE_KEY = "e71041c2a1feb7c0dcc723626d809b80"
+
 
 
 
@@ -144,7 +145,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_PASSWORD = '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'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 

@@ -42,6 +42,9 @@ urlpatterns = [
     path('payment/', fv.payment, name='payment'),
     path('egifts_admin/', fv.egifts_admin, name="egifts_admin"),
 
+    path('download_all_files/',fv.download_all_files, name='download_all_files'),
+    path('download_csv/', fv.download_csv, name='download_csv'),
+
 
     path('donation_success/', fv.donation_success, name='donation_success'),
 

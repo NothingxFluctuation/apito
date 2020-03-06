@@ -203,6 +203,10 @@ function WhichTab(t) {
       }
     }
     );
+    var scrollDiv = document.getElementById("kama").offsetTop;
+    window.scrollTo({top: scrollDiv-200, behavior: 'smooth'});
+    //window.scrollTo(0,0)
+
 
 
 
@@ -1563,7 +1567,7 @@ satisfied with the purchase you are making before finalizing the transaction.</p
           </div>
           <br>
           <div style="display: none;" id="payme">
-            <p><a href="javascript:showcoup()">Have an eGift?</a> or <a href="javascript:showfilespay();">Pay</a></p>
+            <p style="font-weight: 600; text-align: center;"><a href="javascript:showcoup()">Have an eGift?</a> or <a href="javascript:showfilespay();">Pay</a></p>
             
           </div>
           <div class="modal" id="kampayment" tabindex="-1" role="dialog">
@@ -1586,8 +1590,10 @@ satisfied with the purchase you are making before finalizing the transaction.</p
           </div>
               <div style="display: none;" id="coupon">
                 <br>
+                <div style="text-align: center;">
                 <input type="input" id="couponinput" name="couponinput" style="height: 30px; font-size: 14px;" />
                 <button type="button" id="coupig" onclick="copa()" class="btn btn-primary" style="line-height: 30px; font-size:12px">Enter eGift</button>
+              </div>
 
                 
                 <div class="modal" id="kamchabees" tabindex="-1" role="dialog">
@@ -1610,7 +1616,7 @@ satisfied with the purchase you are making before finalizing the transaction.</p
                 </div>
                 
                 
-                <p><a href="javascript:showfilespay()">or Pay</a></p>
+                <p style="font-weight: 600; text-align: center;" ><a href="javascript:showfilespay()">or Pay</a></p>
                 <br>
                 
 
