@@ -7,7 +7,7 @@
   <title>APITO - HOME</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+  <link rel="icon" href="{% static 'white-logo.png' %}">
   <link href="https://fonts.googleapis.com/css?family=Oswald:400,700|Dancing+Script:400,700|Muli:300,400" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'v1/fonts/icomoon/style.css' %}">
 
@@ -48,7 +48,50 @@
   <script src="https://js.braintreegateway.com/web/3.55.0/js/venmo.min.js"></script>
 <script src="https://js.braintreegateway.com/web/3.55.0/js/data-collector.min.js"></script>
 
+
+<style>
+html, body { overflow-x: hidden; }
+
+.rehbar {
+  background-image: url({% static 'shutterstock.jpg' %}); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 500px) {
+
+      .rehbar {
+        background-image: url({% static 'shutterstock.jpg' %}); 
+        background-size: 100% 100%; 
+        background-position: center; 
+        background-repeat: no-repeat;
+      }
+}
+
+
+.mehbar {
+  margin-top: 22%;
+}
+
+
+@media (max-width: 500px) {
+
+      .mehbar {
+        margin-top: 50%;
+      }
+}
+
+</style>
+
+
 <script>
+$(function() {
+  $(document).click(function (event) {
+    $('.navbar-collapse').collapse('hide');
+  });
+});
+
 
 
 
@@ -744,44 +787,6 @@ nav {
 
 </style>
 
-<script>
-
-
-// Sticky navbar
-// =========================
-$(document).ready(function () {
-                // Custom function which toggles between sticky class (is-sticky)
-                var stickyToggle = function (sticky, stickyWrapper, scrollElement) {
-                    var stickyHeight = sticky.outerHeight();
-                    var stickyTop = stickyWrapper.offset().top;
-                    if (scrollElement.scrollTop() >= stickyTop) {
-                        stickyWrapper.height(stickyHeight);
-                        sticky.addClass("is-sticky");
-                    }
-                    else {
-                        sticky.removeClass("is-sticky");
-                        stickyWrapper.height('auto');
-                    }
-                };
-
-                // Find all data-toggle="sticky-onscroll" elements
-                $('[data-toggle="sticky-onscroll"]').each(function () {
-                    var sticky = $(this);
-                    var stickyWrapper = $('<div>').addClass('sticky-wrapper'); // insert hidden element to maintain actual top offset on page
-                    sticky.before(stickyWrapper);
-                    sticky.addClass('sticky');
-
-                    // Scroll & resize events
-                    $(window).on('scroll.sticky-onscroll resize.sticky-onscroll', function () {
-                        stickyToggle(sticky, stickyWrapper, $(this));
-                    });
-
-                    // On page load
-                    stickyToggle(sticky, stickyWrapper, $(window));
-                });
-            });
-
-</script>
 
 
 
@@ -1043,7 +1048,7 @@ $(document).ready(function () {
                 
               <ul class="navbar-nav">
                     <li class="nav-item">
-                      <a href="/"><img src="{% static 'loogo.png' %}" height="75" width="75"/></a>
+                      <a href="/" style="padding-right: 20px;"><img src="{% static 'white-logo.png' %}" height="75" width="75"/></a>
                     </li>
                   
                     <li class="nav-item">
@@ -1063,13 +1068,11 @@ $(document).ready(function () {
     
     </div>
     
-    <div>
-        
 
-      <div class="intro-section" style="background-image: url({% static 'shutterstock.jpg' %});">
+      <div class="intro-section rehbar">
         <div class="container">
           <div class="row align-items-center">
-            <div class="col-lg-7 mx-auto text-center" data-aos="fade-up">
+            <div class="col-lg-7 mx-auto text-center mehbar" data-aos="fade-up">
               <h1 id="demo" style="font-size: 400%;"></h1>
               <p style="color: white; font-weight: 800;">Remaining time until time capsule is locked</p>
               
@@ -1078,7 +1081,6 @@ $(document).ready(function () {
         </div>
       </div>
 
-    </div>
     <!-- END slider -->
     <br>
     <br>
@@ -1096,12 +1098,13 @@ $(document).ready(function () {
           </div>
         </div>
 <br><br>
-
+        <div class='container'>
         <div class="row d-flex justify-content-center">
            
           <div class="col-md-6">
-            <span class="text-serif text-primary d-flex justify-content-center" style="font-size: 50px;"><img src="{% static 'apitog.png' %}" width="600" height="430"/></span>
-            <h6 class="heading-92913 text-black d-flex justify-content-center" style="font-size: 25px; font-weight: 400;"><b>Be a part of history. Throw your pebble into the ocean.</b></h6>
+            <span class="row text-serif text-primary d-flex justify-content-center mx-auto" style="font-size: 50px;"><img src="{% static 'apitog.png' %}" width="100%" height="100%"/></span>
+            <h6 class="text-black d-flex justify-content-center" style="font-size: 25px; font-weight: 400;"><b>Be a part of history.</b></h6>
+            <h6 class="heading-92913 text-black d-flex justify-content-center" style="font-size: 25px; font-weight: 400;"><b>Throw your pebble into the ocean.</b></h6>
             <div style="font-size: 20px;">
             <p><mark>Time is not measured by clocks or by the breaths that we take. It is measured by those
 moments that take our breath away, the ones that stay in our memories forever.</mark></p>
@@ -1121,6 +1124,7 @@ to contribute as well and spread our message throughout the community.</mark></p
             </div>
           </div>
         </div>
+      </div>
 
 
 <br>
@@ -1151,7 +1155,7 @@ capsule.
  
         <form action="/product/" method="post" id="filewalaform" enctype="multipart/form-data">
       
-                              <label class="control-label  " for="file_type" style="font-weight: 900;"><b>1) Select file type</b></label>
+                              <label class="control-label  " for="file_type" >1) SELECT FILE TYPE</label>
           <div class="container">
                   <div class="text-center">
                     <input type="hidden" name="file_type" id="file_type" />
@@ -1187,7 +1191,7 @@ capsule.
                       fileTypeVideo.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;";
                       fileTypeImage.style = "none";
                       document.getElementById('file_type').value = "vid";
-                      para1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (Max Size = 100MB)"
+                      para1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
                   }, false);
                 </script>
 
@@ -1198,7 +1202,7 @@ capsule.
           <div class="form-group">
               
                   
-                      <label class="control-label  " id="merisohnifile" for="id_file_here" style="font-weight: 900;">2) Select File</label>
+                      <label class="control-label  " id="merisohnifile" for="id_file_here">2) Select File</label>
                       <p id='para1'></p>
                   
           
@@ -1218,7 +1222,7 @@ capsule.
           <div class="form-group">
               
                   
-                      <label class="control-label  " for="id_text" style="font-weight: 900;">3) Add your story</label>
+                      <label class="control-label  " for="id_text">3) ADD YOUR STORY</label>
                   
           
                   <div class=" ">
@@ -1236,7 +1240,7 @@ capsule.
             <hr><br>
            
       
-                                          <label class="control-label  " for="file_type1" style="font-weight: 900;">1) Select file type</label>
+                                          <label class="control-label  " for="file_type1">1) SELECT FILE TYPE</label>
             <div class="text-center">
                 <input type="hidden" name="file_type1" id="file_type1" />
               
@@ -1267,7 +1271,7 @@ capsule.
                     fileTypeVideo1.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
                     fileTypeImage1.style = "none";
                     document.getElementById('file_type1').value = "vid";
-                    para2.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (Max Size = 100MB)"
+                    para2.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
                 }, false);
               </script>
       
@@ -1275,7 +1279,7 @@ capsule.
           
               
             
-              <label class="control-label  " id="merisohnifile" for="id_file_here1" style="font-weight: 900;">2) Select File</label>
+              <label class="control-label  " id="merisohnifile" for="id_file_here1">2) Select File</label>
 <p id='para2'></p>
       
               <div class=" ">
@@ -1294,7 +1298,7 @@ capsule.
       <div class="form-group">
           
               
-                  <label class="control-label  " for="id_text1" style="font-weight: 900;">3) Add your story</label>
+                  <label class="control-label  " for="id_text1">3) ADD YOUR STORY</label>
               <div class=" "><textarea name="text1" cols="40" rows="10" maxlength="4000" class=" form-control" id="id_text1" oninput="javascript:textCountFunction(this,textcounter1);"></textarea></div><div id="textcounter1">0/4000</div>
           
       </div>
@@ -1305,7 +1309,7 @@ capsule.
       <hr><br>
      
 
-      <label class="control-label  " for="file_type2" style="font-weight: 900;">1) Select file type</label>
+      <label class="control-label  " for="file_type2">1) SELECT FILE TYPE</label>
       <div class="text-center">
           <input type="hidden" name="file_type2" id="file_type2" />
         
@@ -1336,13 +1340,13 @@ capsule.
               fileTypeVideo2.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
               fileTypeImage2.style = "none";
               document.getElementById('file_type2').value = "vid";
-              para3.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (Max Size = 100MB)"
+              para3.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
           }, false);
         </script>
 
 <div class="form-group">
     
-        <label class="control-label  " id="merisohnifile" for="id_file_here2" style="font-weight: 900;">2) Select File</label>
+        <label class="control-label  " id="merisohnifile" for="id_file_here2">2) Select File</label>
 <p id='para3'></p>
         
 
@@ -1362,7 +1366,7 @@ capsule.
 <div class="form-group">
     
         
-            <label class="control-label  " for="id_text2" style="font-weight: 900;">3) Add your story</label>
+            <label class="control-label  " for="id_text2">3) ADD YOUR STORY</label>
         <div class=" "><textarea name="text2" cols="40" rows="10" maxlength="4000" class=" form-control" id="id_text2" oninput="javascript:textCountFunction(this,textcounter2);"></textarea></div> <div id="textcounter2">0/4000</div>
     
 </div>
@@ -1373,7 +1377,7 @@ capsule.
   <hr><br>
  
 
-<label class="control-label  " for="file_type3" style="font-weight: 900;">1) Select file type</label>
+<label class="control-label  " for="file_type3">1) SELECT FILE TYPE</label>
   <div class="text-center">
       <input type="hidden" name="file_type3" id="file_type3" />
     
@@ -1404,13 +1408,13 @@ capsule.
           fileTypeVideo3.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
           fileTypeImage3.style = "none";
           document.getElementById('file_type3').value = "vid";
-          para4.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (Max Size = 100MB)"
+          para4.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
       }, false);
     </script>
 
 <div class="form-group">
 
-    <label class="control-label  " id="merisohnifile" for="id_file_here3" style="font-weight: 900;">2) Select File</label>
+    <label class="control-label  " id="merisohnifile" for="id_file_here3">2) Select File</label>
 <p id='para4'></p>
     
 
@@ -1430,7 +1434,7 @@ capsule.
 <div class="form-group">
 
     
-        <label class="control-label  " for="id_text3" style="font-weight: 900;">3) Add your story</label>
+        <label class="control-label  " for="id_text3">3) ADD YOUR STORY</label>
     <div class=" "><textarea name="text3" cols="40" rows="10" maxlength="4000" class=" form-control" id="id_text3" oninput="javascript:textCountFunction(this,textcounter3);"></textarea></div><div id="textcounter3">0/4000</div>
 
 </div>
@@ -1440,7 +1444,7 @@ capsule.
 <div id="dilbar3" style="display: none;">
   <hr><br>
  
-<label class="control-label  " for="file_type4" style="font-weight: 900;">1) Select file type</label>
+<label class="control-label  " for="file_type4">1) SELECT FILE TYPE</label>
 
   <div class="text-center">
       <input type="hidden" name="file_type4" id="file_type4" />
@@ -1472,13 +1476,13 @@ capsule.
           fileTypeVideo4.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
           fileTypeImage4.style = "none";
           document.getElementById('file_type4').value = "vid";
-          para5.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (Max Size = 100MB)"
+          para5.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
       }, false);
     </script>
 
 <div class="form-group">
 
-    <label class="control-label  " id="merisohnifile" for="id_file_here4" style="font-weight: 900;">2) Select File</label>
+    <label class="control-label  " id="merisohnifile" for="id_file_here4">2) Select File</label>
 <p id='para5'></p>
     
 
@@ -1498,7 +1502,7 @@ capsule.
 <div class="form-group">
 
     
-        <label class="control-label  " for="id_text4" style="font-weight: 900;">3) Add your story</label>
+        <label class="control-label  " for="id_text4">3) ADD YOUR STORY</label>
     <div class=" "><textarea name="text4" cols="40" rows="10" maxlength="4000" class=" form-control" id="id_text4" oninput="javascript:textCountFunction(this,textcounter4);"></textarea></div><div id="textcounter4">0/4000</div>
 
 </div>
@@ -1516,7 +1520,7 @@ capsule.
           
           {% csrf_token %}
           <div id="btnui">
-              <button type="button" onclick="showAgreement()" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;Continue&nbsp;&nbsp;&nbsp;&nbsp;</button> <button type="button" id="showdilbar1" onclick="showDilbar(this)" class="btn btn-primary"><span class="fas fa-plus"></span></button> 
+              <button type="button" onclick="showAgreement()" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;Continue&nbsp;&nbsp;&nbsp;&nbsp;</button> <button type="button" id="showdilbar1" onclick="showDilbar(this)" class="btn btn-primary" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"><span class="fas fa-plus" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"></span></button> 
           </div>
 
               <div style="display: none;" id="agree">
@@ -2179,7 +2183,7 @@ them an eGift so that they can be part of this movement as well.
   <br>
   <br>
   <div id="showdilli"> 
-  <button type="button" id="showdil1" onclick="showDil(this);" class="btn btn-primary"><span class="fas fa-plus"></span></button>
+  <button type="button" id="showdil1" onclick="showDil(this);" class="btn btn-primary" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"><span class="fas fa-plus" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"></span></button>
   </div>
 
   <br>
@@ -2359,7 +2363,7 @@ satisfied with the purchase you are making before finalizing the transaction.</p
                   <li><a href="https://www.facebook.com/Apito-106229387484222/"><span class="fab fa-facebook fa-lg"></span> Facebook </a></li>
                   <li><a href="https://www.instagram.com/apebbleintheocean/"><span class="fab fa-instagram fa-lg"></span> Instagram</a></li>
                   <li><a href="https://www.youtube.com/channel/UCRLnvpXOc8nwdwNYaLU6nJA"><span class="fab fa-youtube fa-lg"></span> YouTube</a></li>
-                  <li><a href="https://www.twitch.tv/g_ioo"><span class="fab fa-twitch fa-lg"></span> Twitch</a></li>
+                  <li><a href="https://www.twitch.tv/g_ioo"><span class="fab fa-twitter fa-lg"></span> Twitter</a></li>
               </ul>
           </div>
 

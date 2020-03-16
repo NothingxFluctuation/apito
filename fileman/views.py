@@ -102,7 +102,7 @@ def payment(request):
 
 
 def main(request):
-	return redirect('m')
+	return redirect('home')
 
 
 @csrf_exempt

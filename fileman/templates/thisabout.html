@@ -4,6 +4,7 @@
 
 <head>
   <title>APITO - FAQ</title>
+  <link rel="icon" href="{% static 'white-logo.png' %}">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -24,8 +25,12 @@
 
   <link rel="stylesheet" href="{% static 'v1/css/aos.css' %}">
   <link href="{% static 'v1/css/jquery.mb.YTPlayer.min.css' %}" media="all" rel="stylesheet" type="text/css">
-
+  <script src="{% static 'v1/js/jquery-3.3.1.min.js' %}"></script>
   <link rel="stylesheet" href="{% static 'v1/css/style.css' %}">
+
+<style>
+html, body { overflow-x: hidden; }
+</style>
 
 
   <style>
@@ -52,38 +57,13 @@
     
     // Sticky navbar
     // =========================
-    $(document).ready(function () {
-                    // Custom function which toggles between sticky class (is-sticky)
-                    var stickyToggle = function (sticky, stickyWrapper, scrollElement) {
-                        var stickyHeight = sticky.outerHeight();
-                        var stickyTop = stickyWrapper.offset().top;
-                        if (scrollElement.scrollTop() >= stickyTop) {
-                            stickyWrapper.height(stickyHeight);
-                            sticky.addClass("is-sticky");
-                        }
-                        else {
-                            sticky.removeClass("is-sticky");
-                            stickyWrapper.height('auto');
-                        }
-                    };
-    
-                    // Find all data-toggle="sticky-onscroll" elements
-                    $('[data-toggle="sticky-onscroll"]').each(function () {
-                        var sticky = $(this);
-                        var stickyWrapper = $('<div>').addClass('sticky-wrapper'); // insert hidden element to maintain actual top offset on page
-                        sticky.before(stickyWrapper);
-                        sticky.addClass('sticky');
-    
-                        // Scroll & resize events
-                        $(window).on('scroll.sticky-onscroll resize.sticky-onscroll', function () {
-                            stickyToggle(sticky, stickyWrapper, $(this));
-                        });
-    
-                        // On page load
-                        stickyToggle(sticky, stickyWrapper, $(window));
-                    });
-                });
-    
+   $(function() {
+  $(document).click(function (event) {
+    $('.navbar-collapse').collapse('hide');
+  });
+});
+
+
     </script>
     
 
@@ -125,13 +105,13 @@
               
             <ul class="navbar-nav">
                 <li class="nav-item">
-                      <a href="/"><img src="{% static 'apito-logo.png' %}" height="100" width="100"/></a>
+                      <a href="/" style="padding-right: 20px;"><img src="{% static 'white-logo.png' %}" height="75" width="75"/></a>
                     </li>
                   <li class="nav-item">
-                      <a class="nav-link active" href="/" style="font-size: 30px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 20px;padding-right: 20px;padding-bottom: 20px;padding-left: 20px;"><b>HOME</b></a>
+                      <a class="nav-link active" href="/" style="font-size: 20px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 17px;padding-right: 20px;padding-bottom: 15px;padding-left: 20px;"><b>HOME</b></a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="{% url 'thisabout' %}" style="font-size: 30px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 20px;padding-right: 20px;padding-bottom: 20px;padding-left: 20px;"><b><u>FAQ</u></b></a>
+                      <a class="nav-link" href="{% url 'thisabout' %}" style="font-size: 20px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 17px;padding-right: 20px;padding-bottom: 15px;padding-left: 20px;"><b><u>FAQ</u></b></a>
                   </li>
                 
 
@@ -157,13 +137,15 @@
                 <div class="col-10 mx-auto">
                     <div class="accordion" id="faqExample">
                         <div class="card">
-                            <div class="card-header p-2" id="headingOne">
+                          
+                            <div class="card-header py-2" id="headingOne">
                                 <h5 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="white-space: normal;">
                                       Q: So, what is this all about?
                                     </button>
                                   </h5>
                             </div>
+
         
                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqExample">
                                 <div class="card-body">
@@ -177,7 +159,7 @@ all of your pictures or videos and stories will be shared with the world.
                         <div class="card">
                             <div class="card-header p-2" id="headingTwo">
                                 <h5 class="mb-0">
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="white-space: normal;">
                                   Q: How is this going to be achieved?
                                 </button>
                               </h5>
@@ -200,7 +182,7 @@ hard drives.</p>
                         <div class="card">
                             <div class="card-header p-2" id="headingThree">
                                 <h5 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="white-space: normal;">
                                       Q. What is Apito?
                                     </button>
                                   </h5>
@@ -220,7 +202,7 @@ one shared goal that can positively impact our society.
                         <div class="card">
                             <div class="card-header p-2" id="headingFour">
                                 <h5 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" style="white-space: normal;">
                                       Q. What is a pebble?
                                     </button>
                                   </h5>
@@ -241,7 +223,7 @@ send a positive message worldwide.
                         <div class="card">
                             <div class="card-header p-2" id="headingFive">
                                 <h5 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive" style="white-space: normal;">
                                       Q. How can I contribute?
                                     </button>
                                   </h5>
@@ -300,7 +282,7 @@ we continue to work on the project.</p>
                   <li><a href="https://www.facebook.com/Apito-106229387484222/"><span class="fab fa-facebook fa-lg"></span> Facebook </a></li>
                   <li><a href="https://www.instagram.com/apebbleintheocean/"><span class="fab fa-instagram fa-lg"></span> Instagram</a></li>
                   <li><a href="https://www.youtube.com/channel/UCRLnvpXOc8nwdwNYaLU6nJA"><span class="fab fa-youtube fa-lg"></span> YouTube</a></li>
-                  <li><a href="https://www.twitch.tv/g_ioo"><span class="fab fa-twitch fa-lg"></span> Twitch</a></li>
+                  <li><a href="https://www.twitch.tv/g_ioo"><span class="fab fa-twitter fa-lg"></span> Twitter</a></li>
               </ul>
           </div>
 
