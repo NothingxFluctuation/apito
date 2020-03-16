@@ -50,37 +50,35 @@
 
 
 <style>
-html, body { overflow-x: hidden; }
+html, body { 
+  overflow-x: hidden; 
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
 
-.rehbar {
-  background-image: url({% static 'shutterstock.jpg' %}); 
-  background-size: cover; 
-  background-position: center; 
-  background-repeat: no-repeat;
-}
-
-@media (max-width: 500px) {
-
-      .rehbar {
-        background-image: url({% static 'shutterstock.jpg' %}); 
-        background-size: 100% 100%; 
-        background-position: center; 
-        background-repeat: no-repeat;
-      }
 }
 
 
-.mehbar {
-  margin-top: 22%;
+
+
+
+/*.card {
+  position: relative;
+  height: 100%;
+  width: 100%;
 }
 
+.card-body {
+  z-index: 2;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+} */
 
-@media (max-width: 500px) {
 
-      .mehbar {
-        margin-top: 50%;
-      }
-}
+
 
 </style>
 
@@ -1069,17 +1067,74 @@ nav {
     </div>
     
 
-      <div class="intro-section rehbar">
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-lg-7 mx-auto text-center mehbar" data-aos="fade-up">
-              <h1 id="demo" style="font-size: 400%;"></h1>
-              <p style="color: white; font-weight: 800;">Remaining time until time capsule is locked</p>
-              
-            </div>
-          </div>
-        </div>
-      </div>
+   <!-- Card -->
+
+<style>
+  
+.img-wrapper {
+  position: relative;
+}
+
+.img-wrapper img {
+  width: 100%;
+}
+
+.img-wrapper .overlay {
+  position: absolute;
+  top: 90; left: 0; right: 0; bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.img-wrapper h2 {
+  margin-bottom: 1px;
+  color: black;
+  font-size: 50px;
+}
+
+
+#billugi {
+  color: black;
+  font-weight: 800;
+  margin-bottom: 22%;
+}
+
+
+@media screen and (max-width: 600px) {
+  #billugi {
+    margin-bottom: 1%;
+    color: black;
+    font-weight: 800;
+  }
+}
+
+
+
+
+
+</style>
+
+
+
+    <div class="img-wrapper" style="width: 100%;">
+  <img src="{% static 'shutterstock.jpg' %}" width="100%" />
+  <div class="overlay fixed-bottom">
+    <h2 id="demo"></h2>
+    <p id="billugi">Remaining time until time capsule is locked</p>
+  </div>
+</div>
+
+
+
+
+
+  </div>
+
+
+
 
     <!-- END slider -->
     <br>
