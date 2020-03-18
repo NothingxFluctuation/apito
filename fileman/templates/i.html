@@ -94,7 +94,7 @@ $(function() {
 
 
 // Set the date we're counting down to
-var countDownDate = new Date("Mar 30, 2020 5:37:25").getTime();
+var countDownDate = new Date("Mar 30, 2023 5:37:25").getTime();
 
 // Update the count down every 1 second
 var x = setInterval(function() {
@@ -1092,22 +1092,42 @@ nav {
 .img-wrapper h2 {
   margin-bottom: 1px;
   color: black;
-  font-size: 50px;
+  font-size: 6vw;
+  font-weight: 800;
 }
 
 
 #billugi {
   color: black;
   font-weight: 800;
-  margin-bottom: 22%;
+  margin-bottom: 20%;
 }
+
+
 
 
 @media screen and (max-width: 600px) {
   #billugi {
-    margin-bottom: 1%;
+    margin-bottom: 16%;
+    font-size: 10px;
+  }
+
+}
+
+
+
+
+@media screen and (max-width: 400px) {
+/*  .img-wrapper h2 {
+    margin-bottom: 1px;
     color: black;
-    font-weight: 800;
+    font-size: 22px;
+  } */
+
+
+  #billugi {
+    margin-bottom: 16%;
+    font-size: 10px;
   }
 }
 
@@ -1155,11 +1175,13 @@ nav {
 <br><br>
         <div class='container'>
         <div class="row d-flex justify-content-center">
-           
+        
+
+
           <div class="col-md-6">
             <span class="row text-serif text-primary d-flex justify-content-center mx-auto" style="font-size: 50px;"><img src="{% static 'apitog.png' %}" width="100%" height="100%"/></span>
             <h6 class="text-black d-flex justify-content-center" style="font-size: 25px; font-weight: 400;"><b>Be a part of history.</b></h6>
-            <h6 class="heading-92913 text-black d-flex justify-content-center" style="font-size: 25px; font-weight: 400;"><b>Throw your pebble into the ocean.</b></h6>
+            <h6 class="heading-92913 text-black d-flex justify-content-center" style="font-size: 25px; font-weight: 400; text-align: center;"><b>Throw your pebble into the ocean.</b></h6>
             <div style="font-size: 20px;">
             <p><mark>Time is not measured by clocks or by the breaths that we take. It is measured by those
 moments that take our breath away, the ones that stay in our memories forever.</mark></p>
@@ -1210,7 +1232,7 @@ capsule.
  
         <form action="/product/" method="post" id="filewalaform" enctype="multipart/form-data">
       
-                              <label class="control-label  " for="file_type" >1) SELECT FILE TYPE</label>
+                              <label class="control-label  " for="file_type" >1) Select File Type</label>
           <div class="container">
                   <div class="text-center">
                     <input type="hidden" name="file_type" id="file_type" />
@@ -1238,7 +1260,7 @@ capsule.
                       fileTypeImage.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
                       fileTypeVideo.style = "none";
                       document.getElementById('file_type').value = "im";
-                      para1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .jpg, .png, .heic and .gif"
+                      para1.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
                   }, false);
                 
                   fileTypeVideo.addEventListener('click', function() {
@@ -1246,7 +1268,7 @@ capsule.
                       fileTypeVideo.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;";
                       fileTypeImage.style = "none";
                       document.getElementById('file_type').value = "vid";
-                      para1.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
+                      para1.innerHTML = "Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
                   }, false);
                 </script>
 
@@ -1277,7 +1299,7 @@ capsule.
           <div class="form-group">
               
                   
-                      <label class="control-label  " for="id_text">3) ADD YOUR STORY</label>
+                      <label class="control-label  " for="id_text">3) Add Your Story</label>
                   
           
                   <div class=" ">
@@ -1295,7 +1317,7 @@ capsule.
             <hr><br>
            
       
-                                          <label class="control-label  " for="file_type1">1) SELECT FILE TYPE</label>
+                                          <label class="control-label  " for="file_type1">1) Select File Type</label>
             <div class="text-center">
                 <input type="hidden" name="file_type1" id="file_type1" />
               
@@ -1318,7 +1340,7 @@ capsule.
                     fileTypeImage1.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
                     fileTypeVideo1.style = "none";
                     document.getElementById('file_type1').value = "im";
-                    para2.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .jpg, .png, .heic and .gif"
+                    para2.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
                 }, false);
               
                 fileTypeVideo1.addEventListener('click', function() {
@@ -1326,7 +1348,7 @@ capsule.
                     fileTypeVideo1.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
                     fileTypeImage1.style = "none";
                     document.getElementById('file_type1').value = "vid";
-                    para2.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
+                    para2.innerHTML = "Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
                 }, false);
               </script>
       
@@ -1353,7 +1375,7 @@ capsule.
       <div class="form-group">
           
               
-                  <label class="control-label  " for="id_text1">3) ADD YOUR STORY</label>
+                  <label class="control-label  " for="id_text1">3) Add Your Story</label>
               <div class=" "><textarea name="text1" cols="40" rows="10" maxlength="4000" class=" form-control" id="id_text1" oninput="javascript:textCountFunction(this,textcounter1);"></textarea></div><div id="textcounter1">0/4000</div>
           
       </div>
@@ -1364,7 +1386,7 @@ capsule.
       <hr><br>
      
 
-      <label class="control-label  " for="file_type2">1) SELECT FILE TYPE</label>
+      <label class="control-label  " for="file_type2">1) Select File Type</label>
       <div class="text-center">
           <input type="hidden" name="file_type2" id="file_type2" />
         
@@ -1387,7 +1409,7 @@ capsule.
               fileTypeImage2.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
               fileTypeVideo2.style = "none";
               document.getElementById('file_type2').value = "im";
-              para3.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .jpg, .png, .heic and .gif"
+              para3.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
           }, false);
         
           fileTypeVideo2.addEventListener('click', function() {
@@ -1395,7 +1417,7 @@ capsule.
               fileTypeVideo2.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
               fileTypeImage2.style = "none";
               document.getElementById('file_type2').value = "vid";
-              para3.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
+              para3.innerHTML = "Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
           }, false);
         </script>
 
@@ -1421,7 +1443,7 @@ capsule.
 <div class="form-group">
     
         
-            <label class="control-label  " for="id_text2">3) ADD YOUR STORY</label>
+            <label class="control-label  " for="id_text2">3) Add Your Story</label>
         <div class=" "><textarea name="text2" cols="40" rows="10" maxlength="4000" class=" form-control" id="id_text2" oninput="javascript:textCountFunction(this,textcounter2);"></textarea></div> <div id="textcounter2">0/4000</div>
     
 </div>
@@ -1432,7 +1454,7 @@ capsule.
   <hr><br>
  
 
-<label class="control-label  " for="file_type3">1) SELECT FILE TYPE</label>
+<label class="control-label  " for="file_type3">1) Select File Type</label>
   <div class="text-center">
       <input type="hidden" name="file_type3" id="file_type3" />
     
@@ -1455,7 +1477,7 @@ capsule.
           fileTypeImage3.style =  "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
           fileTypeVideo3.style = "none";
           document.getElementById('file_type3').value = "im";
-          para4.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .jpg, .png, .heic and .gif"
+          para4.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
       }, false);
     
       fileTypeVideo3.addEventListener('click', function() {
@@ -1463,7 +1485,7 @@ capsule.
           fileTypeVideo3.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
           fileTypeImage3.style = "none";
           document.getElementById('file_type3').value = "vid";
-          para4.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
+          para4.innerHTML = "Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
       }, false);
     </script>
 
@@ -1489,7 +1511,7 @@ capsule.
 <div class="form-group">
 
     
-        <label class="control-label  " for="id_text3">3) ADD YOUR STORY</label>
+        <label class="control-label  " for="id_text3">3) Add Your Story</label>
     <div class=" "><textarea name="text3" cols="40" rows="10" maxlength="4000" class=" form-control" id="id_text3" oninput="javascript:textCountFunction(this,textcounter3);"></textarea></div><div id="textcounter3">0/4000</div>
 
 </div>
@@ -1499,7 +1521,7 @@ capsule.
 <div id="dilbar3" style="display: none;">
   <hr><br>
  
-<label class="control-label  " for="file_type4">1) SELECT FILE TYPE</label>
+<label class="control-label  " for="file_type4">1) Select File Type</label>
 
   <div class="text-center">
       <input type="hidden" name="file_type4" id="file_type4" />
@@ -1523,7 +1545,7 @@ capsule.
           fileTypeImage4.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
           fileTypeVideo4.style = "none";
           document.getElementById('file_type4').value = "im";
-          para5.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .jpg, .png, .heic and .gif"
+          para5.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
       }, false);
     
       fileTypeVideo4.addEventListener('click', function() {
@@ -1531,7 +1553,7 @@ capsule.
           fileTypeVideo4.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
           fileTypeImage4.style = "none";
           document.getElementById('file_type4').value = "vid";
-          para5.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
+          para5.innerHTML = "Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
       }, false);
     </script>
 
@@ -1557,7 +1579,7 @@ capsule.
 <div class="form-group">
 
     
-        <label class="control-label  " for="id_text4">3) ADD YOUR STORY</label>
+        <label class="control-label  " for="id_text4">3) Add Your Story</label>
     <div class=" "><textarea name="text4" cols="40" rows="10" maxlength="4000" class=" form-control" id="id_text4" oninput="javascript:textCountFunction(this,textcounter4);"></textarea></div><div id="textcounter4">0/4000</div>
 
 </div>
@@ -2404,7 +2426,7 @@ satisfied with the purchase you are making before finalizing the transaction.</p
       
         <div class="row text-center" >
           
-          <div class="col-lg-3 ml-auto padding-0">
+          <div class="col-lg-4 ml-auto padding-0">
             <h3 class="footer-heading"><span>Site Links</span></h3>
             <ul class="list-unstyled">
 
@@ -2412,13 +2434,13 @@ satisfied with the purchase you are making before finalizing the transaction.</p
                 <li><a href="{% url 't' %}">Terms and Conditions</a></li>
             </ul>
           </div>
-          <div class="col-lg-3 mr-auto padding-0">
+          <div class="col-lg-4 mr-auto padding-0">
               <h3 class="footer-heading"><span>Social Media</span></h3>
               <ul class="list-unstyled">
                   <li><a href="https://www.facebook.com/Apito-106229387484222/"><span class="fab fa-facebook fa-lg"></span> Facebook </a></li>
                   <li><a href="https://www.instagram.com/apebbleintheocean/"><span class="fab fa-instagram fa-lg"></span> Instagram</a></li>
                   <li><a href="https://www.youtube.com/channel/UCRLnvpXOc8nwdwNYaLU6nJA"><span class="fab fa-youtube fa-lg"></span> YouTube</a></li>
-                  <li><a href="https://www.twitch.tv/g_ioo"><span class="fab fa-twitter fa-lg"></span> Twitter</a></li>
+                  <li><a href="https://twitter.com/apito_project"><span class="fab fa-twitter fa-lg"></span> Twitter</a></li>
               </ul>
           </div>
 
