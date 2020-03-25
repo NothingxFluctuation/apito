@@ -4,7 +4,7 @@
 <html lang="en">
 
 <head>
-  <title>APITO - Upload Success</title>
+  <title>Apito - Upload Success</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="{% static 'white-logo.png' %}">
@@ -130,8 +130,8 @@ html, body { overflow-x: hidden; }
     <div class="site-section">
     
         <div class="container">
-            <div class="jumbotron">
-                <h1>Success. Welcome to the team.</h1>
+            <div class="jumbotron text-center">
+                <h1 style="text-align: center;">Success. Welcome to the team.</h1>
                 </div>
                 <br>
 
@@ -139,6 +139,12 @@ html, body { overflow-x: hidden; }
           <div class="d-flex justify-content-center"> 
           <p class="align-items-center"><img src='{{ no_matter|random_image }}' width="350" height="350" /></p>
           </div>
+          <br>
+          <br>
+          <div style="text-align: center;">
+          <a href="/" style="font-weight: 800; padding-right: 10px;">Back to Home</a>
+          <a href="https://tenor.com" style="font-weight: 800;">GIF Source URL</a>
+        </div>
         </div>
     </div>
 
@@ -151,7 +157,7 @@ html, body { overflow-x: hidden; }
       
         <div class="row text-center" >
           
-          <div class="col-lg-4 ml-auto padding-0">
+          <div class="col-lg-3 ml-auto padding-0 mb-5">
             <h3 class="footer-heading"><span>Site Links</span></h3>
             <ul class="list-unstyled">
 
@@ -159,7 +165,8 @@ html, body { overflow-x: hidden; }
                 <li><a href="{% url 't' %}">Terms and Conditions</a></li>
             </ul>
           </div>
-          <div class="col-lg-4 mr-auto padding-0">
+
+          <div class="col-lg-3 mr-auto padding-0 mb-5">
               <h3 class="footer-heading"><span>Social Media</span></h3>
               <ul class="list-unstyled">
                   <li><a href="https://www.facebook.com/Apito-106229387484222/"><span class="fab fa-facebook fa-lg"></span> Facebook </a></li>

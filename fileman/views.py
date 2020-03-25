@@ -135,7 +135,7 @@ def index(request):
 			messages.error(request,'There was some problem with your upload.')
 			return render(request,'i.html',{'file_form':file_form})
 	file_form = FileModelForm()
-	return render(request, 'i.html',{'file_form':file_form})
+	return redirect('/')
 
 
 def calculate_price(request):

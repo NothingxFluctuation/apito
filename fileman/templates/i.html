@@ -4,7 +4,7 @@
 <html lang="en">
 
 <head>
-  <title>APITO - HOME</title>
+  <title>Apito - Home</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon" href="{% static 'white-logo.png' %}">
@@ -507,14 +507,19 @@ function showegiftpayme() {
           $('#payme').remove();
 
         } else if (data == 'invalid') {
-            $('kamchabees').modal('show')
+            $('#kamchabees').modal('show')
+            couponinput.value = couponinput.defaultValue;
         } else {
             lululu.innerHTML = "You are $" + data + " short on eGift credit";
             $('#kampachas').modal('show');
             sohniprice = data;
             billaji.innerHTML = "$" + data + " USD";
             showingthebest.style.display = "block";
+            couponinput.value = couponinput.defaultValue;
+            coupon.style.display = "none";
             payme.style.display = "block";
+
+
 
         }
         
@@ -648,6 +653,8 @@ function checkFileSize(th) {
   var fiLesiZe = th.files[0].size;
   if (fiLesiZe > 104857600) {
     th.value = th.defaultValue;
+    $("#kamvideosize").modal("show");
+    return 0;
   }
 
   if (!hasExtension(th.id,['.png','.jpg','.jpeg','.heic','.gif','.mp4','.mkv','.avi','.wmv','.mov','.flv'])) {
@@ -750,6 +757,39 @@ function textCountFunction(th,bul) {
   used = th.value.length;
   bul.innerHTML = used + "/4000"
 }
+
+
+
+function DeleteThisFile(firstid,secondid, thirdid) {
+  document.getElementById(firstid).style = "display: none;"
+  var secondidelem = document.getElementById(secondid);
+  secondidelem.value = secondidelem.defaultValue;
+  document.getElementById(thirdid).value = "";
+
+
+
+
+  var fileonepath = id_file_here.value;
+  var filetwopath = id_file_here1.value;
+  var filethreepath = id_file_here2.value;
+  var filefourpath = id_file_here3.value;
+  var filefivepath = id_file_here4.value;
+  var dic = fileonepath + "xxxhumkohumhisaychuraloxxx" + filetwopath + "xxxhumkohumhisaychuraloxxx" + filethreepath + "xxxhumkohumhisaychuraloxxx" + filefourpath + "xxxhumkohumhisaychuraloxxx" + filefivepath
+  
+  $.ajax("{% url 'calculate_price' %}", {
+    type: 'GET',
+    data: {lol: dic},
+    success: function(result) {
+      billagi.innerHTML = "$" + result + " USD";
+      sohniprice = result;
+
+      
+    }
+  }
+  );
+  return 0;
+}
+
 
 
 </script>
@@ -894,12 +934,19 @@ nav {
       </script>
           </div>
           </div>
-          <div class="modal-footer justify-content-center" style="display: inline-block; text-align: center;">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          </div>
+         
         </div>
       </div>
     </div>
+
+
+
+  
+
+
+
+
+
  <div class="modal" id="kamdonation" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -910,14 +957,45 @@ nav {
             </button>
           </div>
           <div class="modal-body">
-            <p>We have received your donation. Thank you very much for supporting us!</p>
+            <p style="text-align: center;">We have received your donation. Thank you very much for supporting us!</p>
           </div>
-          <div class="modal-footer  justify-content-center" style="display: inline-block; text-align: center;">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+     <div class="modal" id="kamvideosize" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" style="text-align: center; width: 100%;">File Size Exceeds Limit</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p style="text-align: center;">Video exceeds maximum size of 100MB.</p>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+
+<div class="modal" id="kampachas" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" style="text-align: center; width: 100%;" id="lululu">You are low on eGift credit</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p style="text-align: center;">Please pay the remaining amount before uploading the files.</p>
           </div>
         </div>
       </div>
     </div>
+
 
 
     <div class="modal" id="kampachees" tabindex="-1" role="dialog">
@@ -930,33 +1008,13 @@ nav {
             </button>
           </div>
           <div class="modal-body">
-            <p id="shishishi">You entered a valid coupon. You can upload this file now. Your remaining balance is</p>
+            <p id="shishishi" style="text-align: center;">You entered a valid coupon. You can upload this file now. Your remaining balance is</p>
           </div>
-          <div class="modal-footer  justify-content-center" style="display: inline-block; text-align: center;">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          </div>
+         
         </div>
       </div>
     </div>
 
-    <div class="modal" id="kampachas" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" style="text-align: center; width: 100%;" id="lululu">You are low on eGift credit</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>Please pay the remaining amount before uploading the files.</p>
-          </div>
-          <div class="modal-footer  justify-content-center" style="display: inline-block; text-align: center;">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <div class="modal" id="kamlakh" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
@@ -968,10 +1026,7 @@ nav {
             </button>
           </div>
           <div class="modal-body">
-            <p>Please write text before clicking continue.</p>
-          </div>
-          <div class="modal-footer  justify-content-center" style="display: inline-block; text-align: center;">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            <p style="text-align: center;">Please write text before clicking continue.</p>
           </div>
         </div>
       </div>
@@ -987,10 +1042,7 @@ nav {
             </button>
           </div>
           <div class="modal-body">
-            <p>Please select a file type by clicking image or video icon before selecting a file.</p>
-          </div>
-          <div class="modal-footer  justify-content-center" style="display: inline-block; text-align: center;">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            <p style="text-align: center;">Please select a file type by clicking image or video icon before selecting a file.</p>
           </div>
         </div>
       </div>
@@ -1006,10 +1058,7 @@ nav {
             </button>
           </div>
           <div class="modal-body">
-            <p>Please select the same file type that you selected above.</p>
-          </div>
-          <div class="modal-footer  justify-content-center" style="display: inline-block; text-align: center;">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            <p style="text-align: center;">Please select the same file type that you selected above.</p>
           </div>
         </div>
       </div>
@@ -1025,10 +1074,7 @@ nav {
             </button>
           </div>
           <div class="modal-body">
-            <p>Please select at least one file before proceeding further.</p>
-          </div>
-          <div class="modal-footer  justify-content-center" style="display: inline-block; text-align: center;">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            <p style="text-align: center;">Please select at least one file before proceeding further.</p>
           </div>
         </div>
       </div>
@@ -1100,7 +1146,7 @@ nav {
 #billugi {
   color: black;
   font-weight: 800;
-  margin-bottom: 20%;
+  margin-bottom: 14%;
 }
 
 
@@ -1108,7 +1154,7 @@ nav {
 
 @media screen and (max-width: 600px) {
   #billugi {
-    margin-bottom: 16%;
+    margin-bottom: 12%;
     font-size: 10px;
   }
 
@@ -1126,7 +1172,7 @@ nav {
 
 
   #billugi {
-    margin-bottom: 16%;
+    margin-bottom: 12%;
     font-size: 10px;
   }
 }
@@ -1303,7 +1349,8 @@ capsule.
                   
           
                   <div class=" ">
-                      <textarea name="text" cols="40" rows="10" maxlength="4000" class=" form-control" required id="id_text" oninput="javascript:textCountFunction(this,textcounter);"></textarea> <div id="textcounter">0/4000</div>
+                      <textarea name="text" cols="40" rows="10" maxlength="4000" class=" form-control" required id="id_text" oninput="javascript:textCountFunction(this,textcounter);"></textarea> <div id="textcounter">0/4000</div> 
+
           
                       
           
@@ -1356,7 +1403,7 @@ capsule.
           
               
             
-              <label class="control-label  " id="merisohnifile" for="id_file_here1">2) Select File</label>
+              <label class="control-label  " id="merisohnifile1" for="id_file_here1">2) Select File</label>
 <p id='para2'></p>
       
               <div class=" ">
@@ -1377,6 +1424,7 @@ capsule.
               
                   <label class="control-label  " for="id_text1">3) Add Your Story</label>
               <div class=" "><textarea name="text1" cols="40" rows="10" maxlength="4000" class=" form-control" id="id_text1" oninput="javascript:textCountFunction(this,textcounter1);"></textarea></div><div id="textcounter1">0/4000</div>
+              <div style="text-align: right; padding-right: 0px;"><a href="#" onclick="javascript:DeleteThisFile('dilbar','id_file_here1','id_text1');"><span class="fas fa-minus-circle fa-lg" title="Delete it"></span></a></div>
           
       </div>
 
@@ -1423,7 +1471,7 @@ capsule.
 
 <div class="form-group">
     
-        <label class="control-label  " id="merisohnifile" for="id_file_here2">2) Select File</label>
+        <label class="control-label  " id="merisohnifile2" for="id_file_here2">2) Select File</label>
 <p id='para3'></p>
         
 
@@ -1445,6 +1493,7 @@ capsule.
         
             <label class="control-label  " for="id_text2">3) Add Your Story</label>
         <div class=" "><textarea name="text2" cols="40" rows="10" maxlength="4000" class=" form-control" id="id_text2" oninput="javascript:textCountFunction(this,textcounter2);"></textarea></div> <div id="textcounter2">0/4000</div>
+        <div style="text-align: right; padding-right: 0px;"><a href="#" onclick="javascript:DeleteThisFile('dilbar1','id_file_here2','id_text2');"><span class="fas fa-minus-circle fa-lg" title="Delete it"></span></a></div>
     
 </div>
 
@@ -1491,7 +1540,7 @@ capsule.
 
 <div class="form-group">
 
-    <label class="control-label  " id="merisohnifile" for="id_file_here3">2) Select File</label>
+    <label class="control-label  " id="merisohnifile3" for="id_file_here3">2) Select File</label>
 <p id='para4'></p>
     
 
@@ -1513,6 +1562,7 @@ capsule.
     
         <label class="control-label  " for="id_text3">3) Add Your Story</label>
     <div class=" "><textarea name="text3" cols="40" rows="10" maxlength="4000" class=" form-control" id="id_text3" oninput="javascript:textCountFunction(this,textcounter3);"></textarea></div><div id="textcounter3">0/4000</div>
+    <div style="text-align: right; padding-right: 0px;"><a href="#" onclick="javascript:DeleteThisFile('dilbar2','id_file_here3','id_text3');"><span class="fas fa-minus-circle fa-lg" title="Delete it"></span></a></div>
 
 </div>
 
@@ -1559,7 +1609,7 @@ capsule.
 
 <div class="form-group">
 
-    <label class="control-label  " id="merisohnifile" for="id_file_here4">2) Select File</label>
+    <label class="control-label  " id="merisohnifile4" for="id_file_here4">2) Select File</label>
 <p id='para5'></p>
     
 
@@ -1581,6 +1631,7 @@ capsule.
     
         <label class="control-label  " for="id_text4">3) Add Your Story</label>
     <div class=" "><textarea name="text4" cols="40" rows="10" maxlength="4000" class=" form-control" id="id_text4" oninput="javascript:textCountFunction(this,textcounter4);"></textarea></div><div id="textcounter4">0/4000</div>
+    <div style="text-align: right; padding-right: 0px;"><a href="#" onclick="javascript:DeleteThisFile('dilbar3','id_file_here4','id_text4');"><span class="fas fa-minus-circle fa-lg" title="Delete it"></span></a></div>
 
 </div>
 
@@ -1597,7 +1648,8 @@ capsule.
           
           {% csrf_token %}
           <div id="btnui">
-              <button type="button" onclick="showAgreement()" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;Continue&nbsp;&nbsp;&nbsp;&nbsp;</button> <button type="button" id="showdilbar1" onclick="showDilbar(this)" class="btn btn-primary" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"><span class="fas fa-plus" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"></span></button> 
+              <button type="button" id="showdilbar1" onclick="showDilbar(this)" class="btn btn-primary" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"><span class="fas fa-plus" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"></span></button> <br><br>
+              <button type="button" onclick="showAgreement()" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;Continue&nbsp;&nbsp;&nbsp;&nbsp;</button>
           </div>
 
               <div style="display: none;" id="agree">
@@ -1661,11 +1713,9 @@ satisfied with the purchase you are making before finalizing the transaction.</p
                   </button>
                 </div>
                 <div class="modal-body">
-                  <p>Payment was successful. You can now upload your files.</p>
+                  <p style="text-align: center;">Payment was successful. You can now upload your files.</p>
                 </div>
-                <div class="modal-footer  justify-content-center" style="display: inline-block; text-align: center;">
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                </div>
+                
               </div>
             </div>
           </div>
@@ -1687,17 +1737,15 @@ satisfied with the purchase you are making before finalizing the transaction.</p
                         </button>
                       </div>
                       <div class="modal-body">
-                        <p>You entered an invalid coupon. Please use a correct eGift coupon or pay.</p>
+                        <p style="text-align: center;">You entered an invalid coupon. Please use a correct eGift coupon or pay.</p>
                       </div>
-                      <div class="modal-footer justify-content-center" style="display: inline-block; text-align: center;">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                      </div>
+                      
                     </div>
                   </div>
                 </div>
                 
                 
-                <p style="font-weight: 600; text-align: center;" ><a href="javascript:showfilespay()">or Pay</a></p>
+                <p style="font-weight: 600; text-align: center;"><a href="javascript:showfilespay()">or Pay</a></p>
                 <br>
                 
 
@@ -1710,7 +1758,7 @@ satisfied with the purchase you are making before finalizing the transaction.</p
           
               <br>
           <div class="optional-info" id='optnlinfo' style="display: none;">
-          <h3>Final Survey</h3>
+          <h3>Final Survey (Optional)</h3>
           <br>
           <p>Note: The information you provide in the following section will not be shared with
 anyone and will be completely anonymous. Your information and identity are safe with
@@ -1721,6 +1769,7 @@ time capsule for the amount of time that is most popular, according to the surve
           <div class="rama">
             <label for="timeframe">For how long would you want the time capsule to be stored? </label>
             <select id="timeframe" name="info" class="form-control">
+              <option value="none">----------</option>
               <option value="ten">10 Years</option>
               <option value="twenty">20 Years</option>
               <option value="thirty">30 Years</option>
@@ -1739,9 +1788,10 @@ the world people are uploading pebbles into our time capsule</p>
           <div class="form-group"> 
             <div class="country-select">
           
-                <label for="country">Where are you from?</label><span style="color: red !important; display: inline; float: none;">*</span>      
+                <label for="country">Where are you from?</label>      
                   
                 <select id="country" name="country" class="form-control">
+                    <option value="none">----------</option>
                     <option value="Afghanistan">Afghanistan</option>
                     <option value="Åland Islands">Åland Islands</option>
                     <option value="Albania">Albania</option>
@@ -2424,9 +2474,9 @@ satisfied with the purchase you are making before finalizing the transaction.</p
         <div class="footer bg-light">
       <div class="container">
       
-        <div class="row text-center" >
+       <div class="row text-center" >
           
-          <div class="col-lg-4 ml-auto padding-0">
+          <div class="col-lg-3 ml-auto padding-0 mb-5">
             <h3 class="footer-heading"><span>Site Links</span></h3>
             <ul class="list-unstyled">
 
@@ -2434,7 +2484,8 @@ satisfied with the purchase you are making before finalizing the transaction.</p
                 <li><a href="{% url 't' %}">Terms and Conditions</a></li>
             </ul>
           </div>
-          <div class="col-lg-4 mr-auto padding-0">
+
+          <div class="col-lg-3 mr-auto padding-0 mb-5">
               <h3 class="footer-heading"><span>Social Media</span></h3>
               <ul class="list-unstyled">
                   <li><a href="https://www.facebook.com/Apito-106229387484222/"><span class="fab fa-facebook fa-lg"></span> Facebook </a></li>
@@ -2445,7 +2496,7 @@ satisfied with the purchase you are making before finalizing the transaction.</p
           </div>
 
         </div>
-        <div class="row" style="margin-bottom: 0;">
+                <div class="row" style="margin-bottom: 0;">
           <div class="center mx-auto">
             <img src="{% static 'footer.png' %}" height="170" width="150"/>
           </div>
