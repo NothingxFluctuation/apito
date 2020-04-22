@@ -25,7 +25,7 @@ SECRET_KEY = '@f*e5ry6&$t0(vci-=3-rysc%6_pepr_&2lrvsmiu9&yn2e=sn'
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','apito.pythonanywhere.com','68.183.100.62','apebbleintheocean.com','www.apebbleintheocean.com','192.168.8.101']
 
