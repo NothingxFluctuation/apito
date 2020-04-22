@@ -147,22 +147,25 @@ def main(request):
 @csrf_exempt
 def index(request):
 	if request.method=='POST':
-		file_form = FileModelForm(request.POST, request.FILES)
-		print(request.POST)
-		print("Errors:  ",file_form.errors.as_data())
+		try:
+			file_form = FileModelForm(request.POST, request.FILES)
+			print(request.POST)
+			print("Errors:  ",file_form.errors.as_data())
 
-		#disable coupon
-		cpn = request.POST.get('couponinput')
-		cpni = CouponModel.objects.filter(coupon=cpn)
-		print('cpni',cpni)
-		if len(cpni) > 0:
-			cpna = CouponModel.objects.get(coupon=cpn)
-			print(cpna)
+			#disable coupon
+			cpn = request.POST.get('couponinput')
+			cpni = CouponModel.objects.filter(coupon=cpn)
+			print('cpni',cpni)
+			if len(cpni) > 0:
+				cpna = CouponModel.objects.get(coupon=cpn)
+				print(cpna)
 
 
-		new_file = file_form.save()
-		rsp = str(new_file.id)
-		return HttpResponse(rsp)
+			new_file = file_form.save()
+			rsp = str(new_file.id)
+			return HttpResponse(rsp)
+		except:
+			return HttpResponse('something bad happened')
 #		else:
 #			file_form = FileModelForm()
 #			messages.error(request,'There was some problem with your upload.')
@@ -179,7 +182,7 @@ def getextra(request):
 			intid = int(idofform)
 			form = FileModel.objects.get(id=intid)
 		else:
-			return HttpResponse("no id provided")
+			return render(request, 'upload_success.html')
 		rinfo = request.POST.get('info')
 		if rinfo:
 			exinfo = rinfo
