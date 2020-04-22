@@ -26,6 +26,7 @@ urlpatterns = [
 	path('', fv.main, name='main'),
     path('pa/',fv.pp, name='pp'),
 	path('product/',fv.index, name='product'),
+    path('success/', fv.getextra, name='getextra'),
     path('aja/',fv.aja, name='aja'),
     path('coupon/',fv.check_coupon, name='check_coupon'),
     path('create_coupon/',fv.create_coupon, name='create_coupon'),
@@ -40,6 +41,10 @@ urlpatterns = [
     path('terms-and-conditions/', fv.t, name='t'),
     path('calculate_price/',fv.calculate_price, name='calculate_price'),
     path('payment/', fv.payment, name='payment'),
+    path('secret/', fv.secret, name='secret'),
+    path('set_price/', fv.set_price, name='set_price'),
+
+
     path('egifts_admin/', fv.egifts_admin, name="egifts_admin"),
 
     path('download_all_files/',fv.download_all_files, name='download_all_files'),

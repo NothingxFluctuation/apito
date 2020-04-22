@@ -25,9 +25,13 @@ SECRET_KEY = '@f*e5ry6&$t0(vci-=3-rysc%6_pepr_&2lrvsmiu9&yn2e=sn'
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1','apito.pythonanywhere.com','68.183.100.62','apebbleintheocean.com','www.apebbleintheocean.com','192.168.8.101']
+
+
+#session settings
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 
 # Application definition
@@ -141,6 +145,9 @@ STATIC_URL = '/static/'
 MEDIA_ROOT= os.path.join(BASE_DIR, 'media/')
 MEDIA_URL= "/media/"
 
+
+STRIPE_SECRET_KEY = 'sk_test_qsycRqq1osmqpQAzKHbfGzXR00EwAuNpoH'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_WvVSGCY0eJrVqWS72dIhnUTF00cs0kEOlY'
 
 
 EMAIL_USE_TLS = True

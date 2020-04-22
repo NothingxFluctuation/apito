@@ -19,7 +19,7 @@ class ImageModelAdmin(admin.ModelAdmin):
 #admin.site.register(ImageModel, ImageModelAdmin)
 
 class FileModelAdmin(admin.ModelAdmin):
-	list_display = ('id','text','file_here','url','created')
+	list_display = ('id','text','file_here','created')
 	
 admin.site.register(FileModel, FileModelAdmin)
 

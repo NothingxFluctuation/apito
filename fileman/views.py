@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 import random
 import string
-from .models import FileModel, CouponModel
+from .models import FileModel, CouponModel, ExtraInfo
 import magic
 from django.core.mail import EmailMessage, send_mail
 from django.views.decorators.csrf import csrf_exempt
@@ -39,6 +39,7 @@ def pp(request):
 		
 
 def m(request):
+	request.session['foo'] = 'bar'
 	if settings.BRAINTREE_PRODUCTION:
 		braintree_env = braintree.Environment.Production
 	else:
@@ -73,28 +74,66 @@ def p(request):
 
 def cpn(request):
 	return render(request,'cpn.html')
+from django.conf import settings
+import stripe
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+from django.http import JsonResponse
+
+def secret(request):
+	if request.session['foo'] =='bar':
+		print('ye b running')
+		intent = stripe.PaymentIntent.create(
+			amount=100,
+			currency='usd',
+			metadata={'integration_check':'accept_a_payment'},)
+
+		return JsonResponse({'client_secret':intent.client_secret})
+	print("ye wala b")
+	amount = request.session['payable']
+	amount = amount * 100
+	intent = stripe.PaymentIntent.create(
+		amount=amount,
+		currency='usd',
+		metadata={'integration_check': 'accept_a_payment'},
+		)
+	print(intent)
+	return JsonResponse({'client_secret':intent.client_secret})
+
+
+def set_price(request):
+	r = request.GET.get('mprice')
+	r = int(r)
+	request.session['payable'] = r
+	request.session['foo'] = 'langra'
+	return HttpResponse(str(r))
+
 
 
 def payment(request):
-    nonce_from_the_client = request.POST['paymentMethodNonce']
-    price = request.POST['pp']
-    print(price)
-    customer_kwargs = {
-        "first_name": "apito",
-        "last_name": "apito",
-        "email": "apebbleintheocean@gmail.com",
-    }
-    customer_create = braintree.Customer.create(customer_kwargs)
-    customer_id = customer_create.customer.id
-    result = braintree.Transaction.sale({
-        "amount": price,
-        "payment_method_nonce": nonce_from_the_client,
-        "options": {
-            "submit_for_settlement": True
-        }
-    })
-    print(result)
-    return HttpResponse('Ok')
+    # nonce_from_the_client = request.POST['paymentMethodNonce']
+    # price = request.POST['pp']
+    # print(price)
+    # customer_kwargs = {
+    #     "first_name": "apito",
+    #     "last_name": "apito",
+    #     "email": "apebbleintheocean@gmail.com",
+    # }
+    # customer_create = braintree.Customer.create(customer_kwargs)
+    # customer_id = customer_create.customer.id
+    # result = braintree.Transaction.sale({
+    #     "amount": price,
+    #     "payment_method_nonce": nonce_from_the_client,
+    #     "options": {
+    #         "submit_for_settlement": True
+    #     }
+    # })
+    # return HttpResponse('Ok')
+   if request.method =='POST':
+   	charge = stripe.Charge.create(amount=500, currency='usd',description='apito charge',source=request.POST.get('stripeToken'))
+   	print("Stripe Token: ",request.POST.get('stripeToken'))
+   	print("Charge: ",charge)
+   	return HttpResponse('Ok')
 
 
 
@@ -111,31 +150,51 @@ def index(request):
 		file_form = FileModelForm(request.POST, request.FILES)
 		print(request.POST)
 		print("Errors:  ",file_form.errors.as_data())
-		if file_form.is_valid():
-			#disable coupon
-			cpn = request.POST.get('couponinput')
-			cpni = CouponModel.objects.filter(coupon=cpn)
-			print('cpni',cpni)
-			if len(cpni) > 0:
-				cpna = CouponModel.objects.get(coupon=cpn)
-				print(cpna)
+
+		#disable coupon
+		cpn = request.POST.get('couponinput')
+		cpni = CouponModel.objects.filter(coupon=cpn)
+		print('cpni',cpni)
+		if len(cpni) > 0:
+			cpna = CouponModel.objects.get(coupon=cpn)
+			print(cpna)
 
 
-			new_file = file_form.save(commit=False)
-			rinfo = request.POST.get('info')
-			if rinfo:
-				new_file.info = rinfo
-			country = request.POST.get('country')
-			if country:
-				new_file.country = country
-			new_file.save()
-			return render(request,'upload_success.html')
-		else:
-			file_form = FileModelForm()
-			messages.error(request,'There was some problem with your upload.')
-			return render(request,'i.html',{'file_form':file_form})
+		new_file = file_form.save()
+		rsp = str(new_file.id)
+		return HttpResponse(rsp)
+#		else:
+#			file_form = FileModelForm()
+#			messages.error(request,'There was some problem with your upload.')
+#			return render(request,'i.html',{'file_form':file_form})
 	file_form = FileModelForm()
 	return redirect('/')
+
+
+@csrf_exempt
+def getextra(request):
+	if request.method=='POST':
+		idofform = request.POST.get('idoffileform')
+		if idofform:
+			intid = int(idofform)
+			form = FileModel.objects.get(id=intid)
+		else:
+			return HttpResponse("no id provided")
+		rinfo = request.POST.get('info')
+		if rinfo:
+			exinfo = rinfo
+		else:
+			exinfo = ''
+		country = request.POST.get('country')
+		if country:
+			excountry = country
+		else:
+			excountry = ''
+		ExtraInfo.objects.create(file=form, info=exinfo, country=excountry)
+		return render(request,'upload_success.html')
+
+
+
 
 
 def calculate_price(request):

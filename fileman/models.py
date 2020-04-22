@@ -25,29 +25,32 @@ class ImageModel(models.Model):
 ftype = [('im','Image'),('vid','Video')]
 
 class FileModel(models.Model):
-	file_type = models.CharField(max_length=50, choices=ftype, default='im')
-	text = models.TextField(max_length=3000)
-	file_here = models.FileField(upload_to='file_content/',null=True, max_length=400)
-	file_type1 = models.CharField(max_length=50, choices=ftype, default='im')
+	file_type = models.CharField(max_length=50, choices=ftype, default='im', blank=True)
+	text = models.TextField(max_length=3000, null=True, blank=True)
+	file_here = models.FileField(upload_to='file_content/',null=True, blank=True,max_length=400)
+	file_type1 = models.CharField(max_length=50, choices=ftype, default='im', blank=True)
 	text1 = models.TextField(max_length=3000, null=True, blank=True)
 	file_here1 = models.FileField(upload_to='file_content/', null=True, blank=True, max_length=400)
-	file_type2 = models.CharField(max_length=50, choices=ftype, default='im')
+	file_type2 = models.CharField(max_length=50, choices=ftype, default='im', blank=True)
 	text2 = models.TextField(max_length=3000, null=True, blank=True)
 	file_here2 = models.FileField(upload_to='file_content/', null=True, blank=True, max_length=400)
-	file_type3 = models.CharField(max_length=50, choices=ftype, default='im')
+	file_type3 = models.CharField(max_length=50, choices=ftype, default='im', blank=True)
 	text3 = models.TextField(max_length=3000, null=True, blank=True)
 	file_here3 = models.FileField(upload_to='file_content/', null=True, blank=True, max_length=400)
-	file_type4 = models.CharField(max_length=50, choices=ftype, default='im')
+	file_type4 = models.CharField(max_length=50, choices=ftype, default='im', blank=True)
 	text4 = models.TextField(max_length=3000, null=True, blank=True)
 	file_here4 = models.FileField(upload_to='file_content/', null=True, blank=True, max_length=400)	
 	created = models.DateTimeField(default=timezone.now)
-	url = models.CharField(max_length=2000, null=True, blank = True)
-	info = models.CharField(max_length=2000, null=True, blank=True)
-	country = models.CharField(max_length=2000, null=True, blank=True)
 
 
 	def __str__(self):
 		return str(self.file_here)
+
+class ExtraInfo(models.Model):
+	file = models.ForeignKey(FileModel, on_delete= models.CASCADE, related_name='file_extra')
+	info = models.CharField(max_length=2000, null=True, blank=True)
+	country = models.CharField(max_length=2000, null=True, blank=True)
+
 
 
 class CouponModel(models.Model):

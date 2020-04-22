@@ -9,7 +9,7 @@ class UploadForm(forms.Form):
 class FileModelForm(forms.ModelForm):
 	class Meta:
 		model = FileModel
-		fields = ('file_type','file_here','text','file_here1','text1')
+		exclude = ('created',)
 
 		labels = {
 			"file_here" : ("Select File"),

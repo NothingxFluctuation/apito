@@ -10,6 +10,7 @@
   <link rel="icon" href="{% static 'white-logo.png' %}">
   <link href="https://fonts.googleapis.com/css?family=Oswald:400,700|Dancing+Script:400,700|Muli:300,400" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'v1/fonts/icomoon/style.css' %}">
+   <script src="https://js.stripe.com/v3/"></script>
 
   <link rel="stylesheet" href="{% static 'v1/css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'v1/css/jquery-ui.css' %}">
@@ -148,6 +149,13 @@ function WhichTab(t) {
   } else if (t.id == "pills-contact-tab") {
     dharti = "donation";
     sohniprice = window.mydonation;
+    /*var response = fetch('/secret').then(function(response) {
+  		return response.json();
+	}).then(function(responseJson) {
+  		clientSecret = responseJson.client_secret;
+  		console.log(clientSecret)
+  // Call stripe.confirmCardPayment() with the client secret.
+	});*/
   }
 
 };
@@ -293,7 +301,8 @@ function checkegiftamount(th) {
   }
   var egiftpriceresult = parseInt(pp) + parseInt(pp1) + parseInt(pp2) + parseInt(pp3) + parseInt(pp4);
   window.egiftsprice = egiftpriceresult;
-  egiftpriceresulttext = "$" + egiftpriceresult + " USD";
+  var jlab = parseInt(egiftpriceresult) + parseInt(makalaka);
+  egiftpriceresulttext = "$" + jlab + " USD";
   billagir.innerHTML = egiftpriceresulttext;
 }
 
@@ -308,9 +317,11 @@ function checkdonationamount() {
     timeaframe.style = ''
     donationerror = false;
   }
-  if (tv == 'five' || tv =='ten' || tv == 'twenty' || tv == 'fifty' || tv == 'hundred') {
+  if (tv == 'three' || tv == 'five' || tv =='ten' || tv == 'twenty' || tv == 'fifty' || tv == 'hundred') {
     tv = timeaframe.value;
-    if (tv == 'five') {
+    if (tv == 'three') {
+    	window.mydonation = 3;
+    } else if (tv == 'five') {
       window.mydonation = 5;
     } else if (tv == 'ten') {
       window.mydonation = 10;
@@ -325,7 +336,7 @@ function checkdonationamount() {
 
   if (tv =='custom') {
       dv = donatethisamount.value;
-      if (dv < 5) {
+      if (dv < 1) {
         donatethisamount.style = 'border: 1px solid red'
         donationerror = true;
       } else {
@@ -338,6 +349,75 @@ function checkdonationamount() {
 
 }
 
+shakalaka = 0;
+function checkpebbledonationamount() {
+	shakalaka = 0;
+	tv = pebbledonation.value;
+	if (tv == 'three' || tv == 'five' || tv =='ten' || tv == 'twenty' || tv == 'fifty' || tv == 'hundred') {
+    if (tv == 'three') {
+    	shakalaka = 3;
+    } else if (tv == 'five') {
+      	shakalaka = 5;
+    } else if (tv == 'ten') {
+      	shakalaka = 10;
+    } else if (tv == 'twenty') {
+      	shakalaka = 20;
+    } else if (tv == 'fifty') {
+      	shakalaka = 50;
+    } else if (tv == 'hundred') {
+    	shakalaka = 100;
+    }
+  }
+
+  if (tv =='custom') {
+  	dv = pebbledonateamount.value;
+  	shakalaka = dv;
+
+  }
+  var jlebi = parseInt(sohniprice) + parseInt(shakalaka)
+  billagi.innerHTML = "$" + jlebi + " USD";
+
+}
+
+
+makalaka = 0;
+function checkegiftdonationamount() {
+	makalaka = 0;
+	tv = egiftdonation.value;
+	if (tv == 'three' || tv == 'five' || tv =='ten' || tv == 'twenty' || tv == 'fifty' || tv == 'hundred') {
+    if (tv == 'three') {
+    	makalaka = 3;
+    } else if (tv == 'five') {
+      	makalaka = 5;
+    } else if (tv == 'ten') {
+      	makalaka = 10;
+    } else if (tv == 'twenty') {
+      	makalaka = 20;
+    } else if (tv == 'fifty') {
+      	makalaka = 50;
+    } else if (tv == 'hundred') {
+    	makalaka = 100;
+    }
+  }
+
+  if (tv =='custom') {
+  	dv = egiftdonateamount.value;
+  	makalaka = dv;
+
+  }
+  var jlebi = parseInt(window.egiftsprice) + parseInt(makalaka);
+  billagir.innerHTML = "$" + jlebi + " USD";
+}
+
+function egiftmoney(emp) {
+	if (emp == "custom") {
+		egiftdonateamount.style.display ="block";
+	}
+	else {
+		egiftdonation.style.display = "block";
+		egiftdonateamount.style.display = "none";
+	}
+}
 
 
 function checkegiftemail(th) {
@@ -459,8 +539,114 @@ function showegiftpayme() {
     alert(munna);
   }
   
+
+function CountVisibleFiles() {
+	var counter = []
+	if (predilbar.style.display == "block") {
+    	counter.push(predilbar)
+  	}
+  	if (dilbar.style.display == "block") {
+    	counter.push(dilbar)
+  	}
+  	if (dilbar1.style.display == "block") {
+    	counter.push(dilbar1)
+  	}
+  	if (dilbar2.style.display == "block") {
+    	counter.push(dilbar2)
+  	}
+  	if (dilbar3.style.display == "block") {
+    	counter.push(dilbar3)
+  	}
+  	return counter;
+/*
+  var counter = 0;
+  if (predilbar.style.display == "block") {
+    counter +=1;
+  }
+  if (dilbar.style.display == "block") {
+    counter +=1;
+  }
+  if (dilbar1.style.display == "block") {
+    counter +=1;
+  }
+  if (dilbar2.style.display == "block") {
+    counter +=1;
+  }
+  if (dilbar3.style.display == "block") {
+    counter +=1;
+  }
+  
+  
+  return counter
+  */
+}
+
+window.dilidili = 0;
+window.dilbarList = 0;
+
+function loadDilbars() {
+  var varpredilbar = document.getElementById('predilbar')
+  var vardilbar = document.getElementById('dilbar')
+  var vardilbar1 = document.getElementById('dilbar1')
+  var vardilbar2 = document.getElementById('dilbar2')
+  var vardilbar3 = document.getElementById('dilbar3')
+  window.dilbarList = [varpredilbar, vardilbar, vardilbar1, vardilbar2, vardilbar3]
+  window.dilidili = 1;
+
+}
+
+
+function showhideDel(c) {
+	if (c.length == 1) {
+		var myelem = c[0];
+		var hehe = myelem.id;
+		var newvar = hehe + "delete";
+		var newelem = document.getElementById(newvar);
+		newelem.style.display = "none";
+	}
+	else {
+		for (index=0; index < c.length; index++) {
+			var myelem = c[index];
+			var hehe = myelem.id;
+			var newvar = hehe +"delete";
+			var newelem = document.getElementById(newvar)
+			newelem.style.display = "block";
+		}
+
+	}
+}
+
+
+
+
   function showDilbar(th) {
-    if (th.id == "showdilbar1") {
+  	if (1==1) {
+  		loadDilbars();
+  	}
+    var firstDilbar = dilbarList[0]
+    var secondDilbar = dilbarList[1]
+    var thirdDilbar = dilbarList[2]
+    var fourthDilbar = dilbarList[3]
+    var fifthDilbar = dilbarList[4]
+
+    if (firstDilbar.style.display =="none") {
+      firstDilbar.style.display = "block";
+    } else if (secondDilbar.style.display =="none") {
+      secondDilbar.style.display ="block";
+    } else if (thirdDilbar.style.display == "none") {
+      thirdDilbar.style.display ="block";
+    } else if (fourthDilbar.style.display == "none") {
+      fourthDilbar.style.display = "block";
+    } else {
+      fifthDilbar.style.display ="block";
+    }
+    var cvf = CountVisibleFiles();
+    if (cvf.length == 5) {
+      showdilbars.style.display = "none";
+    }
+
+ 	showhideDel(cvf);
+ /*   if (th.id == "showdilbar1") {
       dilbar.style.display = "block";
       showdilbar1.id = "showdilbar2"
 
@@ -475,11 +661,69 @@ function showegiftpayme() {
         dilbar3.style.display = "block";
         showdilbar4.style.display = "none";
     }
-    
+    */
   }
   
   
   
+
+
+function DeleteThisFile(firstid,secondid, thirdid) {
+  document.getElementById(firstid).style = "display: none;"
+  var secondidelem = document.getElementById(secondid);
+  secondidelem.value = secondidelem.defaultValue;
+  document.getElementById(thirdid).value = "";
+
+  var cc = "var" + firstid
+  var cnt = dilbarList.indexOf(cc);
+  var tmp = dilbarList[cnt]
+  dilbarList.splice(cnt,1);
+  dilbarList.push(tmp);
+
+  var jq = "#" + firstid
+  $(jq).appendTo("#dilbars");
+
+
+
+
+
+  var fileonepath = id_file_here.value;
+  var filetwopath = id_file_here1.value;
+  var filethreepath = id_file_here2.value;
+  var filefourpath = id_file_here3.value;
+  var filefivepath = id_file_here4.value;
+  var dic = fileonepath + "xxxhumkohumhisaychuraloxxx" + filetwopath + "xxxhumkohumhisaychuraloxxx" + filethreepath + "xxxhumkohumhisaychuraloxxx" + filefourpath + "xxxhumkohumhisaychuraloxxx" + filefivepath
+  
+  $.ajax("{% url 'calculate_price' %}", {
+    type: 'GET',
+    data: {lol: dic},
+    success: function(result) {
+      billagi.innerHTML = "$" + result + " USD";
+      sohniprice = result;
+
+      
+    }
+  }
+  );
+  var cvf = CountVisibleFiles();
+  showhideDel(cvf);
+  showdilbars.style.display = "block";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   $("#coupig").submit(function(event) {
     event.preventDefault();
     var munna = document.getElementById("couponinput").value;
@@ -498,13 +742,13 @@ function showegiftpayme() {
       success: function(data, status, xhr) {
         if (data.startsWith("valid")) {
           var dd = data.split(" ")
-          shishishi.innerHTML = "You entered a valid coupon. You can upload this file now. Your remaining eGift credit is $" + dd[1] + "."
+          shishishi.innerHTML = "Your remaining eGift credit is $" + dd[1] + "."
           $('#kampachees').modal('show')
 
           optnlinfo.style.display = "block";
           coupon.style.display = "none";
           kama.style.display = "none";
-          $('#payme').remove();
+          apoc();
 
         } else if (data == 'invalid') {
             $('#kamchabees').modal('show')
@@ -531,7 +775,42 @@ function showegiftpayme() {
 
 
 
+function getmehehe() {
+/*	var file1 = document.getElementById("id_file_here").files[0];
+	var file2 = document.getElementById("id_file_here1").files[0];
+	var file3 = document.getElementById("id_file_here2").files[0];
+	var file4 = document.getElementById("id_file_here3").files[0];
+	var file5 = document.getElementById("id_file_here4").files[0];
+	var type1 = document.getElementById("file_type").value;
+	var type2 = document.getElementById("file_type1").value;
+	var type3 = document.getElementById("file_type2").value;
+	var type4 = document.getElementById("file_type3").value;
+	var type5 = document.getElementById("file_type4").value;
+	var text = document.getElementById("id_text").value;
+	var text1 = document.getElementById("id_text1").value;
+	var text2 = document.getElementById("id_text2").value;
+	var text3 = document.getElementById("id_text3").value;
+	var text4 = document.getElementById("id_text4").value;
+	var formData = new FormData();
+	formData.append("file_here",file1,"file_here1",file2, "file_here2", file3, "file_here3", file4, "file_here4",file5,"file_type",type1, "file_type1",type2, "file_type2",type3, "file_type3", type4, "file_type4",type5, "text",text,"text1",text1, "text2",text2, "text3",text3,"text4",text4);
+	*/
+	var form = document.getElementById("filewalaform");
+	var formData = new FormData(form);
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST",'/product/', true);
+	xhr.send(formData);
 
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            idoffileform.value = this.responseText;
+        }
+    };
+
+    
+
+    return false;
+}
 
 
 
@@ -545,6 +824,11 @@ function showegiftpayme() {
         payme.style.display = "none";
         kama.style.display = "none";
         $('#kampayment').modal('show')
+        getmehehe();
+        var ld = document.getElementById('loaderdiv');
+        ld.innerHTML = "<p style='text-align: center;'>Your pebbles are uploaded successfully.</p>"
+        uploadpebbleshehe.innerHTML = "Success!"
+        /*setTimeout(() => {  document.getElementById('filewalaform').remove(); }, 5000);*/
 
         fileTypeImage = 0;
         fileTypeImage1 = 0;
@@ -579,10 +863,117 @@ function showegiftpayme() {
     donatethisamount.style.display = "none";
   }
 }
-  
+ 
+
+function pebblemoney(emp) {
+	if (emp == "custom") {
+		pebbledonateamount.style.display ="block";
+	}
+	else {
+		pebbledonation.style.display = "block";
+		pebbledonateamount.style.display = "none";
+	}
+}
+
   </script>
   <script>
+
+function countVisibleEgifts() {
+	var counter = []
+	if (predil.style.display == "block") {
+		counter.push(predil)
+	}
+	if (dil.style.display == "block") {
+		counter.push(dil)
+	}
+	if (dil1.style.display == "block") {
+		counter.push(dil1)
+	}
+	if (dil2.style.display == "block") {
+		counter.push(dil2)
+	}
+	if (dil3.style.display == "block") {
+		counter.push(dil3)
+	}
+	return counter;
+	
+}
+
+
+window.hillihilli = 0;
+window.dilKiList = 0;
+function loadDils() {
+	var varpredil = document.getElementById('predil')
+	var vardil = document.getElementById('dil')
+	var vardil1 = document.getElementById('dil1')
+	var vardil2 = document.getElementById('dil2')
+	var vardil3 = document.getElementById('dil3')
+	window.dilKiList = [varpredil, vardil, vardil1, vardil2, vardil3]
+	window.hillihilli = 1;
+}
+
 function showDil(th) {
+	if (1==1) {
+		loadDils();
+	}
+	var firstDil = dilKiList[0];
+	var secondDil = dilKiList[1];
+	var thirdDil = dilKiList[2];
+	var fourthDil = dilKiList[3];
+	var fifthDil = dilKiList[4];
+	if (firstDil.style.display == "none") {
+		firstDil.style.display = "block";
+	} else if (secondDil.style.display == "none") {
+		secondDil.style.display = "block";
+	} else if (thirdDil.style.display == "none") {
+		thirdDil.style.display = "block";
+	} else if (fourthDil.style.display == "none") {
+		fourthDil.style.display = "block";
+	} else {
+		fifthDil.style.display = "block";
+	}
+	var cvf = countVisibleEgifts();
+	if (cvf.length == 5) {
+		showdils.style.display = "none";
+	}
+	var alerth = "cvf: " + cvf.length;
+	showhideDel(cvf);
+}
+
+
+
+function DeleteEgift(firstid, secondid, thirdid, fourthid) {
+		document.getElementById(firstid).style.display = "none";
+		var secondidelem = document.getElementById(secondid);
+		secondidelem.value = secondidelem.defaultValue;
+		var thirdidelem = document.getElementById(thirdid);
+		thirdidelem.value = thirdidelem.defaultValue;
+		var fourthidelem = document.getElementById(fourthid)
+		fourthidelem.value = fourthidelem.defaultValue;
+		var cc = "var" + firstid
+		var cnt = dilKiList.indexOf(cc);
+		var tmp = dilKiList[cnt]
+		dilKiList.splice(cnt,1)
+		dilKiList.push(tmp);
+		
+		var jq = "#" + firstid
+		$(jq).appendTo("dils");
+		
+		var cvf = countVisibleEgifts();
+		showhideDel(cvf);
+		showdils.style.display = "block";
+	
+}
+
+
+
+
+
+
+
+
+
+/*function showDil(th) {
   if (th.id =="showdil1") {
     dil.style.display = "block";
     showdil1.id = "showdil2";
@@ -596,7 +987,7 @@ function showDil(th) {
     dil3.style.display = "block";
     showdil4.style.display = "none";
   }
-} 
+} */
 
 
 
@@ -606,15 +997,15 @@ function showDil(th) {
 function popitopi(th) {
 
   if (th.id == "fileTypeVideo") {
-    merisohnifile.innerHTML = "Select File (max size 100MB, exts: mp4,mkv,mov,wmv,flv,avi)";
+    merisohnifile.innerHTML = "Select File";
   } else if (th.id == "fileTypeVideo1") {
-    merisohnifile1.innerHTML = "Select File (max size 100MB, exts: mp4,mkv,mov,wmv,flv,avi)";
+    merisohnifile1.innerHTML = "Select File";
   } else if (th.id == "fileTypeVideo2") {
-      merisohnifile2.innerHTML = "Select File (max size 100MB, exts: mp4,mkv,mov,wmv,flv,avi)";
+      merisohnifile2.innerHTML = "Select File";
   } else if (th.id == "fileTypeVideo3") {
-    merisohnifile3.innerHTML = "Select File (max size 100MB, exts: mp4,mkv,mov,wmv,flv,avi)";
+    merisohnifile3.innerHTML = "Select File";
   } else {
-    merisohnifile4.innerHTML = "Select File (max size 100MB, exts: mp4,mkv,mov,wmv,flv,avi)";
+    merisohnifile4.innerHTML = "Select File";
   }
 
 
@@ -623,15 +1014,15 @@ function popitopi(th) {
 
 function topipopi(th) {
   if (th.id == "fileTypeImage") {
-    merisohnifile.innerHTML = "Select File (exts: jpg,png,heic,gif)";
+    merisohnifile.innerHTML = "Select File";
   } else if (th.id == "fileTypeImage1") {
-    merisohnifile1.innerHTML = "Select File (exts: jpg,png,heic,gif)"
+    merisohnifile1.innerHTML = "Select File"
   } else if (th.id == "fileTypeImage2") {
-      merisohnifile2.innerHTML = "Select File (exts: jpg,png,heic,gif)";
+      merisohnifile2.innerHTML = "Select File";
   } else if (th.id == "fileTypeImage3") {
-    merisohnifile3.innerHTML = "Select File (exts: jpg,png,heic,gif)";
+    merisohnifile3.innerHTML = "Select File";
   } else {
-    merisohnifile4.innerHTML = "Select File (exts: jpg,png,heic,gif)";
+    merisohnifile4.innerHTML = "Select File";
   }
 }
 
@@ -702,8 +1093,11 @@ function checkFileSize(th) {
     type: 'GET',
     data: {lol: dic},
     success: function(result) {
-      billagi.innerHTML = "$" + result + " USD";
+      var rr = parseInt(result) + parseInt(shakalaka)
+      billagi.innerHTML = "$" + rr + " USD";
       sohniprice = result;
+      window.filesprice = sohniprice;
+     
 
       
     }
@@ -718,6 +1112,26 @@ function checkFileSize(th) {
 
 function showfilespay() {
   sohniprice = window.filesprice;
+  var meriprice = parseInt(sohniprice) + parseInt(shakalaka)
+  $.ajax("{% url 'set_price' %}", {
+      type: 'GET',
+      data: {mprice: meriprice},
+      success: function(result) {
+      	console.log("price set")
+      	console.log(result)
+        
+      }
+    }
+    );
+
+  	var response = fetch('/secret').then(function(response) {
+  		return response.json();
+	}).then(function(responseJson) {
+  		clientSecret = responseJson.client_secret;
+  		console.log(clientSecret)
+  	// Call stripe.confirmCardPayment() with the client secret.
+	});
+
   sisisi.innerHTML = "Pebbles Payment Form"
   $('#ppp').modal('show');
 }
@@ -730,6 +1144,25 @@ function showegiftspayme() {
     return 0;
   }
   sohniprice = window.egiftsprice;
+  var meriprice = parseInt(sohniprice) + parseInt(makalaka)
+  $.ajax("{% url 'set_price' %}", {
+      type: 'GET',
+      data: {mprice: meriprice},
+      success: function(result) {
+      	console.log("price set")
+      	console.log(result)
+        
+      }
+    }
+    );
+
+  	var response = fetch('/secret').then(function(response) {
+  		return response.json();
+	}).then(function(responseJson) {
+  		clientSecret = responseJson.client_secret;
+  		console.log(clientSecret)
+  	// Call stripe.confirmCardPayment() with the client secret.
+	});
   sisisi.innerHTML = "eGift Payment Form"
   $('#ppp').modal('show');
 }
@@ -741,6 +1174,24 @@ function showdonationpay() {
     return 0;
   }
   sohniprice = window.mydonation;
+   $.ajax("{% url 'set_price' %}", {
+      type: 'GET',
+      data: {mprice: sohniprice},
+      success: function(result) {
+      	console.log("price set")
+      	console.log(result)
+        
+      }
+    }
+    );
+
+  	var response = fetch('/secret').then(function(response) {
+  		return response.json();
+	}).then(function(responseJson) {
+  		clientSecret = responseJson.client_secret;
+  		console.log(clientSecret)
+  	// Call stripe.confirmCardPayment() with the client secret.
+	});
   sisisi.innerHTML = "Donation Payment Form"
   $('#ppp').modal('show')
 }
@@ -760,35 +1211,10 @@ function textCountFunction(th,bul) {
 
 
 
-function DeleteThisFile(firstid,secondid, thirdid) {
-  document.getElementById(firstid).style = "display: none;"
-  var secondidelem = document.getElementById(secondid);
-  secondidelem.value = secondidelem.defaultValue;
-  document.getElementById(thirdid).value = "";
 
 
 
 
-  var fileonepath = id_file_here.value;
-  var filetwopath = id_file_here1.value;
-  var filethreepath = id_file_here2.value;
-  var filefourpath = id_file_here3.value;
-  var filefivepath = id_file_here4.value;
-  var dic = fileonepath + "xxxhumkohumhisaychuraloxxx" + filetwopath + "xxxhumkohumhisaychuraloxxx" + filethreepath + "xxxhumkohumhisaychuraloxxx" + filefourpath + "xxxhumkohumhisaychuraloxxx" + filefivepath
-  
-  $.ajax("{% url 'calculate_price' %}", {
-    type: 'GET',
-    data: {lol: dic},
-    success: function(result) {
-      billagi.innerHTML = "$" + result + " USD";
-      sohniprice = result;
-
-      
-    }
-  }
-  );
-  return 0;
-}
 
 
 
@@ -854,84 +1280,84 @@ nav {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" style="align-content: center; align-items: center; text-align: center;">
             <div id="DivPaymentForm"> 
-              <form autocomplete="off" id="PaymentForm">
-                  {% if braintree_error %}
-                    <div class="alert alert-danger fade in">
-                        <button class="close" data-dismiss="alert">&times;</button>
-                        {{ braintree_error|safe }}
-                    </div>
-                  {% endif %}
-                  <div class="braintree-notifications"></div>
-                  <div id="braintree-dropin"></div>
-                  <input style="background-color: #0783ca;" id="submit-button" class="btn btn-success btn-lg btn-block" type="button" value="Pay" />
-                </form>
-                
-            
-      <script id="me-files-script">
-          var braintree_client_token = "{{ braintree_client_token }}";
-          var button = document.querySelector('#submit-button');
-      
-          braintree.dropin.create({
-            authorization: braintree_client_token,
-            container: '#braintree-dropin',
-            card: {
-              cardholderName: {
-                  required: false
-              }
-            },
-            paypal: {
-          flow: 'checkout',
-          amount: '10.00',
-          currency: 'USD',
-      },
-      venmo: {
-          allowNewBrowserTab: false
-      },
-      applePay: {
-          displayName: 'My Store',
-          paymentRequest: {
-              total: {
-                  label: 'My Store',
-                  amount: '19.99'
-              },
-              requiredBillingContactFields:["postalAddress"]
-          }
-      },
-      googlePay: {
-            googlePayVersion: 2,
-            merchantId: 'merchant-id-from-google',
-            transactionInfo: {
-            totalPriceStatus: 'FINAL',
-            totalPrice: '123.45',
-            currencyCode: 'USD'
-        },
-        cardRequirements: {
-        // We recommend collecting and passing billing address information with all Google Pay transactions as a best practice.
-            billingAddressRequired: true
-        }
-    },
-          }, function (createErr, instance) {
-              button.addEventListener('click', function () {
-                  instance.requestPaymentMethod(function (err, payload) {
-                      $.ajax({
-                          type: 'POST',
-                          url: '{% url "payment" %}',
-                          data: {'paymentMethodNonce': payload.nonce,
-                                  'csrfmiddlewaretoken': '{{ csrf_token }}',
-                                  'pp': sohniprice}
-                      }).done(function (result) {
-                         apoc();
+             <form id="payment-form">
+  <div id="card-element">
+    <!-- Elements will create input elements here -->
+  </div>
 
-                      });
-                  
-                  });
-              });
+  <!-- We'll put the error messages in this element -->
+  <div id="card-errors" role="alert"></div>
+<br>
+  <button class="btn-primary" id="submit" style="align-self: center; ">Pay</button>
+</form>
+<script>
 
-          });
+var response = fetch('/secret').then(function(response) {
+		return response.json();
+}).then(function(responseJson) {
+		clientSecret = responseJson.client_secret;
+		console.log(clientSecret)
+	// Call stripe.confirmCardPayment() with the client secret.
+});
 
-      </script>
+var stripe = Stripe('pk_test_WvVSGCY0eJrVqWS72dIhnUTF00cs0kEOlY');
+var elements = stripe.elements();
+var style = {
+  base: {
+    color: "#32325d",
+  }
+};
+
+var card = elements.create("card", { style: style });
+card.mount("#card-element");
+
+card.addEventListener('change', function(event) {
+  var displayError = document.getElementById('card-errors');
+  if (event.error) {
+    displayError.textContent = event.error.message;
+  } else {
+    displayError.textContent = '';
+  }
+});
+
+
+
+
+var form = document.getElementById('payment-form');
+
+form.addEventListener('submit', function(ev) {
+  ev.preventDefault();
+  stripe.confirmCardPayment(clientSecret, {
+    payment_method: {
+      card: card,
+      billing_details: {
+        name: 'Random Name'
+      }
+    }
+  }).then(function(result) {
+    if (result.error) {
+      // Show error to your customer (e.g., insufficient funds)
+      console.log(result.error.message);
+    } else {
+      // The payment has been processed!
+      if (result.paymentIntent.status === 'succeeded') {
+      	console.log("yahooo")
+      	apoc();
+        // Show a success message to your customer
+        // There's a risk of the customer closing the window before callback
+        // execution. Set up a webhook or plugin to listen for the
+        // payment_intent.succeeded event that handles any business critical
+        // post-payment actions.
+      }
+    }
+  });
+});
+
+
+	</script>
+
           </div>
           </div>
          
@@ -1266,6 +1692,7 @@ to contribute as well and spread our message throughout the community.</mark></p
   <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 <br><br>
+<div id="deletethisafterupload">
 <h3 style="text-align: center;">Upload Pebbles</h3>
 <br>
 <div class="alert alert-success" role="alert">
@@ -1277,7 +1704,9 @@ capsule.
 
  
         <form action="/product/" method="post" id="filewalaform" enctype="multipart/form-data">
-      
+
+        <div id="dilbars">
+        <div id="predilbar" style="display: block;">
                               <label class="control-label  " for="file_type" >1) Select File Type</label>
           <div class="container">
                   <div class="text-center">
@@ -1349,7 +1778,8 @@ capsule.
                   
           
                   <div class=" ">
-                      <textarea name="text" cols="40" rows="10" maxlength="4000" class=" form-control" required id="id_text" oninput="javascript:textCountFunction(this,textcounter);"></textarea> <div id="textcounter">0/4000</div> 
+                      <textarea name="text" cols="40" rows="10" maxlength="4000" class=" form-control" required id="id_text" oninput="javascript:textCountFunction(this,textcounter);"></textarea> <div id="textcounter">0/4000</div>
+                      <div id="predilbardelete" style="text-align: right; padding-right: 0px; display: none; "><a href="#" onclick="javascript:DeleteThisFile('predilbar','id_file_here','id_text');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a></div>
 
           
                       
@@ -1358,6 +1788,7 @@ capsule.
                   </div>
               
           </div>
+        </div>
 
 
           <div id="dilbar" style="display: none;">
@@ -1424,7 +1855,7 @@ capsule.
               
                   <label class="control-label  " for="id_text1">3) Add Your Story</label>
               <div class=" "><textarea name="text1" cols="40" rows="10" maxlength="4000" class=" form-control" id="id_text1" oninput="javascript:textCountFunction(this,textcounter1);"></textarea></div><div id="textcounter1">0/4000</div>
-              <div style="text-align: right; padding-right: 0px;"><a href="#" onclick="javascript:DeleteThisFile('dilbar','id_file_here1','id_text1');"><span class="fas fa-minus-circle fa-lg" title="Delete it"></span></a></div>
+              <div id="dilbardelete" style="text-align: right; padding-right: 0px;"><a href="#" onclick="javascript:DeleteThisFile('dilbar','id_file_here1','id_text1');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a></div>
           
       </div>
 
@@ -1493,7 +1924,7 @@ capsule.
         
             <label class="control-label  " for="id_text2">3) Add Your Story</label>
         <div class=" "><textarea name="text2" cols="40" rows="10" maxlength="4000" class=" form-control" id="id_text2" oninput="javascript:textCountFunction(this,textcounter2);"></textarea></div> <div id="textcounter2">0/4000</div>
-        <div style="text-align: right; padding-right: 0px;"><a href="#" onclick="javascript:DeleteThisFile('dilbar1','id_file_here2','id_text2');"><span class="fas fa-minus-circle fa-lg" title="Delete it"></span></a></div>
+        <div id="dilbar1delete" style="text-align: right; padding-right: 0px;"><a href="#" onclick="javascript:DeleteThisFile('dilbar1','id_file_here2','id_text2');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a></div>
     
 </div>
 
@@ -1562,7 +1993,7 @@ capsule.
     
         <label class="control-label  " for="id_text3">3) Add Your Story</label>
     <div class=" "><textarea name="text3" cols="40" rows="10" maxlength="4000" class=" form-control" id="id_text3" oninput="javascript:textCountFunction(this,textcounter3);"></textarea></div><div id="textcounter3">0/4000</div>
-    <div style="text-align: right; padding-right: 0px;"><a href="#" onclick="javascript:DeleteThisFile('dilbar2','id_file_here3','id_text3');"><span class="fas fa-minus-circle fa-lg" title="Delete it"></span></a></div>
+    <div id="dilbar2delete" style="text-align: right; padding-right: 0px;"><a href="#" onclick="javascript:DeleteThisFile('dilbar2','id_file_here3','id_text3');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a></div>
 
 </div>
 
@@ -1631,10 +2062,11 @@ capsule.
     
         <label class="control-label  " for="id_text4">3) Add Your Story</label>
     <div class=" "><textarea name="text4" cols="40" rows="10" maxlength="4000" class=" form-control" id="id_text4" oninput="javascript:textCountFunction(this,textcounter4);"></textarea></div><div id="textcounter4">0/4000</div>
-    <div style="text-align: right; padding-right: 0px;"><a href="#" onclick="javascript:DeleteThisFile('dilbar3','id_file_here4','id_text4');"><span class="fas fa-minus-circle fa-lg" title="Delete it"></span></a></div>
+    <div id="dilbar3delete" style="text-align: right; padding-right: 0px;"><a href="#" onclick="javascript:DeleteThisFile('dilbar3','id_file_here4','id_text4');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a></div>
 
 </div>
 
+</div>
 </div>
 
 
@@ -1648,7 +2080,8 @@ capsule.
           
           {% csrf_token %}
           <div id="btnui">
-              <button type="button" id="showdilbar1" onclick="showDilbar(this)" class="btn btn-primary" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"><span class="fas fa-plus" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"></span></button> <br><br>
+            <!--This button had id showDilbar1-->
+              <button type="button" id="showdilbars" onclick="showDilbar(this)" class="btn btn-primary" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"><span class="fas fa-plus" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"></span></button> <br><br>
               <button type="button" onclick="showAgreement()" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;Continue&nbsp;&nbsp;&nbsp;&nbsp;</button>
           </div>
 
@@ -1684,7 +2117,25 @@ satisfied with the purchase you are making before finalizing the transaction.</p
                 </div>
               </div>
           <div id="kama" style="display:none; ">
-              
+          	<br>
+          	<div class="pebblesdonation">
+			  <label for="pebbledonation">Donation Amount</label>
+			  <select id="pebbledonation" name="pebbledonation" class="form-control" onchange="pebblemoney(this.value)">
+			    <option value="one">Select amount to donate</option>
+			    <option value="three">$3 USD</option>
+			    <option value="five">$5 USD</option>
+			    <option value="ten">$10 USD</option>
+			    <option value="twenty">$20 USD</option>
+			    <option value="fifty">$50 USD</option>
+			    <option value="hundred">$100 USD</option>
+			    <option value="custom">Enter custom amount</option>
+			  </select>
+			  <br>
+			  <input style="display: none;" type="number" min="1.00" step="1.00" value="1.00" id="pebbledonateamount" class="form-control" placeholder="Amount">
+			</div>
+			<br>
+			<button id="pebbledonationbutton" type="button" onclick="checkpebbledonationamount();" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;Donate&nbsp;&nbsp;&nbsp;&nbsp;</button>
+              <br><br>
                   <div id="showingtheworst" class='form-control total btn btn-success ' style="text-decoration: none; transition: none;">
                     Total Charges:
                     <span class='amount' id="billagi">$0 USD</span>
@@ -1703,22 +2154,33 @@ satisfied with the purchase you are making before finalizing the transaction.</p
             <p style="font-weight: 600; text-align: center;"><a href="javascript:showcoup()">Have an eGift?</a> or <a href="javascript:showfilespay();">Pay</a></p>
             
           </div>
+          <style>
+          	@keyframes spin {
+  				0% { transform: rotate(0deg); }
+  				100% { transform: rotate(360deg); }
+			}
+          </style>
           <div class="modal" id="kampayment" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" style="text-align: center; width: 100%;">Payment Successful</h5>
+                  <h5 class="modal-title" id="uploadpebbleshehe" style="text-align: center; width: 100%;">Payment Successful - Uploading Pebbles</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="modal-body">
-                  <p style="text-align: center;">Payment was successful. You can now upload your files.</p>
+                <div class="modal-body" style="text-align: center; align-content: center; align-items: center; " id="loaderdiv">
+                  <div class="loader" style="text-align: center; border: 16px solid #f3f3f3; border-top: 16px solid #3498db; border-radius: 50%; width:120px; height: 120px; animation: spin 2s linear infinite; margin: 0 auto;"></div>
                 </div>
                 
               </div>
             </div>
           </div>
+          <script>
+          	$('#kampayment').on('hide.bs.modal', function (e) {
+  				document.getElementById('deletethisafterupload').remove();
+			})
+</script>
               <div style="display: none;" id="coupon">
                 <br>
                 <div style="text-align: center;">
@@ -1752,13 +2214,15 @@ satisfied with the purchase you are making before finalizing the transaction.</p
               </div>
           
 
+ </form>         
           
-          
-          
+          </div>
           
               <br>
           <div class="optional-info" id='optnlinfo' style="display: none;">
-          <h3>Final Survey (Optional)</h3>
+<form action="/success/" method="post" id="extrawalaform">
+
+          <h3 style="text-align: center;">Final Survey (Optional)</h3>
           <br>
           <p>Note: The information you provide in the following section will not be shared with
 anyone and will be completely anonymous. Your information and identity are safe with
@@ -1769,7 +2233,7 @@ time capsule for the amount of time that is most popular, according to the surve
           <div class="rama">
             <label for="timeframe">For how long would you want the time capsule to be stored? </label>
             <select id="timeframe" name="info" class="form-control">
-              <option value="none">----------</option>
+              <option value="none">Rather Not Say</option>
               <option value="ten">10 Years</option>
               <option value="twenty">20 Years</option>
               <option value="thirty">30 Years</option>
@@ -1791,7 +2255,7 @@ the world people are uploading pebbles into our time capsule</p>
                 <label for="country">Where are you from?</label>      
                   
                 <select id="country" name="country" class="form-control">
-                    <option value="none">----------</option>
+                    <option value="none">Rather Not Say</option>
                     <option value="Afghanistan">Afghanistan</option>
                     <option value="Åland Islands">Åland Islands</option>
                     <option value="Albania">Albania</option>
@@ -2037,7 +2501,7 @@ the world people are uploading pebbles into our time capsule</p>
                     <option value="Zambia">Zambia</option>
                     <option value="Zimbabwe">Zimbabwe</option>
                 </select>
-              
+              <input type="hidden" name="idoffileform" id="idoffileform" value="">
             </div>
             </div>
             
@@ -2076,7 +2540,8 @@ them an eGift so that they can be part of this movement as well.
 
 <br>
 <form action="/create_coupon/" method="post" id="eGiftForm">
-      
+  <div id="dils">
+  <div id="predil" style="display: block;">   
   <div class="form-group">
       <div class="input-group-addon">eGift Credit ($ USD)</div>
       <input type="number" min="1.00" step="1.00" value="1.00" name="amount" onchange="checkegiftamount(this);" id="exampleInputAmount" class="form-control" placeholder="Amount">
@@ -2115,6 +2580,7 @@ them an eGift so that they can be part of this movement as well.
   
           <div class=" ">
               <textarea name="receiver1message" cols="40" rows="10" maxlength="4000" class=" form-control" id="receiver1message" oninput="javascript:textCountFunction(this,textcounter5);"></textarea><div id="textcounter5">0/4000</div>
+              <div id="predildelete" style="text-align: right; padding-right: 0px; display: none; "><a href="#" onclick="javascript:DeleteEgift('predil','exampleInputAmount','receiver1email', 'textcounter5');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a></div>
   
               
   
@@ -2122,6 +2588,7 @@ them an eGift so that they can be part of this movement as well.
           </div>
       
   </div>
+</div>
   <div id="dil" style="display: none;">
 <br><hr><br>
 <div class="form-group">
@@ -2156,6 +2623,7 @@ them an eGift so that they can be part of this movement as well.
 
 <div class=" ">
 <textarea name="receiver2message" cols="40" rows="10" maxlength="4000" class=" form-control" id="receiver2message" oninput="javascript:textCountFunction(this,textcounter6);"></textarea><div id="textcounter6">0/4000</div>
+<div id="dildelete" style="text-align: right; padding-right: 0px;"><a href="#" onclick="javascript:DeleteEgift('dil','exampleInputAmount1','receiver2email','receiver2message');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a></div>
 
 
 
@@ -2202,7 +2670,7 @@ them an eGift so that they can be part of this movement as well.
     <div class=" ">
     <textarea name="receiver3message" cols="40" rows="10" maxlength="4000" class=" form-control" id="receiver3message" oninput="javascript:textCountFunction(this,textcounter7);"></textarea> <div id="textcounter7">0/4000</div>
     
-    
+    <div id="dil1delete" style="text-align: right; padding-right: 0px;"><a href="#" onclick="javascript:DeleteEgift('dil1','exampleInputAmount2','receiver3email','receiver3message');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a></div>
     
     
     </div>
@@ -2248,7 +2716,8 @@ them an eGift so that they can be part of this movement as well.
         <div class=" ">
         <textarea name="receiver4message" cols="40" rows="10" maxlength="4000" class=" form-control" id="receiver4message" oninput="javascript:textCountFunction(this,textcounter8);"></textarea><div id="textcounter8">0/4000</div>
         
-        
+		 <div id="dil2delete" style="text-align: right; padding-right: 0px; "><a href="#" onclick="javascript:DeleteEgift('dil2','exampleInputAmount3','receiver4email','receiver4message');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a></div>
+            
         
         
         </div>
@@ -2293,7 +2762,8 @@ them an eGift so that they can be part of this movement as well.
             <div class=" ">
             <textarea name="receiver5message" cols="40" rows="10" maxlength="4000" class=" form-control" id="receiver5message" oninput="javascript:textCountFunction(this,textcounter9);"></textarea><div id="textcounter9">0/4000</div>
             
-            
+             <div id="dil3delete" style="text-align: right; padding-right: 0px;"><a href="#" onclick="javascript:DeleteEgift('dil3','exampleInputAmount4','receiver5email','receiver5message');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a></div>
+    
             
             
             </div>
@@ -2302,6 +2772,7 @@ them an eGift so that they can be part of this movement as well.
             
             
               </div>
+           </div>
 
 
 
@@ -2310,7 +2781,7 @@ them an eGift so that they can be part of this movement as well.
   <br>
   <br>
   <div id="showdilli"> 
-  <button type="button" id="showdil1" onclick="showDil(this);" class="btn btn-primary" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"><span class="fas fa-plus" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"></span></button>
+  <button type="button" id="showdils" onclick="showDil(this);" class="btn btn-primary" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"><span class="fas fa-plus" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"></span></button>
   </div>
 
   <br>
@@ -2381,7 +2852,27 @@ satisfied with the purchase you are making before finalizing the transaction.</p
   </div>
 </div>
 <div id="kaman" style="display:none; "> 
-              
+                       	<br>
+          	<div class="egiftsdonation">
+			  <label for="egiftdonation">Donation Amount</label>
+			  <select id="egiftdonation" name="pebbledonation" class="form-control" onchange="egiftmoney(this.value)">
+			    <option value="one">Select amount to donate</option>
+			    <option value="three">$3 USD</option>
+			    <option value="five">$5 USD</option>
+			    <option value="ten">$10 USD</option>
+			    <option value="twenty">$20 USD</option>
+			    <option value="fifty">$50 USD</option>
+			    <option value="hundred">$100 USD</option>
+			    <option value="custom">Enter custom amount</option>
+			  </select>
+			  <br>
+			  <input style="display: none;" type="number" min="1.00" step="1.00" value="1.00" id="egiftdonateamount" class="form-control" placeholder="Amount">
+			</div>
+			<br>
+			<button id="pebbledonationbutton" type="button" onclick="checkegiftdonationamount();" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;Donate&nbsp;&nbsp;&nbsp;&nbsp;</button>
+              <br>
+			<br>
+
   <div id="showingtheworstt" class='form-control total btn btn-success ' style="text-decoration: none; transition: none;">
     Total Charges:
     <span class='amount' id="billagir">$0 USD</span>
@@ -2421,6 +2912,7 @@ larger impact we can have in our communities.
   <label for="timeaframe">Donation Amount</label>
   <select id="timeaframe" name="timeaframe" class="form-control" onchange="moneymoney(this.value);">
     <option value="one">Select amount to donate</option>
+    <option value="three">$3 USD</option>
     <option value="five">$5 USD</option>
     <option value="ten">$10 USD</option>
     <option value="twenty">$20 USD</option>
@@ -2429,12 +2921,11 @@ larger impact we can have in our communities.
     <option value="custom">Enter custom amount</option>
   </select>
   <br>
-  <input style="display: none;" type="number" min="5.00" step="5.00" value="5.00" id="donatethisamount" class="form-control" placeholder="Amount">
+  <input style="display: none;" type="number" min="1.00" step="1.00" value="1.00" id="donatethisamount" class="form-control" placeholder="Amount">
 </div>
 <br>
 <button id="showdonationbutton" type="button" onclick="showdonationAgreement()" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;Continue&nbsp;&nbsp;&nbsp;&nbsp;</button>
 <br>
-
 <div style="display: none;" id="donationagree">
     <p>You will need to accept our <a href="{% url 't' %}" target='_blank'> terms and conditions.</a></p>
   <h3>Summary of Important Terms & Conditions</h3>
