@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 import braintree
 import sys
-
+from django.core.mail import EmailMultiAlternatives
 
 # Create your views here.
 def t(request):
@@ -163,6 +163,20 @@ def index(request):
 
 			new_file = file_form.save()
 			rsp = str(new_file.id)
+			em = request.POST.get('emailforid',None)
+			print(em)
+			if em:
+				subject = "Your Apito Order Number"
+				text_content = "Apito Order Number Notification"
+				from_email = 'apebbleintheocean@gmail.com'
+				to = em
+				html_content = '<p>Hello there,</p><p>Here is the order number for the pebbles you uploaded through Apito:</p><p>{}</p><p>Keep this order number to be able to reference the pebbles you uploaded. You will also need this order number later on to find your pebbles when the time capsule is reopened.</p><p>On behalf of Apito, thank you for your contribution.<p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format(new_file.id)
+				msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+				msg.attach_alternative(html_content,"text/html")
+				msg.send()
+				print(msg)
+
+
 			return HttpResponse(rsp)
 		except:
 			return HttpResponse('something bad happened')
@@ -446,7 +460,7 @@ def create_coupon(request):
 		messages = (receiver1message, receiver2message, receiver3message, receiver4message, receiver5message)
 
 		send_codes = []
-
+		send_emails = []
 		cnt = 0
 		for r in receivers:
 			amount = amounts[cnt]
@@ -459,28 +473,66 @@ def create_coupon(request):
 				receiver = r
 				if messages[cnt] != '':
 					message = messages[cnt]
-					subject = 'Get your coupons'
 					if sender_name:
-						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\nMessage from sender: {}".format(sender_name, coupon, message)
+						subject = '{} has sent you an Apito eGift'.format(sender_name)
+						html_content = html_content = '<p>Hello there,</p><p>{} has sent you an apito eGift.</p><p>Code: {}</p><p>{}\'s message: {}</p><p>You can use the eGift to upload your pebbles through the Apito website, linked below:</p><p><a href="https://www.apebbleintheocean.com">www.apebbleintheocean.com</a></p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format(sender_name, coupon, sender_name, message)
+#						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\nMessage from sender: {}".format(sender_name, coupon, message)
 					else:
-						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\nMessage from sender: {}".format(sender_email, coupon, message)
-					print(send_mail(subject,msg, 'apebbleintheocean@gmail.com',[receiver]))
+						subject = '{} has sent you an Apito eGift'.format(sender_email)
+						html_content = html_content = '<p>Hello there,</p><p>{} has sent you an apito eGift.</p><p>Code: {}</p><p>{}\'s message: {}</p><p>You can use the eGift to upload your pebbles through the Apito website, linked below:</p><p><a href="https://www.apebbleintheocean.com">www.apebbleintheocean.com</a></p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format(sender_email, coupon, sender_email, message)
+
+#						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\nMessage from sender: {}".format(sender_email, coupon, message)
+					
+#					print(send_mail(subject,msg, 'apebbleintheocean@gmail.com',[receiver]))
+					from_email = 'apebbleintheocean@gmail.com'
+					to = receiver 
+					text_content = 'Apito eGift Notification'
+					msg = EmailMultiAlternatives(subject, text_content, from_email,[to])
+					msg.attach_alternative(html_content, "text/html")
+					msg.send()
 				else:
-					subject = 'Get your coupons'
+					
 					if sender_name:
-						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\n".format(sender_name,coupon)
+						subject = '{} has sent you an Apito eGift'.format(sender_name)
+						html_content = html_content = '<p>Hello there,</p><p>{} has sent you an apito eGift.</p><p>Code: {}</p><p>You can use the eGift to upload your pebbles through the Apito website, linked below:</p><p><a href="https://www.apebbleintheocean.com">www.apebbleintheocean.com</a></p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format(sender_name, coupon, sender_name)
+
+						#msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\n".format(sender_name,coupon)
 					else:
-						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\n".format(sender_email, coupon)
-					print(send_mail(subject,msg,'apebbleintheocean@gmail.com',[receiver]))
-				
+						subject = '{} has sent you an Apito eGift'.format(sender_email)
+						html_content = '<p>Hello there,</p><p>{} has sent you an apito eGift.</p><p>Code: {}</p><p>You can use the eGift to upload your pebbles through the Apito website, linked below:</p><p><a href="https://www.apebbleintheocean.com">www.apebbleintheocean.com</a></p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format(sender_email, coupon, sender_email)
+
+#						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\n".format(sender_email, coupon)
+#					print(send_mail(subject,msg,'apebbleintheocean@gmail.com',[receiver]))
+					from_email = 'apebbleintheocean@gmail.com'
+					to = receiver
+					text_content = 'Apito eGift Notification'
+					msg = EmailMultiAlternatives(subject,text_content, from_email,[to])
+					msg.attach_alternative(html_content, "text/html")
+					msg.send()
 				send_codes.append(coupon)
+				send_emails.append(to)
 			cnt +=1
 
 
-		sender_subject = "Generated Coupons"
-		cpns = '   '.join(send_codes)
-		msg = "Hi there, Please note your generated coupon codes: {}".format(cpns)
-		print(send_mail(sender_subject, msg, 'apebbleintheocean@gmail.com',[sender_email]))
+		subject = "Your Apito eGifts"
+		#cpns = '   '.join(send_codes)
+		cpn = ''
+		for idx, val in enumerate(send_codes):
+			print("IDX: ",idx," Val: ",val)
+			mokamail = send_emails[idx]
+			print("mokamail: ",mokamail)
+			mokamoka ='<p>{} : {} </p>'.format(mokamail, val)
+			print("mokamoka: ",mokamoka)
+			cpn = cpn + mokamoka
+		html_content = '<p>Hello {},</p><p>Here are the Apito eGifts you purchased:</p>'.format(sender_name) + cpn + '<p>On behalf of Apito, thank you for your contribution.</p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'
+		from_email = 'apebbleintheocean@gmail.com'
+		to = sender_email
+		text_content = 'Apito eGift Notification'
+		msg = EmailMultiAlternatives(subject,text_content, from_email,[to])
+		msg.attach_alternative(html_content, "text/html")
+		msg.send()
+		#msg = "Hi there, Please note your generated coupon codes: {}".format(cpns)
+#		print(send_mail(sender_subject, msg, 'apebbleintheocean@gmail.com',[sender_email]))
 		return render(request,'coupon_success.html')
 	return render('/')
 
@@ -488,6 +540,5 @@ def create_coupon(request):
 
 def donation_success(request):
 	return render(request, 'donation_success.html')
-
 
 

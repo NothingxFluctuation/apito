@@ -377,6 +377,8 @@ function checkpebbledonationamount() {
   var jlebi = parseInt(sohniprice) + parseInt(shakalaka)
   billagi.innerHTML = "$" + jlebi + " USD";
 
+  skippebbledonation();
+
 }
 
 
@@ -407,6 +409,8 @@ function checkegiftdonationamount() {
   }
   var jlebi = parseInt(window.egiftsprice) + parseInt(makalaka);
   billagir.innerHTML = "$" + jlebi + " USD";
+
+  skipegiftdonation();
 }
 
 function egiftmoney(emp) {
@@ -480,6 +484,16 @@ function checkegiftform() {
 
 }
 
+
+
+
+function skipegiftdonation() {
+	egiftdonationskip.style.display = "none";
+}
+
+function skippebbledonation() {
+	pebbledonationskip.style.display = "none";
+}
 
 
 
@@ -774,7 +788,6 @@ function DeleteThisFile(firstid,secondid, thirdid) {
 
 
 
-
 function getmehehe() {
 /*	var file1 = document.getElementById("id_file_here").files[0];
 	var file2 = document.getElementById("id_file_here1").files[0];
@@ -803,7 +816,16 @@ function getmehehe() {
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText);
+            humterey = this.responseText;
             idoffileform.value = this.responseText;
+
+	        var ld = document.getElementById('loaderdiv');
+	        var kukur = "<p style='text-align: center;'>Your pebbles are uploaded successfully.</p>"
+	        var kukur1 = "<p style='text-align: center; font-weight: 700; font-size: 150%;'><b>ORDER NO: " + humterey + "</p>"
+	        var kukur2 = "<p style='text-align: center; color: red;'>Note: You must keep this order number. Please save it. If you previously provided your correct email address, then we will also send the order number to your email. The order number is the only way Apito can locate your pebbles, in case any issues arise. It is also the only way for you to find your pebbles when the time capsule gets reopened.</p>"
+	        var finalkukur = kukur + kukur1 + kukur2
+	        ld.innerHTML = finalkukur
+	        uploadpebbleshehe.innerHTML = "Success!"
         }
     };
 
@@ -825,9 +847,6 @@ function getmehehe() {
         kama.style.display = "none";
         $('#kampayment').modal('show')
         getmehehe();
-        var ld = document.getElementById('loaderdiv');
-        ld.innerHTML = "<p style='text-align: center;'>Your pebbles are uploaded successfully.</p>"
-        uploadpebbleshehe.innerHTML = "Success!"
         /*setTimeout(() => {  document.getElementById('filewalaform').remove(); }, 5000);*/
 
         fileTypeImage = 0;
@@ -1293,7 +1312,6 @@ nav {
   <button class="btn-primary" id="submit" style="align-self: center; ">Pay</button>
 </form>
 <script>
-
 var response = fetch('/secret').then(function(response) {
 		return response.json();
 }).then(function(responseJson) {
@@ -1310,7 +1328,8 @@ var style = {
   }
 };
 
-var card = elements.create("card", { style: style });
+var card = elements.create("card", {hidePostalCode: true, style: style });
+
 card.mount("#card-element");
 
 card.addEventListener('change', function(event) {
@@ -1736,6 +1755,7 @@ capsule.
                       fileTypeVideo.style = "none";
                       document.getElementById('file_type').value = "im";
                       para1.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
+                      merisohnifile.innerHTML = ""
                   }, false);
                 
                   fileTypeVideo.addEventListener('click', function() {
@@ -1744,6 +1764,7 @@ capsule.
                       fileTypeImage.style = "none";
                       document.getElementById('file_type').value = "vid";
                       para1.innerHTML = "Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
+                      merisohnifile.innerHTML = ""
                   }, false);
                 </script>
 
@@ -1819,6 +1840,7 @@ capsule.
                     fileTypeVideo1.style = "none";
                     document.getElementById('file_type1').value = "im";
                     para2.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
+                    merisohnifile1.innerHTML = ""
                 }, false);
               
                 fileTypeVideo1.addEventListener('click', function() {
@@ -1827,6 +1849,7 @@ capsule.
                     fileTypeImage1.style = "none";
                     document.getElementById('file_type1').value = "vid";
                     para2.innerHTML = "Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
+                    merisohnifile1.innerHTML = ""
                 }, false);
               </script>
       
@@ -1889,6 +1912,7 @@ capsule.
               fileTypeVideo2.style = "none";
               document.getElementById('file_type2').value = "im";
               para3.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
+              merisohnifile2.innerHTML = ""
           }, false);
         
           fileTypeVideo2.addEventListener('click', function() {
@@ -1897,6 +1921,7 @@ capsule.
               fileTypeImage2.style = "none";
               document.getElementById('file_type2').value = "vid";
               para3.innerHTML = "Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
+              merisohnifile2.innerHTML = ""
           }, false);
         </script>
 
@@ -1958,6 +1983,7 @@ capsule.
           fileTypeVideo3.style = "none";
           document.getElementById('file_type3').value = "im";
           para4.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
+          merisohnifile3.innerHTML = ""
       }, false);
     
       fileTypeVideo3.addEventListener('click', function() {
@@ -1966,6 +1992,7 @@ capsule.
           fileTypeImage3.style = "none";
           document.getElementById('file_type3').value = "vid";
           para4.innerHTML = "Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
+          merisohnifile3.innerHTML = ""
       }, false);
     </script>
 
@@ -2027,6 +2054,7 @@ capsule.
           fileTypeVideo4.style = "none";
           document.getElementById('file_type4').value = "im";
           para5.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
+          merisohnifile4.innerHTML = ""
       }, false);
     
       fileTypeVideo4.addEventListener('click', function() {
@@ -2035,6 +2063,7 @@ capsule.
           fileTypeImage4.style = "none";
           document.getElementById('file_type4').value = "vid";
           para5.innerHTML = "Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
+          merisohnifile4.innerHTML = ""
       }, false);
     </script>
 
@@ -2118,10 +2147,11 @@ satisfied with the purchase you are making before finalizing the transaction.</p
               </div>
           <div id="kama" style="display:none; ">
           	<br>
+          	<div id="pebbledonationskip">
           	<div class="pebblesdonation">
-			  <label for="pebbledonation">You Can Also Help Us By Adding Donation Amount to Overall Charges</label>
+			  <label for="pebbledonation">Would you like to add a donation?</label>
 			  <select id="pebbledonation" name="pebbledonation" class="form-control" onchange="pebblemoney(this.value)">
-			    <option value="one">Select amount to donate (Optional)</option>
+			    <option value="one">Select amount to donate</option>
 			    <option value="three">$3 USD</option>
 			    <option value="five">$5 USD</option>
 			    <option value="ten">$10 USD</option>
@@ -2135,7 +2165,10 @@ satisfied with the purchase you are making before finalizing the transaction.</p
 			</div>
 			<br>
 			<button id="pebbledonationbutton" type="button" onclick="checkpebbledonationamount();" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;Donate&nbsp;&nbsp;&nbsp;&nbsp;</button>
-              <br><br>
+			<button type="button" onclick="skippebbledonation();" class="btn btn-primary">Skip</button>
+              <br>
+          </div>
+              <br>
                   <div id="showingtheworst" class='form-control total btn btn-success ' style="text-decoration: none; transition: none;">
                     Total Charges:
                     <span class='amount' id="billagi">$0 USD</span>
@@ -2148,6 +2181,9 @@ satisfied with the purchase you are making before finalizing the transaction.</p
                   <span class='amount' id="billaji">$0 USD</span>
                 
               </div>
+              <label for="emailforid">Email Address (Optional):</label>
+              <input type="email" name="emailforid" />
+              <p style="font-weight: 600;"><b>Note: We highly recommend you provide your email. We use this email to send you the order number, for your reference.</b></p>
           </div>
           <br>
           <div style="display: none;" id="payme">
@@ -2222,11 +2258,11 @@ satisfied with the purchase you are making before finalizing the transaction.</p
           <div class="optional-info" id='optnlinfo' style="display: none;">
 <form action="/success/" method="post" id="extrawalaform">
 
-          <h3 style="text-align: center;">Final Survey (Optional)</h3>
+          <h3 style="text-align: center;">Final Survey</h3>
           <br>
-          <p>Note: The information you provide in the following section will not be shared with
+          <p style="font-size: 16px;">Note: The information you provide in the following section will not be shared with
 anyone and will be completely anonymous. Your information and identity are safe with
-us.</p>
+us.</p> <br>
           <p>We want you to choose for how long the time capsule will be stored. We will store the
 time capsule for the amount of time that is most popular, according to the survey below.</p>
           <div class="form-group"> 
@@ -2508,7 +2544,8 @@ the world people are uploading pebbles into our time capsule</p>
             <!-- /.container -->
           
             <br>
-            <button type="submit" class="btn btn-primary" onclick="uploadfilesforme();">Upload</button>
+            <button type="submit" class="btn btn-primary" onclick="uploadfilesforme();">Submit</button>
+            <button type="button" class='btn btn-primary' onclick="uploadfilesforme();">Skip</button>
           </div>
           
           </form>
@@ -2797,7 +2834,7 @@ them an eGift so that they can be part of this movement as well.
           
   
           <div class=" ">
-              <input type="text" name="sender_name" maxlength="200" class=" form-control" id="id_sender_name">
+              <input type="text" name="sender_name" maxlength="200" class=" form-control" id="id_sender_name" required>
   
               
   
@@ -2816,7 +2853,7 @@ them an eGift so that they can be part of this movement as well.
           
   
           <div class=" ">
-              <input type="email" onchange="checkegiftemail(this);" name="sender_email" maxlength="150" class=" form-control" id="id_sender_email">
+              <input type="email" onchange="checkegiftemail(this);" name="sender_email" maxlength="150" class=" form-control" id="id_sender_email" required>
   
               
   
@@ -2853,10 +2890,11 @@ satisfied with the purchase you are making before finalizing the transaction.</p
 </div>
 <div id="kaman" style="display:none; "> 
                        	<br>
+            <div id="egiftdonationskip">
           	<div class="egiftsdonation">
-			  <label for="egiftdonation">You Can Also Help Us By Adding Donation Amount to Overall Charges</label>
+			  <label for="egiftdonation">Would you like to add a donation?</label>
 			  <select id="egiftdonation" name="pebbledonation" class="form-control" onchange="egiftmoney(this.value)">
-			    <option value="one">Select amount to donate (Optional)</option>
+			    <option value="one">Select amount to donate</option>
 			    <option value="three">$3 USD</option>
 			    <option value="five">$5 USD</option>
 			    <option value="ten">$10 USD</option>
@@ -2870,7 +2908,9 @@ satisfied with the purchase you are making before finalizing the transaction.</p
 			</div>
 			<br>
 			<button id="pebbledonationbutton" type="button" onclick="checkegiftdonationamount();" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;Donate&nbsp;&nbsp;&nbsp;&nbsp;</button>
+			<button type="button" onclick="skipegiftdonation();" class="btn btn-primary">Skip</button>
               <br>
+           </div>
 			<br>
 
   <div id="showingtheworstt" class='form-control total btn btn-success ' style="text-decoration: none; transition: none;">
@@ -2880,7 +2920,7 @@ satisfied with the purchase you are making before finalizing the transaction.</p
 </div>
 <br><br>
           <div class="text-center">
-           <button type="button" style="text-align: center;" class="btn btn-primary" onclick='showegiftspayme();'>Buy eGifts</button>
+           <button type="button" style="text-align: center;" class="btn btn-primary" onclick='showegiftspayme();'>PAY</button>
          </div>
 </div>
   
@@ -2943,7 +2983,7 @@ satisfied with the purchase you are making before finalizing the transaction.</p
   <br>
   <br>
   <div id="btnuai"> 
-  <button type="button" onclick="showdonationpay()" class="btn btn-primary" name="donation-popup-btn" id="donationpopupbtn" disabled="disabled">Continue</button>
+  <button type="button" onclick="showdonationpay()" class="btn btn-primary" name="donation-popup-btn" id="donationpopupbtn" disabled="disabled">PAY</button>
   </div>
 </div>
 

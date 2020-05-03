@@ -45,6 +45,7 @@ urlpatterns = [
     path('set_price/', fv.set_price, name='set_price'),
 
 
+
     path('egifts_admin/', fv.egifts_admin, name="egifts_admin"),
 
     path('download_all_files/',fv.download_all_files, name='download_all_files'),
