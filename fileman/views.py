@@ -267,9 +267,8 @@ def index(request):
 def getextra(request):
 	if request.method=='POST':
 		idofform = request.POST.get('idoffileform')
-		if idofform:
-			intid = int(idofform)
-			form = FileModel.objects.get(id=intid)
+		if idofform: #id was used first but then replaced with order_no so changed id=idofform to order_no=idofform
+			form = FileModel.objects.get(order_no=idofform)
 		else:
 			return render(request, 'upload_success.html')
 		rinfo = request.POST.get('info')
