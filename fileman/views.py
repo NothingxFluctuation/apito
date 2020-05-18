@@ -230,7 +230,10 @@ def index(request):
 
 					f= Funds.objects.latest('id')
 					lp = f.limited_pebbles
-					new_lp = lp - cnt 
+					if cnt > lp:
+						new_lp = 0
+					else:
+						new_lp = lp - cnt 
 					f.limited_pebbles = new_lp
 					f.save()
 				else:

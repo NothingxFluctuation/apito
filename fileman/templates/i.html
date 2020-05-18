@@ -11,7 +11,8 @@
   <link href="https://fonts.googleapis.com/css?family=Oswald:400,700|Dancing+Script:400,700|Muli:300,400" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'v1/fonts/icomoon/style.css' %}">
    <script src="https://js.stripe.com/v3/"></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Ensures optimal rendering on mobile devices. -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Optimal Internet Explorer compatibility -->
   <link rel="stylesheet" href="{% static 'v1/css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'v1/css/jquery-ui.css' %}">
   <link rel="stylesheet" href="{% static 'v1/css/owl.carousel.min.css' %}">
@@ -1406,7 +1407,7 @@ nav {
   <!-- We'll put the error messages in this element -->
   <div id="card-errors" role="alert"></div>
 <br>
-<h6 id="warjanideya" style="display: none;">You can also pay with Google pay or Apple pay</h6>
+<h6 id="warjanideya" style="display: none;">You can also use the button below to pay with Google pay or Apple pay</h6>
 <div id="payment-request-button">
 
   <!-- A Stripe Element will be inserted here. -->
@@ -1976,11 +1977,19 @@ paymentRequest.on('paymentmethod', function(ev) {
     <!-- END slider -->
     <br>
     <br>
+
     <br>
     <br>
 
 
     <div class='container'>
+
+
+
+    	
+
+
+
         {% if bleach %}
       <p style="text-align: center; color: black; font-weight: 600;">Occupied space in time capsule</p>
     <div class="progress" style="height:100px;">
