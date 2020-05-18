@@ -1,5 +1,5 @@
-from django.contrib import admin
-from fileman.models import VideoModel, ImageModel, FileModel, CouponModel
+from django.contrib import admina
+from fileman.models import VideoModel, ImageModel, FileModel, CouponModel, PaymentProgress, Funds
 from django.http import HttpResponse
 
 
@@ -23,6 +23,16 @@ class FileModelAdmin(admin.ModelAdmin):
 	
 admin.site.register(FileModel, FileModelAdmin)
 
+
+
+class PaymentProgressAdmin(admin.ModelAdmin):
+	list_display = ('amount_paid','pebble_meter')
+admin.site.register(PaymentProgress, PaymentProgressAdmin)
+
+
+class FundsAdmin(admin.ModelAdmin):
+	list_display = ('funds_required','limited_pebbles')
+admin.site.register(Funds, FundsAdmin)
 
 
 class CouponModelAdmin(admin.ModelAdmin):
