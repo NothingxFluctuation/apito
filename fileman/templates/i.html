@@ -1520,13 +1520,20 @@ paymentRequest.on('paymentmethod', function(ev) {
           // The payment failed -- ask your customer for a new payment method.
         } else {
           // The payment has succeeded.
-          console.log("yahooo")
+
+		console.log("yahooo")
       	apoc();
 
       	$.ajax("{% url 'save_price' %}", {
 	    type: 'GET',
 	    success: function(result) {
 	      console.log("price saved")
+	     }
+	 	});
+
+
+
+
         }
       });
     }
