@@ -1441,11 +1441,11 @@ card.addEventListener('change', function(event) {
 
 
 var paymentRequest = stripe.paymentRequest({
-  // country: 'US',
+  country: 'US',
   currency: 'usd',
   total: {
     label: 'Extra Charges',
-    amount: 1099,
+    amount: 0,
   },
   requestPayerName: true,
   requestPayerEmail: true,
