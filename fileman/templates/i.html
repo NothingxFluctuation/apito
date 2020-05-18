@@ -1248,6 +1248,10 @@ function showfilespay() {
 
   sisisi.innerHTML = "Pebbles Payment Form"
   $('#ppp').modal('show');
+  if ($('#payment-request-button').is(':visible')) {
+		warjanideya.style.display = "block";
+	}
+
 }
 
 
@@ -1402,8 +1406,8 @@ nav {
   <!-- We'll put the error messages in this element -->
   <div id="card-errors" role="alert"></div>
 <br>
+<h6 id="warjanideya" style="display: none;">You can also pay with Google pay or Apple pay</h6>
 <div id="payment-request-button">
-	<h6>You can also pay via Google Pay or Apple Pay</h6>
 
   <!-- A Stripe Element will be inserted here. -->
 </div>
