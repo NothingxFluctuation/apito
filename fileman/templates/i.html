@@ -95,7 +95,7 @@ $(function() {
 
 
 // Set the date we're counting down to
-var countDownDate = new Date("Mar 30, 2023 5:37:25").getTime();
+var countDownDate = new Date("Jun 21, 2022 12:00:00").getTime();
 
 // Update the count down every 1 second
 var x = setInterval(function() {
@@ -146,6 +146,7 @@ function WhichTab(t) {
   } else if (t.id == "pills-profile-tab") {
     dharti = "egift";
     sohniprice = window.egiftsprice;
+    $('#kamegiftpopup').modal('show');
   } else if (t.id == "pills-contact-tab") {
     dharti = "donation";
     sohniprice = window.mydonation;
@@ -225,13 +226,31 @@ function WhichTab(t) {
     payme.style.display = "none";
   }
   
+
+function sheshefunction() {
+	kama.style.display = "none";
+	coupon.style.display = "none";
+	payme.style.display = "none";
+	btnui.style.display = "block";
+	btnua.style.display = "block";
+	popupbtn.style.display = "block";
+	sheshebutton.style.display = "none";
+	pebbledonationskip.style.display = "none";
+}
+
+
+
+
   function showpayme() {
 //    $("#DivPaymentForm").appendTo("#payme")
+	$("#check").prop("checked", false);
     coupon.style.display = "none";
     agree.style.display = "none";
     popupbtn.style.display = "none";
-    payme.style.display = "block";
-    kama.style.display = "block";
+    sheshebutton.style.display = "block";
+    pebbledonationskip.style.display = "block";
+    // payme.style.display = "block";
+    // kama.style.display = "block";
     btnua.style.display = "none";
     var fileonepath = id_file_here.value;
     var filetwopath = id_file_here1.value;
@@ -376,8 +395,13 @@ function checkpebbledonationamount() {
   }
   var jlebi = parseInt(sohniprice) + parseInt(shakalaka)
   billagi.innerHTML = "$" + jlebi + " USD";
-
-  skippebbledonation();
+  if ($('#emailforid').is(':hidden')) {
+		$("#showishowi").modal("show");
+	}
+  
+  // skippebbledonation();
+  kama.style.display ="block";
+  payme.style.display = "block";
 
 }
 
@@ -409,8 +433,8 @@ function checkegiftdonationamount() {
   }
   var jlebi = parseInt(window.egiftsprice) + parseInt(makalaka);
   billagir.innerHTML = "$" + jlebi + " USD";
+  kaman.style.display = "block";
 
-  skipegiftdonation();
 }
 
 function egiftmoney(emp) {
@@ -425,62 +449,88 @@ function egiftmoney(emp) {
 
 
 function checkegiftemail(th) {
-  var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-  tid = '#' + th.id
-  v = th.value;
-  if ($(tid).is(':visible')) {
-    if (th.value == '' || !emailReg.test(th.value)) {
-      th.style = 'border: 1px solid red'
-      egifterror = true;
-    } else {
-      th.style = ''
-      egifterror = false;
-    }
-  }
+  // var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+  // tid = '#' + th.id
+  // v = th.value;
+  // if ($(tid).is(':visible')) {
+  //   if (th.value == '' || !emailReg.test(th.value)) {
+  //     th.style = 'border: 1px solid red'
+  //     egifterror = true;
+  //   } else {
+  //     th.style = ''
+  //     egifterror = false;
+  //   }
+  // }
 }
 
 
+function renderhiddenzero() {
+	if ($('#exampleInputAmount').is(':hidden')) {
+		exampleInputAmount.value = 0;
+	}
+
+	if ($('#exampleInputAmount1').is(':hidden')) {
+		exampleInputAmount1.value = 0;
+		console.log(exampleInputAmount1.value); 
+	}
+	if ($('#exampleInputAmount2').is(':hidden')) {
+		exampleInputAmount2.value = 0;    
+	}
+	if ($('#exampleInputAmount3').is(':hidden')) {
+		exampleInputAmount3.value = 0;    
+	}
+	if ($('#exampleInputAmount4').is(':hidden')) {
+		exampleInputAmount4.value = 0;
+
+	}
+}
+
+
+
+
+localegift = false;
 function checkegiftform() {
+
   if (id_sender_email.value == '') {
-    id_sender_email.style = 'border: 1px solid red';
-    egifterror = true;
-  }
+  //   id_sender_email.style = 'border: 1px solid red';
+     localegift = true;
+   }
 
-  if ($('#receiver1email').is(':visible')) {
-    if (receiver1email.value == '') {
-      receiver1email.style = 'border: 1px solid red';
-      egifterror = true;
-    } 
-  }
+  // if ($('#receiver1email').is(':visible')) {
+  //   if (receiver1email.value == '') {
+  //     receiver1email.style = 'border: 1px solid red';
+  //     egifterror = true;
+  //   } 
+  // }
 
-  if ($('#receiver2email').is(':visible')) {
-    if (receiver2email.value == '') {
-      receiver2email.style = 'border: 1px solid red';
-      egifterror = true;
-    } 
-  }
+  // if ($('#receiver2email').is(':visible')) {
+  //   if (receiver2email.value == '') {
+  //     receiver2email.style = 'border: 1px solid red';
+  //     egifterror = true;
+  //   } 
+  // }
 
-  if ($('#receiver3email').is(':visible')) {
-    if (receiver3email.value == '') {
-      receiver3email.style = 'border: 1px solid red';
-      egifterror = true;
-    } 
-  }
+  // if ($('#receiver3email').is(':visible')) {
+  //   if (receiver3email.value == '') {
+  //     receiver3email.style = 'border: 1px solid red';
+  //     egifterror = true;
+  //   } 
+  // }
 
 
-  if ($('#receiver4email').is(':visible')) {
-    if (receiver4email.value == '') {
-      receiver4email.style = 'border: 1px solid red';
-      egifterror = true;
-    } 
-  }
+  // if ($('#receiver4email').is(':visible')) {
+  //   if (receiver4email.value == '') {
+  //     receiver4email.style = 'border: 1px solid red';
+  //     egifterror = true;
+  //   } 
+  // }
 
-  if ($('#receiver5email').is(':visible')) {
-    if (receiver5email.value == '') {
-      receiver5email.style = 'border: 1px solid red';
-      egifterror = true;
-    } 
-  }
+  // if ($('#receiver5email').is(':visible')) {
+  //   if (receiver5email.value == '') {
+  //     receiver5email.style = 'border: 1px solid red';
+  //     egifterror = true;
+  //   } 
+  // }
 
 }
 
@@ -488,12 +538,32 @@ function checkegiftform() {
 
 
 function skipegiftdonation() {
-	egiftdonationskip.style.display = "none";
+	kaman.style.display = "block";
 }
 
 function skippebbledonation() {
-	pebbledonationskip.style.display = "none";
+	 if ($('#emailforid').is(':hidden')) {
+		$("#showishowi").modal("show");
+	}
+	kama.style.display = "block";
+	payme.style.display = "block";
+	// pebbledonationskip.style.display = "none";
 }
+
+
+
+function memefunction() {
+	$("#egiftcheck").prop("checked", false);
+	egiftagree.style.display = "none";
+	kaman.style.display = "none";
+	showdilli.style.display = "block"; 
+	showegiftagree.style.display = "block";
+	egiftpopupbtn.style.display = "block";
+	memebutton.style.display = "none";
+	egiftdonationskip.style.display = "none";
+
+}
+
 
 
 
@@ -504,6 +574,7 @@ function showmeme() {
     return 0;
   }
 
+  memebutton.style.display = "block";
   egiftagree.style.display = "block";
   showegiftagree.style.display = "none";
   showdilli.style.display = "none";
@@ -540,7 +611,7 @@ function showegiftpayme() {
   window.egiftsprice = egiftpriceresult;
   egiftpriceresulttext = "$" + egiftpriceresult + " USD";
   billagir.innerHTML = egiftpriceresulttext;
-  kaman.style.display = "block";
+  egiftdonationskip.style.display = "block";
 
 
   //window.paymenttinstance.teardown(function(err) {
@@ -820,12 +891,12 @@ function getmehehe() {
             idoffileform.value = this.responseText;
 
 	        var ld = document.getElementById('loaderdiv');
-	        var kukur = "<p style='text-align: center;'>Your pebbles are uploaded successfully.</p>"
-	        var kukur1 = "<p style='text-align: center; font-weight: 700; font-size: 150%;'><b>ORDER NO: " + humterey + "</p>"
-	        var kukur2 = "<p style='text-align: center; color: red;'>Note: You must keep this order number. Please save it. If you previously provided your correct email address, then we will also send the order number to your email. The order number is the only way Apito can locate your pebbles, in case any issues arise. It is also the only way for you to find your pebbles when the time capsule gets reopened.</p>"
-	        var finalkukur = kukur + kukur1 + kukur2
+	        var kukur1 = "<p style='text-align: center; font-weight: 700; font-size: 150%;'><b>ORDER: " + humterey + "</p>"
+	        var kukur2 = "<p style='text-align: center;'>If you did not previously provide your correct email address, <b>you must keep this order number.</b> Please save it.</p><p style='text-align: center;'>The order number is the only way Apito can locate your pebbles, in case any issues arise. It is also the only way for you to find your pebbles when the time capsule gets reopened.</p><p style='text-align: center;'>If you did provide your correct email address, we have sent you this order number through email. Keep this email. Make sure to check your spam folder if you cannot find the email.</p>"
+	        var finalkukur = kukur1 + kukur2
 	        ld.innerHTML = finalkukur
-	        uploadpebbleshehe.innerHTML = "Success!"
+	        uploadpebbleshehe.innerHTML = "Pebbles Uploaded!"
+
         }
     };
 
@@ -838,14 +909,19 @@ function getmehehe() {
 
 
 
-  function apoc() {
+  function apoc() {  	
     if (dharti == "files") {
         $('#ppp').modal('hide')
         optnlinfo.style.display = "block";
         coupon.style.display = "none";
         payme.style.display = "none";
         kama.style.display = "none";
-        $('#kampayment').modal('show')
+        $('#kampayment').modal('show');
+
+      	
+      	$("#kampacheesa").modal('show');
+      	// document.getElementById("kampacheesa").style.display = "block";
+      	
         getmehehe();
         /*setTimeout(() => {  document.getElementById('filewalaform').remove(); }, 5000);*/
 
@@ -861,7 +937,26 @@ function getmehehe() {
         filetypeVideo4 = 0;
 
     } else if (dharti == "egift") {
-        eGiftForm.submit();   
+    		renderhiddenzero();
+    		var form = document.getElementById("eGiftForm");
+			var formData = new FormData(form);
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST",'/create_coupon/', true);
+			xhr.send(formData);
+
+    		xhr.onreadystatechange = function() {
+        		if (this.readyState == 4 && this.status == 200) {
+            		console.log(this.responseText);
+            		humterey = this.responseText;
+            		billubarber.innerHTML = this.responseText;
+            		$('#ppp').modal('hide');
+		        	$('#kamegiftsuccess').modal('show');
+
+
+        		}
+    		};
+    			// eGiftForm.submit();   
+
     } else if (dharti == "donation") {
         $('#ppp').modal('hide')
         window.location.replace('/donation_success')
@@ -1230,10 +1325,10 @@ function textCountFunction(th,bul) {
 
 
 
-
-
-
-
+function textCountFunctionE(th,bul) {
+  used = th.value.length;
+  bul.innerHTML = used + "/250"
+}
 
 
 
@@ -1295,9 +1390,7 @@ nav {
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="sisisi" style="text-align: center; width: 100%;">Pebbles Payment Form</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+ 
           </div>
           <div class="modal-body" style="align-content: center; align-items: center; text-align: center;">
             <div id="DivPaymentForm"> 
@@ -1308,6 +1401,10 @@ nav {
 
   <!-- We'll put the error messages in this element -->
   <div id="card-errors" role="alert"></div>
+<br>
+<div id="payment-request-button">
+  <!-- A Stripe Element will be inserted here. -->
+</div>
 <br>
   <button class="btn-primary" id="submit" style="align-self: center; ">Pay</button>
 </form>
@@ -1342,6 +1439,32 @@ card.addEventListener('change', function(event) {
 });
 
 
+var paymentRequest = stripe.paymentRequest({
+  country: 'US',
+  currency: 'usd',
+  total: {
+    label: 'Demo total',
+    amount: 1099,
+  },
+  requestPayerName: true,
+  requestPayerEmail: true,
+});
+
+var prButton = elements.create('paymentRequestButton', {
+  paymentRequest: paymentRequest,
+});
+
+// Check the availability of the Payment Request API first.
+paymentRequest.canMakePayment().then(function(result) {
+  if (result) {
+    prButton.mount('#payment-request-button');
+  } else {
+    document.getElementById('payment-request-button').style.display = 'none';
+  }
+});
+
+
+
 
 var form = document.getElementById('payment-form');
 
@@ -1363,6 +1486,47 @@ form.addEventListener('submit', function(ev) {
       if (result.paymentIntent.status === 'succeeded') {
       	console.log("yahooo")
       	apoc();
+
+      	$.ajax("{% url 'save_price' %}", {
+	    type: 'GET',
+	    success: function(result) {
+	      console.log("price saved")
+
+	      
+	    }
+	  }
+	  );
+
+
+paymentRequest.on('paymentmethod', function(ev) {
+  // Confirm the PaymentIntent without handling potential next actions (yet).
+  stripe.confirmCardPayment(
+    clientSecret,
+    {payment_method: ev.paymentMethod.id},
+    {handleActions: false}
+  ).then(function(confirmResult) {
+    if (confirmResult.error) {
+      // Report to the browser that the payment failed, prompting it to
+      // re-show the payment interface, or show an error message and close
+      // the payment interface.
+      ev.complete('fail');
+    } else {
+      // Report to the browser that the confirmation was successful, prompting
+      // it to close the browser payment method collection interface.
+      ev.complete('success');
+      // Let Stripe.js handle the rest of the payment flow.
+      stripe.confirmCardPayment(clientSecret).then(function(result) {
+        if (result.error) {
+          // The payment failed -- ask your customer for a new payment method.
+        } else {
+          // The payment has succeeded.
+        }
+      });
+    }
+  });
+});
+
+
         // Show a success message to your customer
         // There's a risk of the customer closing the window before callback
         // execution. Set up a webhook or plugin to listen for the
@@ -1382,7 +1546,10 @@ form.addEventListener('submit', function(ev) {
 
           </div>
           </div>
-         
+        
+
+
+
         </div>
       </div>
     </div>
@@ -1393,6 +1560,62 @@ form.addEventListener('submit', function(ev) {
 
 
 
+ <div class="modal" id="kamegiftpopup" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" style="text-align: center; width: 100%;">Before you continue...</h5>
+           
+          </div>
+          <div class="modal-body">
+            <p style="text-align: center;">When generating eGifts, we give you the option to provide the emails of the recipients and your email as well.</p>
+            <p style="text-align: center;">If you provide correct email addresses, your friends and family will receive the eGifts that you sent them through email. You will also receive an email with all the eGifts you generated, for your own reference.</p>
+            <p style="text-align: center;">If you do not provide correct email addresses, then we will still provide you with the eGift codes, but you will have to make sure to save these eGift codes and send them to your friends and family using an alternate method of your choosing.</p>
+          </div>
+          <div style="display: block; align-self: center;">
+          <div class="modal-footer">
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+    		
+      	</div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+
+
+ <div class="modal" id="kamegiftsuccess" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" style="text-align: center; width: 100%;">eGifts Created!</h5>
+           
+          </div>
+          <div class="modal-body">
+          	<p style="text-align: center;" id="billubarber"></p>
+            <p style="text-align: center;">If you did not previously provide correct email addresses, you must keep these eGift codes. Please save them.</p>
+            <p style="text-align: center;">These eGift codes are what your friends and family can use to upload pebbles. They are also the only way for Apito to identify the eGifts, in case any issues arise. Please keep them safe.</p>
+            <p style="text-align: center;">If you did provide correct email addresses, we have sent the eGifts through email. Keep the email. Make sure to check your spam folder if you cannot find the email.</p>
+          </div>
+          <div style="display: block; align-self: center;">
+          <div class="modal-footer">
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+    		
+      	</div>
+      </div>
+        </div>
+      </div>
+    </div>
+     <script>
+          	$('#kamegiftsuccess').on('hide.bs.modal', function (e) {
+  				window.location.replace('/create_coupon')
+			})
+</script>
+
+
+
+
+
 
 
  <div class="modal" id="kamdonation" tabindex="-1" role="dialog">
@@ -1400,30 +1623,37 @@ form.addEventListener('submit', function(ev) {
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" style="text-align: center; width: 100%;">Donation Successful</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+           
           </div>
           <div class="modal-body">
             <p style="text-align: center;">We have received your donation. Thank you very much for supporting us!</p>
           </div>
-          
+          <div style="display: block; align-self: center;">
+          <div class="modal-footer">
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+    		
+      	</div>
+      </div>
         </div>
       </div>
     </div>
+
+
      <div class="modal" id="kamvideosize" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" style="text-align: center; width: 100%;">File Size Exceeds Limit</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
           </div>
           <div class="modal-body">
             <p style="text-align: center;">Video exceeds maximum size of 100MB.</p>
           </div>
-         
+         <div style="display: block; align-self: center;">
+          <div class="modal-footer">
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+    		
+      	</div>
+      </div>
         </div>
       </div>
     </div>
@@ -1433,13 +1663,16 @@ form.addEventListener('submit', function(ev) {
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" style="text-align: center; width: 100%;" id="lululu">You are low on eGift credit</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
           </div>
           <div class="modal-body">
             <p style="text-align: center;">Please pay the remaining amount before uploading the files.</p>
           </div>
+          <div style="display: block; align-self: center;">
+          <div class="modal-footer">
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+    		
+      	</div>
+      </div>
         </div>
       </div>
     </div>
@@ -1451,17 +1684,69 @@ form.addEventListener('submit', function(ev) {
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" style="text-align: center; width: 100%;" id="khikhikhi">Valid Coupon</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+        
           </div>
           <div class="modal-body">
             <p id="shishishi" style="text-align: center;">You entered a valid coupon. You can upload this file now. Your remaining balance is</p>
           </div>
-         
+         <div style="display: block; align-self: center;">
+          <div class="modal-footer">
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+    		
+      	</div>
+      </div>
         </div>
       </div>
     </div>
+
+
+    <div class="modal" id="kampacheesa" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" style="text-align: center; width: 100%;">But Wait!</h5>
+       
+          </div>
+          <div class="modal-body">
+            <p style="text-align: center;">You are not done yet! Please answer the following two questions to finish.</p>
+          </div>
+         <div style="display: block; align-self: center;">
+          <div class="modal-footer">
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+    		
+      	</div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="modal" id="showishowi" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" style="text-align: center; width: 100%;">Before you continue...</h5>
+         
+          </div>
+          <div class="modal-body">
+            <p style="text-align: center;">We want to give you the option to provide your email address</p>
+            <p style="text-align: center;">If you provide a correct email address, you will receive an email after uploading your pebbles that contains your order number, for your own reference.</p>
+            <p style="text-align: center;">If you do not provide a correct email address, then we will still provide you with the order number, but you will have to make sure to save the order number in a safe place using an alternate method of your choosing.</p>
+
+          </div>
+         <div style="display: block; align-self: center;">
+          <div class="modal-footer">
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+    		
+      	</div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+
 
 
     <div class="modal" id="kamlakh" tabindex="-1" role="dialog">
@@ -1469,13 +1754,17 @@ form.addEventListener('submit', function(ev) {
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" style="text-align: center; width: 100%;">Text not entered</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+        
           </div>
           <div class="modal-body">
             <p style="text-align: center;">Please write text before clicking continue.</p>
           </div>
+          <div style="display: block; align-self: center;">
+          <div class="modal-footer">
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+    		
+      	</div>
+      </div>
         </div>
       </div>
     </div>
@@ -1485,13 +1774,19 @@ form.addEventListener('submit', function(ev) {
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" style="text-align: center; width: 100%;">No file type selected</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </button>
+            </button> -->
           </div>
           <div class="modal-body">
             <p style="text-align: center;">Please select a file type by clicking image or video icon before selecting a file.</p>
           </div>
+          <div style="display: block; align-self: center;">
+          <div class="modal-footer">
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+    		
+      	</div>
+      </div>
         </div>
       </div>
     </div>
@@ -1501,13 +1796,17 @@ form.addEventListener('submit', function(ev) {
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" style="text-align: center; width: 100%;">Selected file type and selected file not same</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+           
           </div>
           <div class="modal-body">
             <p style="text-align: center;">Please select the same file type that you selected above.</p>
           </div>
+          <div style="display: block; align-self: center;">
+          <div class="modal-footer">
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+    		
+      	</div>
+      </div>
         </div>
       </div>
     </div>
@@ -1517,13 +1816,17 @@ form.addEventListener('submit', function(ev) {
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" style="text-align: center; width: 100%;">No File Selected</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+           
           </div>
           <div class="modal-body">
             <p style="text-align: center;">Please select at least one file before proceeding further.</p>
           </div>
+          <div style="display: block; align-self: center;">
+          <div class="modal-footer">
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+    		
+      	</div>
+      </div>
         </div>
       </div>
     </div>
@@ -1640,6 +1943,7 @@ form.addEventListener('submit', function(ev) {
     <p id="billugi">Remaining time until time capsule is locked</p>
   </div>
 </div>
+ <p style="text-align: center; color: red; font-size: 16px;">Note: Actual time remaining may differ slightly between devices. Official cutoff date is June 21, 2022 at 12:00am.</p>
 
 
 
@@ -1658,13 +1962,26 @@ form.addEventListener('submit', function(ev) {
 
 
     <div class='container'>
+        {% if bleach %}
       <p style="text-align: center; color: black; font-weight: 600;">Occupied space in time capsule</p>
     <div class="progress" style="height:100px;">
-            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="63"
-            aria-valuemin="0" aria-valuemax="100" style="width:63%">
-              <p style="font-size: 30px;">63%</p>
+            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{AllPaymentProgress}}"
+            aria-valuemin="0" aria-valuemax="100" style="width:{{AllPaymentProgress}}%">
+              <p style="font-size: 30px; margin-left: 10px; color: black; font-weight: 600;">{{AllPaymentProgress}}%</p>
             </div>
           </div>
+         {% else %}
+         <p style="text-align: center; color: black; font-weight: 600;">Amount of pebbles remaining</p>
+         <div class="progress" style="height:100px;">
+         	<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="99"
+            aria-valuemin="0" aria-valuemax="100" style="width:99%">
+              <p style="font-size: 30px; margin-left: 10px; color: black; font-weight: 600;">{{remaining_pebbles}}</p>
+            </div>
+          </div>
+
+          {% endif %}
+
+
         </div>
 <br><br>
         <div class='container'>
@@ -1779,7 +2096,7 @@ capsule.
               
                   
                       <label class="control-label  " id="merisohnifile" for="id_file_here">2) Select File</label>
-                      <p id='para1'></p>
+                      <p id='para1' style="font-size: 16px; color: red;"></p>
                   
           
                   <div class=" ">
@@ -1861,7 +2178,7 @@ capsule.
               
             
               <label class="control-label  " id="merisohnifile1" for="id_file_here1">2) Select File</label>
-<p id='para2'></p>
+<p id='para2' style="font-size: 16px; color: red;"></p>
       
               <div class=" ">
                   <input type="file" name="file_here1" id="id_file_here1" onchange="checkFileSize(this);">
@@ -1931,7 +2248,7 @@ capsule.
 <div class="form-group">
     
         <label class="control-label  " id="merisohnifile2" for="id_file_here2">2) Select File</label>
-<p id='para3'></p>
+<p id='para3' style="font-size: 16px; color: red;"></p>
         
 
         <div class=" ">
@@ -2002,7 +2319,7 @@ capsule.
 <div class="form-group">
 
     <label class="control-label  " id="merisohnifile3" for="id_file_here3">2) Select File</label>
-<p id='para4'></p>
+<p id='para4' style="font-size: 16px; color: red;"></p>
     
 
     <div class=" ">
@@ -2073,7 +2390,7 @@ capsule.
 <div class="form-group">
 
     <label class="control-label  " id="merisohnifile4" for="id_file_here4">2) Select File</label>
-<p id='para5'></p>
+<p id='para5' style="font-size: 16px; color: red;"></p>
     
 
     <div class=" ">
@@ -2106,6 +2423,10 @@ capsule.
 
 
 
+    <br><hr>
+<div id='sheshebutton' style="text-align: right; display: none;">
+    <button type="button" class="btn btn-primary" onclick="sheshefunction();" style="text-align: right;">Edit Pebbles Form</button>
+</div>
     <br><hr><br>
 
           
@@ -2148,9 +2469,9 @@ satisfied with the purchase you are making before finalizing the transaction.</p
                 <button type="button" onclick="showpayme()" class="btn btn-primary" name="popup-btn" id="popupbtn" disabled="disabled">Continue</button>
                 </div>
               </div>
-          <div id="kama" style="display:none; ">
-          	<br>
-          	<div id="pebbledonationskip">
+
+          	<div id="pebbledonationskip" style="display: none;">
+          		<br>
           	<div class="pebblesdonation">
 			  <label for="pebbledonation">Would you like to add a donation?</label>
 			  <select id="pebbledonation" name="pebbledonation" class="form-control" onchange="pebblemoney(this.value)">
@@ -2171,6 +2492,7 @@ satisfied with the purchase you are making before finalizing the transaction.</p
 			<button type="button" onclick="skippebbledonation();" class="btn btn-primary">Skip</button>
               <br>
           </div>
+          <div id="kama" style="display:none; ">
               <br>
                   <div id="showingtheworst" class='form-control total btn btn-success ' style="text-decoration: none; transition: none;">
                     Total Charges:
@@ -2185,12 +2507,12 @@ satisfied with the purchase you are making before finalizing the transaction.</p
                 
               </div>
               <label for="emailforid">Email Address (Optional):</label>
-              <input type="email" name="emailforid" />
-              <p style="font-weight: 600;"><b>Note: We highly recommend you provide your email. We use this email to send you the order number, for your reference.</b></p>
+              <input type="email" name="emailforid" id="emailforid" />
+              
           </div>
           <br>
           <div style="display: none;" id="payme">
-            <p style="font-weight: 600; text-align: center;"><a href="javascript:showcoup()">Have an eGift?</a> or <a href="javascript:showfilespay();">Pay</a></p>
+            <p style="font-weight: 600; text-align: center;"><a href="javascript:showcoup()">Have an eGift?</a> {% ifnotequal remaining_pebbles 0 %} or <a href="javascript:showfilespay();">Pay</a></p> {% endifnotequal %}
             
           </div>
           <style>
@@ -2199,19 +2521,27 @@ satisfied with the purchase you are making before finalizing the transaction.</p
   				100% { transform: rotate(360deg); }
 			}
           </style>
+
+
+
+
+
+
           <div class="modal" id="kampayment" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="uploadpebbleshehe" style="text-align: center; width: 100%;">Uploading Pebbles</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
                 </div>
                 <div class="modal-body" style="text-align: center; align-content: center; align-items: center; " id="loaderdiv">
                   <div class="loader" style="text-align: center; border: 16px solid #f3f3f3; border-top: 16px solid #3498db; border-radius: 50%; width:120px; height: 120px; animation: spin 2s linear infinite; margin: 0 auto;"></div>
                 </div>
-                
+              <div style="display: block; align-self: center;">
+          <div class="modal-footer">
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+    		
+      	</div>
+      </div>  
               </div>
             </div>
           </div>
@@ -2228,26 +2558,36 @@ satisfied with the purchase you are making before finalizing the transaction.</p
               </div>
 
                 
+  
+
+
+
+
+
                 <div class="modal" id="kamchabees" tabindex="-1" role="dialog">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h5 class="modal-title" style="text-align: center; width: 100%;">Invalid eGift Coupon</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
+                     
                       </div>
                       <div class="modal-body">
                         <p style="text-align: center;">You entered an invalid coupon. Please use a correct eGift coupon or pay.</p>
                       </div>
-                      
+                      <div style="display: block; align-self: center;">
+          <div class="modal-footer">
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+    		
+      	</div>
+      </div>
                     </div>
                   </div>
                 </div>
                 
-                
+                {% ifnotequal remaining_pebbles 0 %}
                 <p style="font-weight: 600; text-align: center;"><a href="javascript:showfilespay()">or Pay</a></p>
                 <br>
+                {% endifnotequal %}
                 
 
               </div>
@@ -2263,7 +2603,7 @@ satisfied with the purchase you are making before finalizing the transaction.</p
 
           <h3 style="text-align: center;">Final Survey</h3>
           <br>
-          <p style="font-size: 16px;">Note: The information you provide in the following section will not be shared with
+          <p style="font-size: 16px; color: red;">Note: The information you provide in the following section will not be shared with
 anyone and will be completely anonymous. Your information and identity are safe with
 us.</p> <br>
           <p>We want you to choose for how long the time capsule will be stored. We will store the
@@ -2596,7 +2936,7 @@ them an eGift so that they can be part of this movement as well.
     
       
           
-              <label class="control-label  " for="receiver1email">Receiver&#39;s Email</label>
+              <label class="control-label  " for="receiver1email">Receiver&#39;s Email (Optional)</label>
           
   
           <div class=" ">
@@ -2615,11 +2955,11 @@ them an eGift so that they can be part of this movement as well.
   <div class="form-group">
       
           
-              <label class="control-label  " for="receiver1message">Message for Receiver</label>
+              <label class="control-label  " for="receiver1message">Message for Receiver (Optional)</label>
           
   
           <div class=" ">
-              <textarea name="receiver1message" cols="40" rows="10" maxlength="4000" class=" form-control" id="receiver1message" oninput="javascript:textCountFunction(this,textcounter5);"></textarea><div id="textcounter5">0/4000</div>
+              <textarea name="receiver1message" cols="40" rows="10" maxlength="250" class=" form-control" id="receiver1message" oninput="javascript:textCountFunctionE(this,textcounter5);"></textarea><div id="textcounter5">0/250</div>
               <div id="predildelete" style="text-align: right; padding-right: 0px; display: none; "><a href="#" onclick="javascript:DeleteEgift('predil','exampleInputAmount','receiver1email', 'textcounter5');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a></div>
   
               
@@ -2639,7 +2979,7 @@ them an eGift so that they can be part of this movement as well.
 <div class="form-group">
       
           
-<label class="control-label  " for="receiver2email">Receiver&#39;s Email</label>
+<label class="control-label  " for="receiver2email">Receiver&#39;s Email (Optional)</label>
 
 
 <div class=" ">
@@ -2658,11 +2998,11 @@ them an eGift so that they can be part of this movement as well.
 <div class="form-group">
 
 
-<label class="control-label  " for="receiver2message">Message for Receiver</label>
+<label class="control-label  " for="receiver2message">Message for Receiver (Optional)</label>
 
 
 <div class=" ">
-<textarea name="receiver2message" cols="40" rows="10" maxlength="4000" class=" form-control" id="receiver2message" oninput="javascript:textCountFunction(this,textcounter6);"></textarea><div id="textcounter6">0/4000</div>
+<textarea name="receiver2message" cols="40" rows="10" maxlength="250" class=" form-control" id="receiver2message" oninput="javascript:textCountFunctionE(this,textcounter6);"></textarea><div id="textcounter6">0/250</div>
 <div id="dildelete" style="text-align: right; padding-right: 0px;"><a href="#" onclick="javascript:DeleteEgift('dil','exampleInputAmount1','receiver2email','receiver2message');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a></div>
 
 
@@ -2685,7 +3025,7 @@ them an eGift so that they can be part of this movement as well.
     <div class="form-group">
           
               
-    <label class="control-label  " for="receiver3email">Receiver&#39;s Email</label>
+    <label class="control-label  " for="receiver3email">Receiver&#39;s Email (Optional)</label>
     
     
     <div class=" ">
@@ -2704,11 +3044,11 @@ them an eGift so that they can be part of this movement as well.
     <div class="form-group">
     
     
-    <label class="control-label  " for="receiver3message">Message for Receiver</label>
+    <label class="control-label  " for="receiver3message">Message for Receiver (Optional)</label>
     
     
     <div class=" ">
-    <textarea name="receiver3message" cols="40" rows="10" maxlength="4000" class=" form-control" id="receiver3message" oninput="javascript:textCountFunction(this,textcounter7);"></textarea> <div id="textcounter7">0/4000</div>
+    <textarea name="receiver3message" cols="40" rows="10" maxlength="250" class=" form-control" id="receiver3message" oninput="javascript:textCountFunctionE(this,textcounter7);"></textarea> <div id="textcounter7">0/250</div>
     
     <div id="dil1delete" style="text-align: right; padding-right: 0px;"><a href="#" onclick="javascript:DeleteEgift('dil1','exampleInputAmount2','receiver3email','receiver3message');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a></div>
     
@@ -2731,7 +3071,7 @@ them an eGift so that they can be part of this movement as well.
         <div class="form-group">
               
                   
-        <label class="control-label  " for="receiver4email">Receiver&#39;s Email</label>
+        <label class="control-label  " for="receiver4email">Receiver&#39;s Email (Optional)</label>
         
         
         <div class=" ">
@@ -2750,11 +3090,11 @@ them an eGift so that they can be part of this movement as well.
         <div class="form-group">
         
         
-        <label class="control-label  " for="receiver4message">Message for Receiver</label>
+        <label class="control-label  " for="receiver4message">Message for Receiver (Optional)</label>
         
         
         <div class=" ">
-        <textarea name="receiver4message" cols="40" rows="10" maxlength="4000" class=" form-control" id="receiver4message" oninput="javascript:textCountFunction(this,textcounter8);"></textarea><div id="textcounter8">0/4000</div>
+        <textarea name="receiver4message" cols="40" rows="10" maxlength="250" class=" form-control" id="receiver4message" oninput="javascript:textCountFunctionE(this,textcounter8);"></textarea><div id="textcounter8">0/250</div>
         
 		 <div id="dil2delete" style="text-align: right; padding-right: 0px; "><a href="#" onclick="javascript:DeleteEgift('dil2','exampleInputAmount3','receiver4email','receiver4message');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a></div>
             
@@ -2777,7 +3117,7 @@ them an eGift so that they can be part of this movement as well.
             <div class="form-group">
                   
                       
-            <label class="control-label  " for="receiver5email">Receiver&#39;s Email</label>
+            <label class="control-label  " for="receiver5email">Receiver&#39;s Email (Optional)</label>
             
             
             <div class=" ">
@@ -2796,11 +3136,11 @@ them an eGift so that they can be part of this movement as well.
             <div class="form-group">
             
             
-            <label class="control-label  " for="receiver5message">Message for Receiver</label>
+            <label class="control-label  " for="receiver5message">Message for Receiver (Optional)</label>
             
             
             <div class=" ">
-            <textarea name="receiver5message" cols="40" rows="10" maxlength="4000" class=" form-control" id="receiver5message" oninput="javascript:textCountFunction(this,textcounter9);"></textarea><div id="textcounter9">0/4000</div>
+            <textarea name="receiver5message" cols="40" rows="10" maxlength="250" class=" form-control" id="receiver5message" oninput="javascript:textCountFunctionE(this,textcounter9);"></textarea><div id="textcounter9">0/250</div>
             
              <div id="dil3delete" style="text-align: right; padding-right: 0px;"><a href="#" onclick="javascript:DeleteEgift('dil3','exampleInputAmount4','receiver5email','receiver5message');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a></div>
     
@@ -2813,6 +3153,11 @@ them an eGift so that they can be part of this movement as well.
             
               </div>
            </div>
+           <br>
+           <hr>
+           <div id='memebutton' style="text-align: right; display: none;">
+    <button type="button" class="btn btn-primary" onclick="memefunction();" style="text-align: right;">Edit eGifts Form</button>
+</div><hr>
 
 
 
@@ -2833,11 +3178,11 @@ them an eGift so that they can be part of this movement as well.
   <div class="form-group">
       
           
-              <label class="control-label  " for="id_sender_name">Your Name</label>
+              <label class="control-label  " for="id_sender_name">Your Name (Optional)</label>
           
   
           <div class=" ">
-              <input type="text" name="sender_name" maxlength="200" class=" form-control" id="id_sender_name" required>
+              <input type="text" name="sender_name" maxlength="200" class=" form-control" id="id_sender_name">
   
               
   
@@ -2852,11 +3197,11 @@ them an eGift so that they can be part of this movement as well.
   <div class="form-group">
       
           
-              <label class="control-label  " for="id_sender_email">Your Email</label>
+              <label class="control-label  " for="id_sender_email">Your Email (Optional)</label>
           
   
           <div class=" ">
-              <input type="email" onchange="checkegiftemail(this);" name="sender_email" maxlength="150" class=" form-control" id="id_sender_email" required>
+              <input type="email" onchange="checkegiftemail(this);" name="sender_email" maxlength="150" class=" form-control" id="id_sender_email">
   
               
   
@@ -2867,7 +3212,7 @@ them an eGift so that they can be part of this movement as well.
   
   
   {% csrf_token %}
-      <button id="showegiftagree" type="button" onclick="showmeme()" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;Generate eGift&nbsp;&nbsp;&nbsp;&nbsp;</button> 
+      <button id="showegiftagree" type="button" onclick="showmeme()" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;Continue&nbsp;&nbsp;&nbsp;&nbsp;</button> 
   
 <br>
 
@@ -2891,9 +3236,8 @@ satisfied with the purchase you are making before finalizing the transaction.</p
   <button type="button" onclick="showegiftpayme()" class="btn btn-primary" name="egift-popup-btn" id="egiftpopupbtn" disabled="disabled">Continue</button>
   </div>
 </div>
-<div id="kaman" style="display:none; "> 
-                       	<br>
-            <div id="egiftdonationskip">
+ <div id="egiftdonationskip" style="display: none;">
+ 	<br>
           	<div class="egiftsdonation">
 			  <label for="egiftdonation">Would you like to add a donation?</label>
 			  <select id="egiftdonation" name="pebbledonation" class="form-control" onchange="egiftmoney(this.value)">
@@ -2914,8 +3258,10 @@ satisfied with the purchase you are making before finalizing the transaction.</p
 			<button type="button" onclick="skipegiftdonation();" class="btn btn-primary">Skip</button>
               <br>
            </div>
-			<br>
-
+<div id="kaman" style="display:none; "> 
+                       	<br>
+           
+			
   <div id="showingtheworstt" class='form-control total btn btn-success ' style="text-decoration: none; transition: none;">
     Total Charges:
     <span class='amount' id="billagir">$0 USD</span>

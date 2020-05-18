@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 import random
 import string
-from .models import FileModel, CouponModel, ExtraInfo
+from .models import FileModel, CouponModel, ExtraInfo, PaymentProgress, Funds
 import magic
 from django.core.mail import EmailMessage, send_mail
 from django.views.decorators.csrf import csrf_exempt
@@ -12,6 +12,7 @@ from django.conf import settings
 import braintree
 import sys
 from django.core.mail import EmailMultiAlternatives
+import stripe
 
 # Create your views here.
 def t(request):
@@ -40,23 +41,42 @@ def pp(request):
 
 def m(request):
 	request.session['foo'] = 'bar'
-	if settings.BRAINTREE_PRODUCTION:
-		braintree_env = braintree.Environment.Production
-	else:
-		braintree_env = braintree.Environment.Sandbox
-	braintree.Configuration.configure(
-		braintree_env,
-		merchant_id=settings.BRAINTREE_MERCHANT_ID,
-		public_key=settings.BRAINTREE_PUBLIC_KEY,
-		private_key=settings.BRAINTREE_PRIVATE_KEY,
+	"""Need to replace these with live keys in production for apple pay to work"""
+	# stripe.api_key = ""
 
-	)
-	try:
-		braintree_client_token = braintree.ClientToken.generate({'customer_id': user.id })
-	except:
-		braintree_client_token = braintree.ClientToken.generate({})
+	# stripe.ApplePayDomain.create(
+ #  		domain_name='apebbleintheocean.com',
+	# )
+
+
 	coupon_form = CouponModelForm()
-	context = {'braintree_client_token': braintree_client_token, 'coupon_form':coupon_form}
+	ppf = PaymentProgress.objects.all()
+	if ppf:
+		PaymentProgressObject = PaymentProgress.objects.latest('id')
+		PaymentProgressAmount = PaymentProgressObject.amount_paid
+		fund = Funds.objects.latest('id')
+		funding_required = fund.funds_required
+		AllPaymentProgress = int(PaymentProgressAmount * 100 / funding_required)
+		print("ApP: ",AllPaymentProgress)
+		if AllPaymentProgress >= 99:
+			bleach = False #Random name
+			remaining_pebbles = fund.limited_pebbles
+		else:
+			bleach = True
+			remaining_pebbles = fund.limited_pebbles
+
+
+
+	else:
+		PaymentProgressAmount = 0
+		fund = Funds.objects.latest('id')
+		funding_required = fund.funds_required
+		AllPaymentProgress = int(PaymentProgressAmount * 100 / funding_required)
+		bleach = True
+		remaining_pebbles = None
+
+
+	context = {'braintree_client_token': braintree_client_token, 'coupon_form':coupon_form, 'AllPaymentProgress':AllPaymentProgress,'bleach':bleach,'remaining_pebbles':remaining_pebbles}
 	return render(request, 'i.html',context)
 
 def thisabout(request):
@@ -75,7 +95,6 @@ def p(request):
 def cpn(request):
 	return render(request,'cpn.html')
 from django.conf import settings
-import stripe
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 from django.http import JsonResponse
@@ -107,6 +126,31 @@ def set_price(request):
 	request.session['payable'] = r
 	request.session['foo'] = 'langra'
 	return HttpResponse(str(r))
+
+
+def save_price(request):
+	s = request.session['payable']
+	pf = PaymentProgress.objects.filter(id=1)
+	if pf:
+		pp = PaymentProgress.objects.get(id=1)
+	else:
+		pp = PaymentProgress.objects.create()
+	pp.amount_paid = pp.amount_paid + s 
+	pp.save()
+	print('ppppppp',pp.amount_paid)
+
+	PaymentProgressAmount = pp.amount_paid
+	fund = Funds.objects.latest('id')
+	funding_required = fund.funds_required
+	AllPaymentProgress = int(PaymentProgressAmount * 100 / funding_required)
+	if AllPaymentProgress >= 99:
+		pp.pebble_meter = True
+		pp.save()
+
+
+
+	return HttpResponse('ok') 
+
 
 
 
@@ -161,8 +205,39 @@ def index(request):
 				print(cpna)
 
 
+
 			new_file = file_form.save()
-			rsp = str(new_file.id)
+			order_no = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(5))
+			new_file.order_no = order_no
+			new_file.save()
+
+			pf = PaymentProgress.objects.filter(id=1)
+			if pf:
+				pp = PaymentProgress.objects.get(id=1)
+				if pp.pebble_meter:
+					cnt = 0
+					if new_file.file_here:
+						cnt += 1
+					if new_file.file_here1:
+						cnt +=1
+					if new_file.file_here2:
+						cnt +=1
+					if new_file.file_here3:
+						cnt +=1
+					if new_file.file_here4:
+						cnt +=1
+					
+
+					f= Funds.objects.latest('id')
+					lp = f.limited_pebbles
+					new_lp = lp - cnt 
+					f.limited_pebbles = new_lp
+					f.save()
+				else:
+					pass
+			else:
+				pass
+			rsp = order_no
 			em = request.POST.get('emailforid',None)
 			print(em)
 			if em:
@@ -170,7 +245,7 @@ def index(request):
 				text_content = "Apito Order Number Notification"
 				from_email = 'apebbleintheocean@gmail.com'
 				to = em
-				html_content = '<p>Hello there,</p><p>Here is the order number for the pebbles you uploaded through Apito:</p><p>{}</p><p>Keep this order number to be able to reference the pebbles you uploaded. You will also need this order number later on to find your pebbles when the time capsule is reopened.</p><p>On behalf of Apito, thank you for your contribution.<p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format(new_file.id)
+				html_content = '<p>Hello there,</p><p>Here is the order number for the pebbles you uploaded through Apito:</p><p>{}</p><p>Keep this order number to be able to reference the pebbles you uploaded. You will also need this order number later on to find your pebbles when the time capsule is reopened.</p><p>On behalf of Apito, thank you for your contribution.<p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format(order_no)
 				msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
 				msg.attach_alternative(html_content,"text/html")
 				msg.send()
@@ -180,7 +255,7 @@ def index(request):
 			return HttpResponse(rsp)
 		except:
 			return HttpResponse('something bad happened')
-#		else:
+# #		else:
 #			file_form = FileModelForm()
 #			messages.error(request,'There was some problem with your upload.')
 #			return render(request,'i.html',{'file_form':file_form})
@@ -291,6 +366,8 @@ def check_coupon(request):
 		cpn.amount = int(new_amount)
 		print("new_amount,",new_amount)
 		cpn.save()
+		if cpn.amount == 0:
+			cpn.delete()
 		rsp = "valid " + str(new_amount)
 		return HttpResponse(rsp)
 	else:
@@ -395,36 +472,112 @@ def download_all_files(request):
 
 import zipfile
 from io import BytesIO
+import os
+
+def file_download_url(request):
+	mr = settings.MEDIA_ROOT + 'apito_files'
+	if not os.path.exists(mr):
+		os.mkdir(mr)
+
+	files = FileModel.objects.all()
+
+	for file in files:
+		if file.order_no:
+			order_no = file.order_no
+			order_dir = mr + '/' + str(order_no)
+			if not os.path.exists(order_dir):
+				os.mkdir(order_dir)
+			file_here = file.file_here
+			file_here1 = file.file_here1
+			file_here2 = file.file_here2
+			file_here3 = file.file_here3
+			file_here4 = file.file_here4
+			if file_here:
+				file_here_path = file_here.path 
+				pebble_dir = order_dir + '/pebble_1'
+				if not os.path.exists(pebble_dir):
+					os.mkdir(pebble_dir)
+				p = file_here.path.split('.')[1]
+				new = pebble_dir + '/pebble_1.' + p
+				shutil.copyfile(file_here.path, new)
+				if file.text:
+					print("yes text is here")
+					txt = file.text
+					print(txt)
+					txt_file = pebble_dir + '/pebble_1.txt'
+					print(txt_file)
+					infile = open(txt_file,'w')
+					infile.write(txt)
+					infile.close()
+			if file_here1:
+				file_here1_path = file_here1.path 
+				pebble_dir1 = order_dir + '/pebble_2'
+				if not os.path.exists(pebble_dir1):
+					os.mkdir(pebble_dir1)
+				p = file_here1.path.split('.')[1]
+				new = pebble_dir1 + '/pebble_2.' + p
+				shutil.copyfile(file_here1.path, new)
+				if file.text1:
+					txt = file.text1
+					txt_file = pebble_dir1 + '/pebble_2.txt'
+					infile = open(txt_file,'w')
+					infile.write(txt)
+					infile.close()
+			if file_here2:
+				file_here2_path = file_here2.path 
+				pebble_dir2 = order_dir + '/pebble_3'
+				if not os.path.exists(pebble_dir2):
+					os.mkdir(pebble_dir2)
+				p = file_here2.path.split('.')[1]
+				new = pebble_dir2 + '/pebble_3.' + p
+				shutil.copyfile(file_here2.path, new)
+				if file.text2:
+					txt = file.text2
+					txt_file = pebble_dir2 + '/pebble_3.txt'
+					infile = open(txt_file,'w')
+					infile.write(txt)
+					infile.close()
+
+			if file_here3:
+				file_here3_path = file_here3.path 
+				pebble_dir3 = order_dir + '/pebble_4'
+				if not os.path.exists(pebble_dir3):
+					os.mkdir(pebble_dir3)
+				p = file_here3.path.split('.')[1]
+				new = pebble_dir3 + '/pebble_4.' + p
+				shutil.copyfile(file_here3.path, new)
+				if file.text3:
+					txt = file.text3
+					txt_file = pebble_dir3 + '/pebble_4.txt'
+					infile = open(txt_file,'w')
+					infile.write(txt)
+					infile.close()
+			if file_here4:
+				file_here4_path = file_here4.path 
+				pebble_dir4 = order_dir + '/pebble_5'
+				if not os.path.exists(pebble_dir4):
+					os.mkdir(pebble_dir4)
+				p = file_here4.path.split('.')[1]
+				new = pebble_dir4 + '/pebble_5.' + p
+				shutil.copyfile(file_here4.path, new)
+				if file.text4:
+					txt = file.text4
+					txt_file = pebble_dir4 + '/pebble_5.txt'
+					infile = open(txt_file,'w')
+					infile.write(txt)
+					infile.close()
 
 
-def file_download(request):
-	url_code = request.GET.get('i')
-	file_obj = get_object_or_404(FileModel, url = url_code)
-	if file_obj.file_here1:
-		file1_path = file_obj.file_here.path
-		file2_path = file_obj.file_here1.path
-		filenames = [file1_path, file2_path]
-		zip_subdir = "apitofiles"
-		zip_filename = "%s.zip" % zip_subdir
 
-		response = HttpResponse(content_type='application/zip')
-		zip_file = zipfile.ZipFile(response, 'w')
-		for filename in filenames:
-			zip_file.write(filename)
-		response['Content-Disposition'] = 'attachment; filename={}'.format(zip_filename)
-		return response
-	crnt_filename = file_obj.file_here.name
-	file_path = file_obj.file_here.path
-	file_ext = crnt_filename.split('.')[-1]
-	new_filename = url_code + '.' + file_ext
-	
-	#content type
-	mime = magic.Magic(mime=True)
-	ct = mime.from_file(file_path)
-	response = HttpResponse(file_obj.file_here, content_type=ct)
-	response['Content-Disposition'] = 'attachment; filename=%s' % new_filename
+	shutil.make_archive(mr,'zip',mr)
+	return redirect('/media/apito_files.zip')
+	#return HttpResponse("OK")
 
-	return response
+
+
+
+
+
 
 @csrf_exempt
 def create_coupon(request):
@@ -439,7 +592,7 @@ def create_coupon(request):
 		amount4 = request.POST['amount4']
 
 		amounts = (amount, amount1, amount2, amount3, amount4)
-
+		print("Amounts: ",amounts)
 
 		receiver1email = request.POST['receiver1email']
 		receiver2email = request.POST['receiver2email']
@@ -449,6 +602,7 @@ def create_coupon(request):
 
 		#receivers = {1: receiver1email, 2: receiver2email, 3: receiver3email, 4: receiver4email, 5: receiver5email}
 		receivers = (receiver1email, receiver2email, receiver3email, receiver4email, receiver5email)
+		print("Rcvrz: ",receivers)
 
 		receiver1message = request.POST['receiver1message']
 		receiver2message = request.POST['receiver2message']
@@ -458,60 +612,80 @@ def create_coupon(request):
 
 		#messages = {1: receiver1message, 2: receiver2message, 3: receiver3message, 4: receiver4message, 5: receiver5message}
 		messages = (receiver1message, receiver2message, receiver3message, receiver4message, receiver5message)
-
+		print("msgz: ",messages)
 		send_codes = []
 		send_emails = []
+		send_amounts = []
+		rcv_emails = {}
+		rcv_amounts = {}
 		cnt = 0
+		cpna = ''
 		for r in receivers:
 			amount = amounts[cnt]
 			if '.' in amount:
 				amount = int(amount.split('.')[0])
-			if r !='' and int(amount) > 0:
+			if int(amount) > 0:
 				coupon = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(15))
-				m = messages[cnt]
-				CouponModel.objects.create(amount=amount, coupon=coupon, receiver_email=r, msg_for_rcvr = m, sender_name=sender_name, sender_email=sender_email)
-				receiver = r
-				if messages[cnt] != '':
-					message = messages[cnt]
-					if sender_name:
-						subject = '{} has sent you an Apito eGift'.format(sender_name)
-						html_content = html_content = '<p>Hello there,</p><p>{} has sent you an apito eGift.</p><p>Code: {}</p><p>{}\'s message: {}</p><p>You can use the eGift to upload your pebbles through the Apito website, linked below:</p><p><a href="https://www.apebbleintheocean.com">www.apebbleintheocean.com</a></p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format(sender_name, coupon, sender_name, message)
-#						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\nMessage from sender: {}".format(sender_name, coupon, message)
-					else:
-						subject = '{} has sent you an Apito eGift'.format(sender_email)
-						html_content = html_content = '<p>Hello there,</p><p>{} has sent you an apito eGift.</p><p>Code: {}</p><p>{}\'s message: {}</p><p>You can use the eGift to upload your pebbles through the Apito website, linked below:</p><p><a href="https://www.apebbleintheocean.com">www.apebbleintheocean.com</a></p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format(sender_email, coupon, sender_email, message)
+				CouponModel.objects.create(amount=amount, coupon=coupon)
 
-#						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\nMessage from sender: {}".format(sender_email, coupon, message)
-					
-#					print(send_mail(subject,msg, 'apebbleintheocean@gmail.com',[receiver]))
-					from_email = 'apebbleintheocean@gmail.com'
-					to = receiver 
-					text_content = 'Apito eGift Notification'
-					msg = EmailMultiAlternatives(subject, text_content, from_email,[to])
-					msg.attach_alternative(html_content, "text/html")
-					msg.send()
+				if r !='':
+					m = messages[cnt]
+					receiver = r
+					if messages[cnt] != '':
+						message = messages[cnt]
+						if sender_name:
+							subject = '{} has sent you an Apito eGift'.format(sender_name)
+							html_content = html_content = '<p>Hello there,</p><p>{} has sent you an apito eGift.</p><p>Code: {}</p><p>Amount: ${}</p><p>{}\'s message: {}</p><p>You can use the eGift to upload your pebbles through the Apito website, linked below:</p><p><a href="https://www.apebbleintheocean.com">www.apebbleintheocean.com</a></p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format(sender_name, coupon,amount, sender_name, message)
+	#						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\nMessage from sender: {}".format(sender_name, coupon, message)
+						elif sender_email:
+							subject = '{} has sent you an Apito eGift'.format(sender_email)
+							html_content = html_content = '<p>Hello there,</p><p>{} has sent you an apito eGift.</p><p>Code: {}</p><p>Amount: ${}</p><p>{}\'s message: {}</p><p>You can use the eGift to upload your pebbles through the Apito website, linked below:</p><p><a href="https://www.apebbleintheocean.com">www.apebbleintheocean.com</a></p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format(sender_email, coupon,amount, sender_email, message)
+						else:
+							subject = '{} has sent you an Apito eGift'.format('Someone')
+							html_content = html_content = '<p>Hello there,</p><p>{} has sent you an apito eGift.</p><p>Code: {}</p><p>Amount: ${}</p><p>{}\'s message: {}</p><p>You can use the eGift to upload your pebbles through the Apito website, linked below:</p><p><a href="https://www.apebbleintheocean.com">www.apebbleintheocean.com</a></p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format('Someone', coupon,amount, 'Someone', message)
+
+	#						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\nMessage from sender: {}".format(sender_email, coupon, message)
+						
+	#					print(send_mail(subject,msg, 'apebbleintheocean@gmail.com',[receiver]))
+						from_email = 'apebbleintheocean@gmail.com'
+						to = receiver 
+						text_content = 'Apito eGift Notification'
+						msg = EmailMultiAlternatives(subject, text_content, from_email,[to])
+						msg.attach_alternative(html_content, "text/html")
+						msg.send()
+					else:
+						
+						if sender_name:
+							subject = '{} has sent you an Apito eGift'.format(sender_name)
+							html_content = html_content = '<p>Hello there,</p><p>{} has sent you an apito eGift.</p><p>Code: {}</p><p>Amount: ${}</p><p>You can use the eGift to upload your pebbles through the Apito website, linked below:</p><p><a href="https://www.apebbleintheocean.com">www.apebbleintheocean.com</a></p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format(sender_name, coupon, amount, sender_name)
+
+							#msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\n".format(sender_name,coupon)
+						elif sender_email:
+							subject = '{} has sent you an Apito eGift'.format(sender_email)
+							html_content = '<p>Hello there,</p><p>{} has sent you an apito eGift.</p><p>Code: {}</p><p>Amount: ${}</p><p>You can use the eGift to upload your pebbles through the Apito website, linked below:</p><p><a href="https://www.apebbleintheocean.com">www.apebbleintheocean.com</a></p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format(sender_email, coupon, amount, sender_email)
+						else:
+							subject = '{} has sent you an Apito eGift'.format('Someone')
+							html_content = '<p>Hello there,</p><p>{} has sent you an apito eGift.</p><p>Code: {}</p><p>Amount: ${}</p><p>You can use the eGift to upload your pebbles through the Apito website, linked below:</p><p><a href="https://www.apebbleintheocean.com">www.apebbleintheocean.com</a></p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format('Someone', coupon, amount, 'Someone')
+
+	#						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\n".format(sender_email, coupon)
+	#					print(send_mail(subject,msg,'apebbleintheocean@gmail.com',[receiver]))
+						from_email = 'apebbleintheocean@gmail.com'
+						to = receiver
+						text_content = 'Apito eGift Notification'
+						msg = EmailMultiAlternatives(subject,text_content, from_email,[to])
+						msg.attach_alternative(html_content, "text/html")
+						msg.send()
+					send_codes.append(coupon)
+					rcv_emails[coupon] = receiver 
+					rcv_amounts[coupon] = amount 
+					send_emails.append(to)
+					send_amounts.append(amount)
 				else:
-					
-					if sender_name:
-						subject = '{} has sent you an Apito eGift'.format(sender_name)
-						html_content = html_content = '<p>Hello there,</p><p>{} has sent you an apito eGift.</p><p>Code: {}</p><p>You can use the eGift to upload your pebbles through the Apito website, linked below:</p><p><a href="https://www.apebbleintheocean.com">www.apebbleintheocean.com</a></p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format(sender_name, coupon, sender_name)
-
-						#msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\n".format(sender_name,coupon)
-					else:
-						subject = '{} has sent you an Apito eGift'.format(sender_email)
-						html_content = '<p>Hello there,</p><p>{} has sent you an apito eGift.</p><p>Code: {}</p><p>You can use the eGift to upload your pebbles through the Apito website, linked below:</p><p><a href="https://www.apebbleintheocean.com">www.apebbleintheocean.com</a></p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format(sender_email, coupon, sender_email)
-
-#						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\n".format(sender_email, coupon)
-#					print(send_mail(subject,msg,'apebbleintheocean@gmail.com',[receiver]))
-					from_email = 'apebbleintheocean@gmail.com'
-					to = receiver
-					text_content = 'Apito eGift Notification'
-					msg = EmailMultiAlternatives(subject,text_content, from_email,[to])
-					msg.attach_alternative(html_content, "text/html")
-					msg.send()
-				send_codes.append(coupon)
-				send_emails.append(to)
+					mkmk = "<p>{} ${}</p>".format(coupon,amount)
+					cpna = cpna + mkmk
 			cnt +=1
+
+
 
 
 		subject = "Your Apito eGifts"
@@ -521,24 +695,38 @@ def create_coupon(request):
 			print("IDX: ",idx," Val: ",val)
 			mokamail = send_emails[idx]
 			print("mokamail: ",mokamail)
-			mokamoka ='<p>{} : {} </p>'.format(mokamail, val)
+			mokaamount = send_amounts[idx]
+			print("mokaamount: ", mokaamount)
+			mokamoka ='<p>{} : {} ${}</p>'.format(mokamail, val, mokaamount)
 			print("mokamoka: ",mokamoka)
 			cpn = cpn + mokamoka
-		html_content = '<p>Hello {},</p><p>Here are the Apito eGifts you purchased:</p>'.format(sender_name) + cpn + '<p>On behalf of Apito, thank you for your contribution.</p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'
-		from_email = 'apebbleintheocean@gmail.com'
-		to = sender_email
-		text_content = 'Apito eGift Notification'
-		msg = EmailMultiAlternatives(subject,text_content, from_email,[to])
-		msg.attach_alternative(html_content, "text/html")
-		msg.send()
-		#msg = "Hi there, Please note your generated coupon codes: {}".format(cpns)
-#		print(send_mail(sender_subject, msg, 'apebbleintheocean@gmail.com',[sender_email]))
-		return render(request,'coupon_success.html')
-	return render('/')
+		coup = cpn + cpna
+		if sender_email:
+
+			if sender_name:
+				pass
+			else:
+				sender_name = sender_email
+			html_content = '<p>Hello {},</p><p>Here are the Apito eGifts you purchased:</p>'.format(sender_name) + cpn + '<p>On behalf of Apito, thank you for your contribution.</p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'
+			from_email = 'apebbleintheocean@gmail.com'
+			to = sender_email
+			text_content = 'Apito eGift Notification'
+			msg = EmailMultiAlternatives(subject,text_content, from_email,[to])
+			msg.attach_alternative(html_content, "text/html")
+			msg.send()
+			#msg = "Hi there, Please note your generated coupon codes: {}".format(cpns)
+	#		print(send_mail(sender_subject, msg, 'apebbleintheocean@gmail.com',[sender_email]))
+		return HttpResponse(coup)
+	return render(request,'coupon_success.html')
+	#return redirect('/')
 
 
 
 def donation_success(request):
+	m = request.META['HTTP_USER_AGENT']
+	print(m)
 	return render(request, 'donation_success.html')
 
 
+def oh_my_apple(request):
+	return redirect('/media/apple-developer-merchantid-domain-association')

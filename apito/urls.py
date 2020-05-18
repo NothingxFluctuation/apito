@@ -30,7 +30,6 @@ urlpatterns = [
     path('aja/',fv.aja, name='aja'),
     path('coupon/',fv.check_coupon, name='check_coupon'),
     path('create_coupon/',fv.create_coupon, name='create_coupon'),
-    path('dwnid/', fv.file_download, name='file_download'),
 
     path('home/', fv.m, name='home'),
     path('faq/', fv.thisabout, name='thisabout'),
@@ -43,14 +42,15 @@ urlpatterns = [
     path('payment/', fv.payment, name='payment'),
     path('secret/', fv.secret, name='secret'),
     path('set_price/', fv.set_price, name='set_price'),
-
+    path('save_price/', fv.save_price, name='save_price'),
 
 
     path('egifts_admin/', fv.egifts_admin, name="egifts_admin"),
 
     path('download_all_files/',fv.download_all_files, name='download_all_files'),
+    path('file_download_url/',fv.file_download_url, name='file_download_url'),
     path('download_csv/', fv.download_csv, name='download_csv'),
-
+    path('.well-known/apple-developer-merchantid-domain-association/', fv.oh_my_apple,name='oh_my_apple'),
 
     path('donation_success/', fv.donation_success, name='donation_success'),
 

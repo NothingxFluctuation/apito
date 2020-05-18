@@ -24,4 +24,7 @@ class FileModelAdmin(admin.ModelAdmin):
 admin.site.register(FileModel, FileModelAdmin)
 
 
-admin.site.register(CouponModel)
+
+class CouponModelAdmin(admin.ModelAdmin):
+	list_display = ('coupon','amount')
+admin.site.register(CouponModel, CouponModelAdmin)
