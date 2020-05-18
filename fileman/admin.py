@@ -1,4 +1,4 @@
-from django.contrib import admina
+from django.contrib import admin
 from fileman.models import VideoModel, ImageModel, FileModel, CouponModel, PaymentProgress, Funds
 from django.http import HttpResponse
 
