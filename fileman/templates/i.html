@@ -1443,12 +1443,12 @@ card.addEventListener('change', function(event) {
 var paymentRequest = stripe.paymentRequest({
   // country: 'US',
   currency: 'usd',
-  // total: {
-  //   label: 'Apito Total',
-  //   amount: 1099,
-  // },
-  // requestPayerName: true,
-  // requestPayerEmail: true,
+  total: {
+    label: 'Apito Total',
+    amount: sohniprice,
+  },
+  requestPayerName: true,
+  requestPayerEmail: true,
 });
 
 var prButton = elements.create('paymentRequestButton', {
