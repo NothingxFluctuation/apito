@@ -76,7 +76,7 @@ def m(request):
 		remaining_pebbles = None
 
 
-	context = {'braintree_client_token': braintree_client_token, 'coupon_form':coupon_form, 'AllPaymentProgress':AllPaymentProgress,'bleach':bleach,'remaining_pebbles':remaining_pebbles}
+	context = {'coupon_form':coupon_form, 'AllPaymentProgress':AllPaymentProgress,'bleach':bleach,'remaining_pebbles':remaining_pebbles}
 	return render(request, 'i.html',context)
 
 def thisabout(request):
