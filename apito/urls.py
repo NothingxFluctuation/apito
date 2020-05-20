@@ -40,6 +40,7 @@ urlpatterns = [
     path('terms-and-conditions/', fv.t, name='t'),
     path('calculate_price/',fv.calculate_price, name='calculate_price'),
     path('payment/', fv.payment, name='payment'),
+    path('braintree_payment/', fv.braintree_payment, name='braintree_payment'),
     path('secret/', fv.secret, name='secret'),
     path('set_price/', fv.set_price, name='set_price'),
     path('save_price/', fv.save_price, name='save_price'),

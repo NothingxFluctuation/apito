@@ -58,6 +58,14 @@ BRAINTREE_PRIVATE_KEY = "e71041c2a1feb7c0dcc723626d809b80"
 
 
 
+from braintree import Configuration, Environment
+Configuration.configure(
+    Environment.Sandbox,
+    BRAINTREE_MERCHANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY,
+)
+
 
 
 MIDDLEWARE = [

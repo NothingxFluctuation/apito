@@ -1284,6 +1284,9 @@ function showegiftspayme() {
 	});
   sisisi.innerHTML = "eGift Payment Form"
   $('#ppp').modal('show');
+  if ($('#payment-request-button').is(':visible')) {
+		warjanideya.style.display = "block";
+	}
 }
 
 
@@ -1313,6 +1316,9 @@ function showdonationpay() {
 	});
   sisisi.innerHTML = "Donation Payment Form"
   $('#ppp').modal('show')
+  if ($('#payment-request-button').is(':visible')) {
+		warjanideya.style.display = "block";
+	}
 }
 
 
@@ -1974,9 +1980,16 @@ paymentRequest.on('paymentmethod', function(ev) {
 
 
 
+
+
+
+
+
     <!-- END slider -->
     <br>
     <br>
+
+ 
 
     <br>
     <br>

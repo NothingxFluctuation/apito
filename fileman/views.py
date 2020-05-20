@@ -74,9 +74,9 @@ def m(request):
 		AllPaymentProgress = int(PaymentProgressAmount * 100 / funding_required)
 		bleach = True
 		remaining_pebbles = None
+	braintree_client_token = braintree.ClientToken.generate({})
 
-
-	context = {'coupon_form':coupon_form, 'AllPaymentProgress':AllPaymentProgress,'bleach':bleach,'remaining_pebbles':remaining_pebbles}
+	context = {'coupon_form':coupon_form, 'AllPaymentProgress':AllPaymentProgress,'bleach':bleach,'remaining_pebbles':remaining_pebbles,'braintree_client_token':braintree_client_token}
 	return render(request, 'i.html',context)
 
 def thisabout(request):
@@ -155,24 +155,6 @@ def save_price(request):
 
 
 def payment(request):
-    # nonce_from_the_client = request.POST['paymentMethodNonce']
-    # price = request.POST['pp']
-    # print(price)
-    # customer_kwargs = {
-    #     "first_name": "apito",
-    #     "last_name": "apito",
-    #     "email": "apebbleintheocean@gmail.com",
-    # }
-    # customer_create = braintree.Customer.create(customer_kwargs)
-    # customer_id = customer_create.customer.id
-    # result = braintree.Transaction.sale({
-    #     "amount": price,
-    #     "payment_method_nonce": nonce_from_the_client,
-    #     "options": {
-    #         "submit_for_settlement": True
-    #     }
-    # })
-    # return HttpResponse('Ok')
    if request.method =='POST':
    	charge = stripe.Charge.create(amount=500, currency='usd',description='apito charge',source=request.POST.get('stripeToken'))
    	print("Stripe Token: ",request.POST.get('stripeToken'))
@@ -180,6 +162,28 @@ def payment(request):
    	return HttpResponse('Ok')
 
 
+
+
+
+def braintree_payment(request):
+	nonce_from_the_client = request.POST['paymentMethodNonce']
+	price = request.POST['pp']
+	print(price)
+	customer_kwargs = {
+		"first_name": "apito",
+		"last_name": "apito",
+		"email": "apebbleintheocean@gmail.com",
+	}
+	customer_create = braintree.Customer.create(customer_kwargs)
+	customer_id = customer_create.customer.id
+	result = braintree.Transaction.sale({
+		"amount": price,
+		"payment_method_nonce": nonce_from_the_client,
+		"options": {
+			"submit_for_settlement": True
+		}
+	})
+	return HttpResponse('Ok')
 
 
 
@@ -246,7 +250,7 @@ def index(request):
 			if em:
 				subject = "Your Apito Order Number"
 				text_content = "Apito Order Number Notification"
-				from_email = 'apebbleintheocean@gmail.com'
+				from_email = 'admin@apebbleintheocean.com'
 				to = em
 				html_content = '<p>Hello there,</p><p>Here is the order number for the pebbles you uploaded through Apito:</p><p>{}</p><p>Keep this order number to be able to reference the pebbles you uploaded. You will also need this order number later on to find your pebbles when the time capsule is reopened.</p><p>On behalf of Apito, thank you for your contribution.<p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format(order_no)
 				msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
@@ -649,7 +653,7 @@ def create_coupon(request):
 	#						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\nMessage from sender: {}".format(sender_email, coupon, message)
 						
 	#					print(send_mail(subject,msg, 'apebbleintheocean@gmail.com',[receiver]))
-						from_email = 'apebbleintheocean@gmail.com'
+						from_email = 'admin@apebbleintheocean.com'
 						to = receiver 
 						text_content = 'Apito eGift Notification'
 						msg = EmailMultiAlternatives(subject, text_content, from_email,[to])
@@ -671,7 +675,7 @@ def create_coupon(request):
 
 	#						msg = "Hi there, \n\n{} sent you a coupon. Coupon Code: {}\n\n".format(sender_email, coupon)
 	#					print(send_mail(subject,msg,'apebbleintheocean@gmail.com',[receiver]))
-						from_email = 'apebbleintheocean@gmail.com'
+						from_email = 'admin@apebbleintheocean.com'
 						to = receiver
 						text_content = 'Apito eGift Notification'
 						msg = EmailMultiAlternatives(subject,text_content, from_email,[to])
@@ -710,12 +714,13 @@ def create_coupon(request):
 			else:
 				sender_name = sender_email
 			html_content = '<p>Hello {},</p><p>Here are the Apito eGifts you purchased:</p>'.format(sender_name) + cpn + '<p>On behalf of Apito, thank you for your contribution.</p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'
-			from_email = 'apebbleintheocean@gmail.com'
+			from_email = 'admin@apebbleintheocean.com'
 			to = sender_email
 			text_content = 'Apito eGift Notification'
 			msg = EmailMultiAlternatives(subject,text_content, from_email,[to])
+			print(msg)
 			msg.attach_alternative(html_content, "text/html")
-			msg.send()
+			print('msg.send()',msg.send())
 			#msg = "Hi there, Please note your generated coupon codes: {}".format(cpns)
 	#		print(send_mail(sender_subject, msg, 'apebbleintheocean@gmail.com',[sender_email]))
 		return HttpResponse(coup)
