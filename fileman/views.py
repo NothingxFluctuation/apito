@@ -481,6 +481,8 @@ from io import BytesIO
 import os
 
 def file_download_url(request):
+	if not request.user.is_superuser:
+		return HttpResponse("denied")
 	mr = settings.MEDIA_ROOT + 'apito_files'
 	if not os.path.exists(mr):
 		os.mkdir(mr)
