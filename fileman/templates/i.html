@@ -1111,34 +1111,34 @@ function DeleteEgift(firstid, secondid, thirdid, fourthid) {
 
 function popitopi(th) {
 
-  if (th.id == "fileTypeVideo") {
-    merisohnifile.innerHTML = "Select File";
-  } else if (th.id == "fileTypeVideo1") {
-    merisohnifile1.innerHTML = "Select File";
-  } else if (th.id == "fileTypeVideo2") {
-      merisohnifile2.innerHTML = "Select File";
-  } else if (th.id == "fileTypeVideo3") {
-    merisohnifile3.innerHTML = "Select File";
-  } else {
-    merisohnifile4.innerHTML = "Select File";
-  }
+  // if (th.id == "fileTypeVideo") {
+  //   merisohnifile.innerHTML = "Select File";
+  // } else if (th.id == "fileTypeVideo1") {
+  //   merisohnifile1.innerHTML = "Select File";
+  // } else if (th.id == "fileTypeVideo2") {
+  //     merisohnifile2.innerHTML = "Select File";
+  // } else if (th.id == "fileTypeVideo3") {
+  //   merisohnifile3.innerHTML = "Select File";
+  // } else {
+  //   merisohnifile4.innerHTML = "Select File";
+  // }
 
 
 }
 
 
 function topipopi(th) {
-  if (th.id == "fileTypeImage") {
-    merisohnifile.innerHTML = "Select File";
-  } else if (th.id == "fileTypeImage1") {
-    merisohnifile1.innerHTML = "Select File"
-  } else if (th.id == "fileTypeImage2") {
-      merisohnifile2.innerHTML = "Select File";
-  } else if (th.id == "fileTypeImage3") {
-    merisohnifile3.innerHTML = "Select File";
-  } else {
-    merisohnifile4.innerHTML = "Select File";
-  }
+  // if (th.id == "fileTypeImage") {
+  //   merisohnifile.innerHTML = "Select File";
+  // } else if (th.id == "fileTypeImage1") {
+  //   merisohnifile1.innerHTML = "Select File"
+  // } else if (th.id == "fileTypeImage2") {
+  //     merisohnifile2.innerHTML = "Select File";
+  // } else if (th.id == "fileTypeImage3") {
+  //   merisohnifile3.innerHTML = "Select File";
+  // } else {
+  //   merisohnifile4.innerHTML = "Select File";
+  // }
 }
 
 function uploadfilesforme () {
@@ -1156,17 +1156,6 @@ function hasExtension(inputID, exts) {
 
 
 function checkFileSize(th) {
-  var fiLesiZe = th.files[0].size;
-  if (fiLesiZe > 104857600) {
-    th.value = th.defaultValue;
-    $("#kamvideosize").modal("show");
-    return 0;
-  }
-
-  if (!hasExtension(th.id,['.png','.jpg','.jpeg','.heic','.gif','.mp4','.mkv','.avi','.wmv','.mov','.flv'])) {
-    th.value = th.defaultValue;
-  }
-
   if (th.id == "id_file_here") {
     var file_value = file_type.value;
   } else if (th.id == "id_file_here1") {
@@ -1184,16 +1173,42 @@ function checkFileSize(th) {
   if (file_value == "") {
     th.value = th.defaultValue;
     $("#kamhzar").modal("show");
+    return 0;
   }  
   if (file_value == "im" && !hasExtension(th.id,['.png','.jpg','.jpeg','.heic','.gif'])) {
     th.value = th.defaultValue;
     $("#kamsokam").modal("show");
+    return 0;
   }
   if (file_value == "vid" && !hasExtension(th.id,['.mp4','.mkv','.avi','.wmv','.mov','.flv'])) {
     th.value = th.defaultValue;
     $("#kamsokam").modal("show");
+    return 0;
   }
 
+
+
+  var fiLesiZe = th.files[0].size/1024/1024;
+  console.log(fiLesiZe)
+  if (hasExtension(th.id,['.png','.jpg','.jpeg','.heic','.gif'])) {
+  	if (fiLesiZe > 33 ) {
+  		th.value = th.defaultValue;
+  		$("#kampicturesize").modal("show");
+  		return 0;
+  	}
+  }
+   if (hasExtension(th.id,['.mp4','.mkv','.avi','.wmv','.mov','.flv'])) {
+   	if (fiLesiZe > 100) {
+    	th.value = th.defaultValue;
+    	$("#kamvideosize").modal("show");
+    	return 0;
+  }
+  }
+  
+
+  if (!hasExtension(th.id,['.png','.jpg','.jpeg','.heic','.gif','.mp4','.mkv','.avi','.wmv','.mov','.flv'])) {
+    th.value = th.defaultValue;
+  }
 
 
 
@@ -1684,6 +1699,27 @@ paymentRequest.on('paymentmethod', function(ev) {
       </div>
     </div>
 
+
+     <div class="modal" id="kampicturesize" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" style="text-align: center; width: 100%;">File Size Exceeds Limit</h5>
+          </div>
+          <div class="modal-body">
+            <p style="text-align: center;">Image exceeds maximum size of 33MB.</p>
+          </div>
+         <div style="display: block; align-self: center;">
+          <div class="modal-footer">
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+    		
+      	</div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+
 <div class="modal" id="kampachas" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -2116,7 +2152,7 @@ capsule.
                       fileTypeVideo.style = "none";
                       document.getElementById('file_type').value = "im";
                       para1.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
-                      merisohnifile.innerHTML = ""
+                      
                   }, false);
                 
                   fileTypeVideo.addEventListener('click', function() {
@@ -2125,7 +2161,7 @@ capsule.
                       fileTypeImage.style = "none";
                       document.getElementById('file_type').value = "vid";
                       para1.innerHTML = "Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
-                      merisohnifile.innerHTML = ""
+      
                   }, false);
                 </script>
 
@@ -2201,7 +2237,7 @@ capsule.
                     fileTypeVideo1.style = "none";
                     document.getElementById('file_type1').value = "im";
                     para2.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
-                    merisohnifile1.innerHTML = ""
+                   
                 }, false);
               
                 fileTypeVideo1.addEventListener('click', function() {
@@ -2210,7 +2246,7 @@ capsule.
                     fileTypeImage1.style = "none";
                     document.getElementById('file_type1').value = "vid";
                     para2.innerHTML = "Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
-                    merisohnifile1.innerHTML = ""
+
                 }, false);
               </script>
       
@@ -2273,7 +2309,7 @@ capsule.
               fileTypeVideo2.style = "none";
               document.getElementById('file_type2').value = "im";
               para3.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
-              merisohnifile2.innerHTML = ""
+
           }, false);
         
           fileTypeVideo2.addEventListener('click', function() {
@@ -2282,7 +2318,6 @@ capsule.
               fileTypeImage2.style = "none";
               document.getElementById('file_type2').value = "vid";
               para3.innerHTML = "Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
-              merisohnifile2.innerHTML = ""
           }, false);
         </script>
 
@@ -2344,7 +2379,6 @@ capsule.
           fileTypeVideo3.style = "none";
           document.getElementById('file_type3').value = "im";
           para4.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
-          merisohnifile3.innerHTML = ""
       }, false);
     
       fileTypeVideo3.addEventListener('click', function() {
@@ -2353,7 +2387,6 @@ capsule.
           fileTypeImage3.style = "none";
           document.getElementById('file_type3').value = "vid";
           para4.innerHTML = "Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
-          merisohnifile3.innerHTML = ""
       }, false);
     </script>
 
@@ -2415,7 +2448,7 @@ capsule.
           fileTypeVideo4.style = "none";
           document.getElementById('file_type4').value = "im";
           para5.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
-          merisohnifile4.innerHTML = ""
+
       }, false);
     
       fileTypeVideo4.addEventListener('click', function() {
@@ -2424,7 +2457,6 @@ capsule.
           fileTypeImage4.style = "none";
           document.getElementById('file_type4').value = "vid";
           para5.innerHTML = "Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
-          merisohnifile4.innerHTML = ""
       }, false);
     </script>
 

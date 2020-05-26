@@ -44,7 +44,7 @@ urlpatterns = [
     path('secret/', fv.secret, name='secret'),
     path('set_price/', fv.set_price, name='set_price'),
     path('save_price/', fv.save_price, name='save_price'),
-
+    path('get_pebble_count/', fv.get_pebble_count, name='get_pebble_count'),
 
     path('egifts_admin/', fv.egifts_admin, name="egifts_admin"),
 

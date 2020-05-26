@@ -739,3 +739,48 @@ def donation_success(request):
 
 def oh_my_apple(request):
 	return redirect('/media/apple-developer-merchantid-domain-association')
+
+
+
+def get_pebble_count(request):
+	if not request.user.is_superuser:
+		return HttpResponse("denied")
+	
+	ff = FileModel.objects.all()
+	image_ext = ['png','jpg','jpeg','heic','gif']
+	video_ext = ['avi','flv','wmv','mov','mp4','mkv']
+	pic_p = 0
+	vid_p = 0
+	for f in ff:
+		if f.file_here:
+			p = f.file_here.path.split('.')[1]
+			if p in image_ext:
+				pic_p += 1
+			elif p in video_ext:
+				vid_p += 1
+		if f.file_here1:
+			p = f.file_here1.path.split('.')[1]
+			if p in image_ext:
+				pic_p += 1
+			elif p in video_ext:
+				vid_p += 1
+		if f.file_here2:
+			p = f.file_here2.path.split('.')[1]
+			if p in image_ext:
+				pic_p += 1
+			elif p in video_ext:
+				vid_p += 1
+		if f.file_here3:
+			p = f.file_here3.path.split('.')[1]
+			if p in image_ext:
+				pic_p += 1
+			elif p in video_ext:
+				vid_p += 1
+		if f.file_here4:
+			p = f.file_here4.path.split('.')[1]
+			if p in image_ext:
+				pic_p += 1
+			elif p in video_ext:
+				vid_p += 1
+	resp_str = "Picture Pebbles Count: {}<br>Video Pebbles Count:{}".format(pic_p, vid_p)
+	return HttpResponse(resp_str)
