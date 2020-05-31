@@ -897,6 +897,7 @@ function getmehehe() {
 	        var finalkukur = kukur1 + kukur2
 	        ld.innerHTML = finalkukur
 	        uploadpebbleshehe.innerHTML = "Pebbles Uploaded!"
+	        uploadingpebblesdisplaybuttonok.style.display = "block";
 
         }
     };
@@ -2151,7 +2152,7 @@ capsule.
                       fileTypeImage.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
                       fileTypeVideo.style = "none";
                       document.getElementById('file_type').value = "im";
-                      para1.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
+                      para1.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif (maximum size of 33MB)"
                       
                   }, false);
                 
@@ -2236,7 +2237,7 @@ capsule.
                     fileTypeImage1.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
                     fileTypeVideo1.style = "none";
                     document.getElementById('file_type1').value = "im";
-                    para2.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
+                    para2.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif (maximum size of 33MB)"
                    
                 }, false);
               
@@ -2308,7 +2309,7 @@ capsule.
               fileTypeImage2.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
               fileTypeVideo2.style = "none";
               document.getElementById('file_type2').value = "im";
-              para3.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
+              para3.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif (maximum size of 33MB)"
 
           }, false);
         
@@ -2378,7 +2379,7 @@ capsule.
           fileTypeImage3.style =  "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
           fileTypeVideo3.style = "none";
           document.getElementById('file_type3').value = "im";
-          para4.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
+          para4.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif (maximum size of 33MB)"
       }, false);
     
       fileTypeVideo3.addEventListener('click', function() {
@@ -2447,7 +2448,7 @@ capsule.
           fileTypeImage4.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
           fileTypeVideo4.style = "none";
           document.getElementById('file_type4').value = "im";
-          para5.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif"
+          para5.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif (maximum size of 33MB)"
 
       }, false);
     
@@ -2510,8 +2511,7 @@ capsule.
               <button type="button" id="showdilbars" onclick="showDilbar(this)" class="btn btn-primary" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"><span class="fas fa-plus" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"></span></button> <br><br>
               <button type="button" onclick="showAgreement()" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;Continue&nbsp;&nbsp;&nbsp;&nbsp;</button>
           </div>
-
-              <div style="display: none;" id="agree">
+                        <div style="display: none;" id="agree">
                 <p>You will need to accept our <a href="{% url 't' %}" target='_blank'> terms and conditions.</a></p>
                 <h3>Summary of Important Terms & Conditions</h3>
                 <p>You understand and accept that we will reveal your pictures or videos and
@@ -2542,7 +2542,6 @@ satisfied with the purchase you are making before finalizing the transaction.</p
                 <button type="button" onclick="showpayme()" class="btn btn-primary" name="popup-btn" id="popupbtn" disabled="disabled">Continue</button>
                 </div>
               </div>
-
           	<div id="pebbledonationskip" style="display: none;">
           		<br>
           	<div class="pebblesdonation">
@@ -2586,6 +2585,10 @@ satisfied with the purchase you are making before finalizing the transaction.</p
               </div>
           </div>
           <br>
+          
+
+
+          <br>
           <div style="display: none;" id="payme">
             <p style="font-weight: 600; text-align: center;"><a href="javascript:showcoup()">Have an eGift?</a> {% ifnotequal remaining_pebbles 0 %} or <a href="javascript:showfilespay();">Pay</a></p> {% endifnotequal %}
             
@@ -2613,7 +2616,7 @@ satisfied with the purchase you are making before finalizing the transaction.</p
                 </div>
               <div style="display: block; align-self: center;">
           <div class="modal-footer">
-        	<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+        	<button type="button" class="btn btn-primary" data-dismiss="modal" id="uploadingpebblesdisplaybuttonok" style="display: none;">OK</button>
     		
       	</div>
       </div>  
