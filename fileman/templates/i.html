@@ -829,12 +829,12 @@ function DeleteThisFile(firstid,secondid, thirdid) {
         if (data.startsWith("valid")) {
           var dd = data.split(" ")
           shishishi.innerHTML = "Your remaining eGift credit is $" + dd[1] + "."
-          $('#kampachees').modal('show')
 
           optnlinfo.style.display = "block";
           coupon.style.display = "none";
           kama.style.display = "none";
           apoc();
+          $('#kampachees').modal('show')
 
         } else if (data == 'invalid') {
             $('#kamchabees').modal('show')

@@ -19,7 +19,8 @@ class ImageModelAdmin(admin.ModelAdmin):
 #admin.site.register(ImageModel, ImageModelAdmin)
 
 class FileModelAdmin(admin.ModelAdmin):
-	list_display = ('id','text','file_here','created')
+	list_display = ('order_no','text','file_here','created')
+	search_fields = ['order_no',]
 	
 admin.site.register(FileModel, FileModelAdmin)
 
@@ -37,4 +38,5 @@ admin.site.register(Funds, FundsAdmin)
 
 class CouponModelAdmin(admin.ModelAdmin):
 	list_display = ('coupon','amount')
+	search_fields = ['coupon']
 admin.site.register(CouponModel, CouponModelAdmin)
