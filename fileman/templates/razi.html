@@ -1,39 +1,36 @@
-<div class="container">
-        <div class="row">
-          <div class="col-lg-4 col-md-6 ml-auto mr-auto">
-            <div class="card card-login py-4">
-              <form class="form-login" method="GET" action="{% url 'egifts_admin' %}">
-                <div class="card-header card-header-primary text-center">
-                  <h4 class="card-title">Please use below from to generate eGifts</h4>
-                
-                </div>
-                <!-- <p class="description text-center">Or Be Classical</p> -->
-                <div class="card-body p-4">
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="ion-ios-contact"></i>
-                      </span>
-                    </div>
-                    <input type="number" name="amount" class="form-control" placeholder="Amount">
-                  </div>
-                  <br>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="ion-ios-paper-plane"></i>
-                      </span>
-                    </div>
-                    <input type="number" name="quantity" class="form-control" placeholder="Quantity">
-                  </div>
-             
-                </div>
-                <br>
-                <div class="footer text-center">
-                  <input type="submit" value="Generate!"/>
-                </div>
-              </form>
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+        <div class="card card-login py-4">
+          <form action="{% url 'egifts_admin' %}" class="form-login" method="get">
+            <div class="card-header card-header-primary text-center">
+              <h4 class="card-title">Please use below from to generate eGifts</h4>
+            </div><!-- <p class="description text-center">Or Be Classical</p> -->
+            <div class="card-body p-4">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ion-ios-contact"></i></span>
+                </div><input class="form-control" name="amount" placeholder="Amount" type="number">
+              </div><br>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ion-ios-paper-plane"></i></span>
+                </div><input class="form-control" name="quantity" placeholder="Quantity" type="number">
+              </div>
+            </div><br>
+            <div class="footer text-center">
+              <input type="submit" value="Generate!">
             </div>
-          </div>
+          </form>
         </div>
       </div>
+    </div>
+  </div>
+</body>
+</html>

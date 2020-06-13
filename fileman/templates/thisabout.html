@@ -1,86 +1,64 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <title>Apito - FAQ</title>
-  <link rel="icon" href="{% static 'white-logo.png' %}">
+  <link href="{% static 'white-logo.png' %}" rel="icon">
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <link href="https://fonts.googleapis.com/css?family=Oswald:400,700|Dancing+Script:400,700|Muli:300,400" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'v1/fonts/icomoon/style.css' %}">
-
-  <link rel="stylesheet" href="{% static 'v1/css/bootstrap.min.css' %}">
-  <link rel="stylesheet" href="{% static 'v1/css/jquery-ui.css' %}">
-  <link rel="stylesheet" href="{% static 'v1/css/owl.carousel.min.css' %}">
-  <link rel="stylesheet" href="{% static 'v1/css/owl.theme.default.min.css' %}">
-  <link rel="stylesheet" href="{% static 'v1/css/owl.theme.default.min.css' %}">
-
-  <link rel='stylesheet' href="{% static 'f/css/all.css' %}">
-
-  <link rel="stylesheet" href="{% static 'v1/css/jquery.fancybox.min.css' %}">
-
-  <link rel="stylesheet" href="{% static 'v1/css/bootstrap-datepicker.css' %}">
-
-  <link rel="stylesheet" href="{% static 'v1/fonts/flaticon/font/flaticon.css' %}">
-
-  <link rel="stylesheet" href="{% static 'v1/css/aos.css' %}">
+  <link href="{% static 'v1/fonts/icomoon/style.css' %}" rel="stylesheet">
+  <link href="{% static 'v1/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'v1/css/jquery-ui.css' %}" rel="stylesheet">
+  <link href="{% static 'v1/css/owl.carousel.min.css' %}" rel="stylesheet">
+  <link href="{% static 'v1/css/owl.theme.default.min.css' %}" rel="stylesheet">
+  <link href="{% static 'v1/css/owl.theme.default.min.css' %}" rel="stylesheet">
+  <link href="{% static 'f/css/all.css' %}" rel='stylesheet'>
+  <link href="{% static 'v1/css/jquery.fancybox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'v1/css/bootstrap-datepicker.css' %}" rel="stylesheet">
+  <link href="{% static 'v1/fonts/flaticon/font/flaticon.css' %}" rel="stylesheet">
+  <link href="{% static 'v1/css/aos.css' %}" rel="stylesheet">
   <link href="{% static 'v1/css/jquery.mb.YTPlayer.min.css' %}" media="all" rel="stylesheet" type="text/css">
-  <script src="{% static 'v1/js/jquery-3.3.1.min.js' %}"></script>
-  <link rel="stylesheet" href="{% static 'v1/css/style.css' %}">
-
-<style>
-html, body { overflow-x: hidden; }
-</style>
-
-
+  <script src="{% static 'v1/js/jquery-3.3.1.min.js' %}">
+  </script>
+  <link href="{% static 'v1/css/style.css' %}" rel="stylesheet">
   <style>
-    /*sticky header position*/
-    .sticky.is-sticky {
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: 0;
-        z-index: 1000;
-        width: 100%;
-    }
-    
-    nav {
-      background: #1089ff;
-      min-height: 85px;
-    }
-    
-    
-    </style>
-    
-    <script>
-    
-    
-    // Sticky navbar
-    // =========================
-   $(function() {
-  $(document).click(function (event) {
-    $('.navbar-collapse').collapse('hide');
+  html, body { overflow-x: hidden; }
+  </style>
+  <style>
+     /*sticky header position*/
+     .sticky.is-sticky {
+         position: fixed;
+         left: 0;
+         right: 0;
+         top: 0;
+         z-index: 1000;
+         width: 100%;
+     }
+     
+     nav {
+       background: #1089ff;
+       min-height: 85px;
+     }
+     
+     
+  </style>
+  <script>
+     
+     
+     // Sticky navbar
+     // =========================
+    $(function() {
+   $(document).click(function (event) {
+     $('.navbar-collapse').collapse('hide');
+   });
   });
-});
 
 
-    </script>
-    
-
-
-
-
-
-
-
+  </script>
 </head>
-
-<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-
+<body data-offset="300" data-spy="scroll" data-target=".site-navbar-target">
   <div class="site-wrap">
-
     <div class="site-mobile-menu site-navbar-target">
       <div class="site-mobile-menu-header">
         <div class="site-mobile-menu-close mt-3">
@@ -89,251 +67,180 @@ html, body { overflow-x: hidden; }
       </div>
       <div class="site-mobile-menu-body"></div>
     </div>
-
-
-    
-
-
-      
-      
-    <nav class="navbar  navbar-expand-lg navbar-light top-navbar" data-toggle="sticky-onscroll">
+    <nav class="navbar navbar-expand-lg navbar-light top-navbar" data-toggle="sticky-onscroll">
       <div class="container">
-          <a class="navbar-brand" href="#"></a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-              
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                      <a href="/" style="padding-right: 20px;"><img src="{% static 'white-logo.png' %}" height="75" width="75"/></a>
-                    </li>
-                  <li class="nav-item">
-                      <a class="nav-link active" href="/" style="font-size: 20px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 17px;padding-right: 20px;padding-bottom: 15px;padding-left: 20px;"><b>HOME</b></a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{% url 'thisabout' %}" style="font-size: 20px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 17px;padding-right: 20px;padding-bottom: 15px;padding-left: 20px;"><b><u>FAQ</u></b></a>
-                  </li>
-                
-
-              </ul>
-
-          </div>
+        <a class="navbar-brand" href="#"></a> <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a href="/" style="padding-right: 20px;"><img height="75" src="{% static 'white-logo.png' %}" width="75"></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/" style="font-size: 20px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 17px;padding-right: 20px;padding-bottom: 15px;padding-left: 20px;"><b>HOME</b></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'thisabout' %}" style="font-size: 20px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 17px;padding-right: 20px;padding-bottom: 15px;padding-left: 20px;"><b><u>FAQ</u></b></a>
+            </li>
+          </ul>
+        </div>
       </div>
-  </nav>
-    
+    </nav>
+  </div><!-- END slider -->
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="container py-3">
+    <div class="jumbotron" style="width: 100%; text-align: center;">
+      <h1>FAQ</h1>
     </div>
-    
-    
-    <!-- END slider -->
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="container py-3">
-        <div class="jumbotron" style="width: 100%; text-align: center;">
-            <h1>FAQ</h1>
-        </div>
-            <div class="row">
-                <div class="col-10 mx-auto">
-                    <div class="accordion" id="faqExample">
-                        <div class="card">
-                          
-                            <div class="card-header py-2" id="headingOne">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="white-space: normal;">
-                                      Q: So, what is this all about?
-                                    </button>
-                                  </h5>
-                            </div>
-
-        
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqExample">
-                                <div class="card-body">
-                                    We wanted to create a huge time capsule where people from all over the world
-can send in a picture or video and a story of something meaningful that they would like
-to store in the time capsule. A few years from now, the time capsule will be opened and
-all of your pictures or videos and stories will be shared with the world.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header p-2" id="headingTwo">
-                                <h5 class="mb-0">
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="white-space: normal;">
-                                  Q: How is this going to be achieved?
-                                </button>
-                              </h5>
-                            </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqExample">
-                                <div class="card-body">
-                                    <p>First of all, the only way that we can be successful is if you guys contribute. The
-more of you that choose to send in your pictures or videos and stories, the bigger this
-movement can become! Spread the word and tell all of your friends and family about
-Apito so that they can contribute too.</p>
-<p>In terms of the actual time capsule, you will be sending a digital copy to us of
-your picture or video and your story. We will be storing these on hard drives considering
-they can store a lot of data without requiring a lot of physical space and they are
-environmentally sustainable. People opening the time capsule a few years from now will
-be able to access all of your pictures, videos and stories from the data stored on the
-hard drives.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header p-2" id="headingThree">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="white-space: normal;">
-                                      Q. What is Apito?
-                                    </button>
-                                  </h5>
-                            </div>
-                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqExample">
-                                <div class="card-body">
-                                    The name Apito stands for "a pebble in the ocean." This saying refers to the idea
-that a wave can be created if enough people were to throw just one pebble each into
-the ocean. It symbolizes the huge effect that a group of people can have if each person
-contributes one small element. We believe that this analogy fits perfectly with this
-project. If each one of us contributes a pebble, we can create a worldwide movement,
-demonstrating how people from different nations can unite and work together to achieve
-one shared goal that can positively impact our society.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header p-2" id="headingFour">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" style="white-space: normal;">
-                                      Q. What is a pebble?
-                                    </button>
-                                  </h5>
-                            </div>
-                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqExample">
-                                <div class="card-body">
-
-                                  A pebble is what we like to call the picture-story or video-story pair that are
-uploaded and will get stored in the time capsule. It is related to the analogy of “a pebble
-in the ocean,” where a wave could be created if enough people were each to throw a
-pebble into the ocean at the same time. In this context, if enough people were to upload 
-enough pebbles, then together we would be able to have a large impact in our society to
-send a positive message worldwide.
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header p-2" id="headingFive">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive" style="white-space: normal;">
-                                      Q. How can I contribute?
-                                    </button>
-                                  </h5>
-                            </div>
-                            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqExample">
-                                <div class="card-body">
-                                  <p>There are three ways that you can contribute:</p>
-                                  <p> <b>1)</b> You can upload as many pebbles as you would like through the “Upload
-Pebbles” option. We will get closer towards our final goal every time more
-pebbles get uploaded.</p>
-                                  <p> <b>2)</b> You can buy eGifts through the “Buy eGifts” option to send funds to your friends
-and family so that they too can contribute. In this way, you will help us spread the
-word and enable others to easily contribute as well.</p>
-                                  <p> <b>3)</b> Finally, you can donate towards the project through the “Donate” option. In order
-to spread the word and get more people involved, our team will be constantly
-connecting with people in our community and giving out eGifts to those who wish
-to upload pebbles. So, donations will primarily be used to provide these people
-with eGifts so that they have the opportunity to be a part of the movement as
-well. The remaining donations will help cover the project costs and support us as
-we continue to work on the project.</p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                </div>
+    <div class="row">
+      <div class="col-10 mx-auto">
+        <div class="accordion" id="faqExample">
+          <div class="card">
+            <div class="card-header py-2" id="headingOne">
+              <h5 class="mb-0"><button aria-controls="collapseOne" aria-expanded="true" class="btn btn-link" data-target="#collapseOne" data-toggle="collapse" style="white-space: normal;" type="button">Q: So, what is this all about?</button></h5>
             </div>
-            <!--/row-->
-        </div>
-        <!--container-->
-
-
-
-        <br><br><br><br>
-
-
-
-
-    <div class="footer bg-light">
-      <div class="container">
-      <div class="row text-center" >
-          
-          <div class="col-lg-3 ml-auto padding-0 mb-5">
-            <h3 class="footer-heading"><span>Site Links</span></h3>
-            <ul class="list-unstyled">
-
-                <li><a href="mailto:apito.help.center@gmail.com">Contact us</a></li>
-                <li><a href="{% url 't' %}">Terms and Conditions</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 mr-auto padding-0 mb-5">
-              <h3 class="footer-heading"><span>Social Media</span></h3>
-              <ul class="list-unstyled">
-                  <li><a href="https://www.facebook.com/Apito-106229387484222/"><span class="fab fa-facebook fa-lg"></span> Facebook </a></li>
-                  <li><a href="https://www.instagram.com/apebbleintheocean/"><span class="fab fa-instagram fa-lg"></span> Instagram</a></li>
-                  <li><a href="https://www.youtube.com/channel/UCRLnvpXOc8nwdwNYaLU6nJA"><span class="fab fa-youtube fa-lg"></span> YouTube</a></li>
-                  <li><a href="https://twitter.com/apito_project"><span class="fab fa-twitter fa-lg"></span> Twitter</a></li>
-              </ul>
-          </div>
-
-        </div>
-        <div class="row" style="margin-bottom: 0;">
-          <div class="center mx-auto">
-            <img src="{% static 'footer.png' %}" height="170" width="150"/>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div>
-                <p class="text-center">
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved</p>
+            <div aria-labelledby="headingOne" class="collapse show" data-parent="#faqExample" id="collapseOne">
+              <div class="card-body">
+                We wanted to create a huge time capsule where people from all over the world can send in a picture or video and a story of something meaningful that they would like to store in the time capsule. A few years from now, the time capsule will be opened and all of your pictures or videos and stories will be shared with the world.
+              </div>
             </div>
+          </div>
+          <div class="card">
+            <div class="card-header p-2" id="headingTwo">
+              <h5 class="mb-0"><button aria-controls="collapseTwo" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseTwo" data-toggle="collapse" style="white-space: normal;" type="button">Q: How is this going to be achieved?</button></h5>
+            </div>
+            <div aria-labelledby="headingTwo" class="collapse" data-parent="#faqExample" id="collapseTwo">
+              <div class="card-body">
+                <p>First of all, the only way that we can be successful is if you guys contribute. The more of you that choose to send in your pictures or videos and stories, the bigger this movement can become! Spread the word and tell all of your friends and family about Apito so that they can contribute too.</p>
+                <p>In terms of the actual time capsule, you will be sending a digital copy to us of your picture or video and your story. We will be storing these on hard drives considering they can store a lot of data without requiring a lot of physical space and they are environmentally sustainable. People opening the time capsule a few years from now will be able to access all of your pictures, videos and stories from the data stored on the hard drives.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header p-2" id="headingThree">
+              <h5 class="mb-0"><button aria-controls="collapseThree" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseThree" data-toggle="collapse" style="white-space: normal;" type="button">Q. What is Apito?</button></h5>
+            </div>
+            <div aria-labelledby="headingThree" class="collapse" data-parent="#faqExample" id="collapseThree">
+              <div class="card-body">
+                The name Apito stands for "a pebble in the ocean." This saying refers to the idea that a wave can be created if enough people were to throw just one pebble each into the ocean. It symbolizes the huge effect that a group of people can have if each person contributes one small element. We believe that this analogy fits perfectly with this project. If each one of us contributes a pebble, we can create a worldwide movement, demonstrating how people from different nations can unite and work together to achieve one shared goal that can positively impact our society.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header p-2" id="headingFour">
+              <h5 class="mb-0"><button aria-controls="collapseFour" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseFour" data-toggle="collapse" style="white-space: normal;" type="button">Q. What is a pebble?</button></h5>
+            </div>
+            <div aria-labelledby="headingFour" class="collapse" data-parent="#faqExample" id="collapseFour">
+              <div class="card-body">
+                A pebble is what we like to call the picture-story or video-story pair that are uploaded and will get stored in the time capsule. It is related to the analogy of “a pebble in the ocean,” where a wave could be created if enough people were each to throw a pebble into the ocean at the same time. In this context, if enough people were to upload enough pebbles, then together we would be able to have a large impact in our society to send a positive message worldwide.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header p-2" id="headingFive">
+              <h5 class="mb-0"><button aria-controls="collapseFive" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseFive" data-toggle="collapse" style="white-space: normal;" type="button">Q. How can I contribute?</button></h5>
+            </div>
+            <div aria-labelledby="headingFive" class="collapse" data-parent="#faqExample" id="collapseFive">
+              <div class="card-body">
+                <p>There are three ways that you can contribute:</p>
+                <p><b>1)</b> You can upload as many pebbles as you would like through the “Upload Pebbles” option. We will get closer towards our final goal every time more pebbles get uploaded.</p>
+                <p><b>2)</b> You can buy eGifts through the “Buy eGifts” option to send funds to your friends and family so that they too can contribute. In this way, you will help us spread the word and enable others to easily contribute as well.</p>
+                <p><b>3)</b> Finally, you can donate towards the project through the “Donate” option. In order to spread the word and get more people involved, our team will be constantly connecting with people in our community and giving out eGifts to those who wish to upload pebbles. So, donations will primarily be used to provide these people with eGifts so that they have the opportunity to be a part of the movement as well. The remaining donations will help cover the project costs and support us as we continue to work on the project.</p>
+              </div>
+            </div>
+          </div>
+        </div><br>
+      </div>
+    </div><!--/row-->
+  </div><!--container-->
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="footer bg-light">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-lg-3 ml-auto padding-0 mb-5">
+          <h3 class="footer-heading"><span>Site Links</span></h3>
+          <ul class="list-unstyled">
+            <li>
+              <a href="mailto:apito.help.center@gmail.com">Contact us</a>
+            </li>
+            <li>
+              <a href="{% url 't' %}">Terms and Conditions</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-3 mr-auto padding-0 mb-5">
+          <h3 class="footer-heading"><span>Social Media</span></h3>
+          <ul class="list-unstyled">
+            <li>
+              <a href="https://www.facebook.com/Apito-106229387484222/"><span class="fab fa-facebook fa-lg"></span> Facebook</a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/apebbleintheocean/"><span class="fab fa-instagram fa-lg"></span> Instagram</a>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/channel/UCRLnvpXOc8nwdwNYaLU6nJA"><span class="fab fa-youtube fa-lg"></span> YouTube</a>
+            </li>
+            <li>
+              <a href="https://twitter.com/apito_project"><span class="fab fa-twitter fa-lg"></span> Twitter</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: 0;">
+        <div class="center mx-auto"><img height="170" src="{% static 'footer.png' %}" width="150"></div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div>
+            <p class="text-center">Copyright &copy;
+            <script>
+            document.write(new Date().getFullYear());
+            </script> All rights reserved</p>
           </div>
         </div>
       </div>
-    </div>    
-
-  </div>
-  <!-- .site-wrap -->
-
-
+    </div>
+  </div><!-- .site-wrap -->
   <!-- loader -->
-  <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#ff5e15"/></svg></div>
-
-
-
-  <script src="{% static 'v1/js/jquery-3.3.1.min.js' %}"></script>
-  <script src="{% static 'v1/js/jquery-migrate-3.0.1.min.js' %}"></script>
-  <script src="{% static 'v1/js/jquery-ui.js' %}"></script>
-  <script src="{% static 'v1/js/popper.min.js' %}"></script>
-  <script src="{% static 'v1/js/bootstrap.min.js' %}"></script>
-  <script src="{% static 'v1/js/owl.carousel.min.js' %}"></script>
-  <script src="{% static 'v1/js/jquery.stellar.min.js' %}"></script>
-  <script src="{% static 'v1/js/jquery.countdown.min.js' %}"></script>
-  <script src="{% static 'v1/js/bootstrap-datepicker.min.js' %}"></script>
-  <script src="{% static 'v1/js/jquery.easing.1.3.js' %}"></script>
-  <script src="{% static 'v1/js/aos.js' %}"></script>
-  <script src="{% static 'v1/js/jquery.fancybox.min.js' %}"></script>
-  <script src="{% static 'v1/js/jquery.sticky.js' %}"></script>
-  <script src="{% static 'v1/js/jquery.mb.YTPlayer.min.js' %}"></script>
-
-
-
-
-  <script src="{% static 'v1/js/main.js' %}"></script>
-
+  <div class="show fullscreen" id="loader">
+    <svg class="circular" height="48px" width="48px">
+    <circle class="path-bg" cx="24" cy="24" fill="none" r="22" stroke="#eeeeee" stroke-width="4"></circle>
+    <circle class="path" cx="24" cy="24" fill="none" r="22" stroke="#ff5e15" stroke-miterlimit="10" stroke-width="4"></circle></svg>
+  </div>
+  <script src="{% static 'v1/js/jquery-3.3.1.min.js' %}">
+  </script> 
+  <script src="{% static 'v1/js/jquery-migrate-3.0.1.min.js' %}">
+  </script> 
+  <script src="{% static 'v1/js/jquery-ui.js' %}">
+  </script> 
+  <script src="{% static 'v1/js/popper.min.js' %}">
+  </script> 
+  <script src="{% static 'v1/js/bootstrap.min.js' %}">
+  </script> 
+  <script src="{% static 'v1/js/owl.carousel.min.js' %}">
+  </script> 
+  <script src="{% static 'v1/js/jquery.stellar.min.js' %}">
+  </script> 
+  <script src="{% static 'v1/js/jquery.countdown.min.js' %}">
+  </script> 
+  <script src="{% static 'v1/js/bootstrap-datepicker.min.js' %}">
+  </script> 
+  <script src="{% static 'v1/js/jquery.easing.1.3.js' %}">
+  </script> 
+  <script src="{% static 'v1/js/aos.js' %}">
+  </script> 
+  <script src="{% static 'v1/js/jquery.fancybox.min.js' %}">
+  </script> 
+  <script src="{% static 'v1/js/jquery.sticky.js' %}">
+  </script> 
+  <script src="{% static 'v1/js/jquery.mb.YTPlayer.min.js' %}">
+  </script> 
+  <script src="{% static 'v1/js/main.js' %}">
+  </script>
 </body>
-
 </html>
