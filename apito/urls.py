@@ -18,6 +18,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 import fileman.views as fv
+from django.conf.urls import url,include
 
 
 #url configurations for the whole site

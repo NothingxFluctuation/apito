@@ -551,29 +551,9 @@ def get_pebble_count(request):
                 pic_p += 1
             elif p in video_ext:
                 vid_p += 1
-        if f.file_here1:
-            p = f.file_here1.path.split('.')[1]
-            if p in image_ext:
-                pic_p += 1
-            elif p in video_ext:
-                vid_p += 1
-        if f.file_here2:
-            p = f.file_here2.path.split('.')[1]
-            if p in image_ext:
-                pic_p += 1
-            elif p in video_ext:
-                vid_p += 1
-        if f.file_here3:
-            p = f.file_here3.path.split('.')[1]
-            if p in image_ext:
-                pic_p += 1
-            elif p in video_ext:
-                vid_p += 1
-        if f.file_here4:
-            p = f.file_here4.path.split('.')[1]
-            if p in image_ext:
-                pic_p += 1
-            elif p in video_ext:
-                vid_p += 1
     resp_str = "Picture Pebbles Count: {}<br>Video Pebbles Count:{}".format(pic_p, vid_p)
     return HttpResponse(resp_str)
+
+
+
+

@@ -39,6 +39,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 INSTALLED_APPS = [
 	'fileman',
     'bootstrapform',
+    # 'paypal.standard.ipn',
 
 
     'django.contrib.admin',
@@ -49,22 +50,31 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+
+
+
+
+PAYPAL_RECEIVER_EMAIL = 'sb-43hlba1832791@business.example.com'
+PAYPAL_TEST = True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import sys
 
-BRAINTREE_PRODUCTION = False
-BRAINTREE_MERCHANT_ID = "sht8v5qnqrdqrjkx"
-BRAINTREE_PUBLIC_KEY = "h6xq75n49jjpb3dk"
-BRAINTREE_PRIVATE_KEY = "e71041c2a1feb7c0dcc723626d809b80"
-
-
-
-from braintree import Configuration, Environment
-Configuration.configure(
-    Environment.Sandbox,
-    BRAINTREE_MERCHANT_ID,
-    BRAINTREE_PUBLIC_KEY,
-    BRAINTREE_PRIVATE_KEY,
-)
 
 
 
