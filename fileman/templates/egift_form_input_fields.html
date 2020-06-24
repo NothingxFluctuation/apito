@@ -1,5 +1,5 @@
 						{% load staticfiles %}
-						<div id="dil{{fields_count}}" class="egift-class" style="display: block;">
+						<div id="egift_num_{{fields_count}}" class="egift-class" style="display: block;">
 							<br>
 							<hr>
 							<br>
@@ -21,8 +21,8 @@
 									<div id="textcounter{{fields_count|add:'5'}}">
 										0/250
 									</div>
-									<div id="dildelete{{fields_count}}" class="egift-delete-class" style="text-align: right; padding-right: 0px;">
-										<a href="#" onclick="javascript:DeleteEgift('dil{{fields_count}}');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a>
+									<div id="egift_delete_{{fields_count}}" class="egift-delete-class" style="text-align: right; padding-right: 0px;">
+										<a href="#" onclick="javascript:DeleteEgift('egift_num_{{fields_count}}');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a>
 									</div>
 								</div>
 							</div>

@@ -1,12 +1,12 @@
 							{% load staticfiles %}
-							<div id="dilbar{{fields_count}}" class="pebbles-class" style="display: block;">
+							<div id="pebble_num_{{fields_count}}" class="pebbles-class" style="display: block;">
 								<hr>
 								<br>
 								<label class="control-label" for="file_type{{fields_count}}">1) Select File Type</label>
 								<div class="container">
 									<div class="text-center">
 										<input id="file_type{{fields_count}}" name="file_type{{fields_count}}" type="hidden"><br>
-										<div id="fileTypeArea{{fields_count}}"><img height="90" id="fileTypeImage{{fields_count}}" onclick="javascript:topipopi(this);" src="{% static 'imig.png' %}" width="90"> <span class="mx-4"></span> <img height="90" id="fileTypeVideo{{fields_count}}" onclick="javascript:popitopi(this);" src="{% static 'vidig.png' %}" width="90"></div>
+										<div id="fileTypeArea{{fields_count}}"><img height="90" id="fileTypeImage{{fields_count}}" onclick="javascript:image_selection_func(this);" src="{% static 'imig.png' %}" width="90"> <span class="mx-4"></span> <img height="90" id="fileTypeVideo{{fields_count}}" onclick="javascript:vid_selection_func(this);" src="{% static 'vidig.png' %}" width="90"></div>
 									</div>
 								</div>
 								<script>
@@ -20,7 +20,7 @@
 								              fileTypeImage{{fields_count}}.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
 								              fileTypeVideo{{fields_count}}.style = "none";
 								              document.getElementById('file_type{{fields_count}}').value = "im";
-								              para{{fields_count|add:"1"}}.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif (maximum size of 33MB)"
+								              select_file_note_p{{fields_count|add:"1"}}.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif (maximum size of 33MB)"
 								              
 								          }, false);
 								        
@@ -29,13 +29,13 @@
 								              fileTypeVideo{{fields_count}}.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;";
 								              fileTypeImage{{fields_count}}.style = "none";
 								              document.getElementById('file_type{{fields_count}}').value = "vid";
-								              para{{fields_count|add:"1"}}.innerHTML = "Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
+								              select_file_note_p{{fields_count|add:"1"}}.innerHTML = "Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
 
 								          }, false);
 								</script>
 								<div class="form-group">
-									<label class="control-label" for="id_file_here{{fields_count}}" id="merisohnifile{{fields_count}}">2) Select File</label>
-									<p id='para{{fields_count|add:"1"}}' style="font-size: 16px; color: red;"></p>
+									<label class="control-label" for="id_file_here{{fields_count}}" id="select_file_label_id{{fields_count}}">2) Select File</label>
+									<p id='select_file_note_p{{fields_count|add:"1"}}' style="font-size: 16px; color: red;"></p>
 									<div class="">
 										<input id="id_file_here{{fields_count}}" class="pebble-file-class" name="file_here{{fields_count}}" onchange="checkFileSize(this,file_type{{fields_count}});" required="" type="file">
 									</div>
@@ -47,8 +47,8 @@
 										<div id="textcounter{{fields_count}}">
 											0/4000
 										</div>
-										<div id="dilbardelete{{fields_count}}" class="pebble-delete-class" style="text-align: right; padding-right: 0px;">
-											<a href="#" onclick="javascript:DeleteThisFile('dilbar{{fields_count}}');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a>
+										<div id="pebble_delete_div{{fields_count}}" class="pebble-delete-class" style="text-align: right; padding-right: 0px;">
+											<a href="#" onclick="javascript:DeleteThisFile('pebble_num_{{fields_count}}');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a>
 										</div>
 									</div>
 								</div>

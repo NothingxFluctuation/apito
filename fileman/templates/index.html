@@ -1,0 +1,2924 @@
+{% load bootstrap %} 
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Apito - Home</title>
+</head>
+<body>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+	<link href="{% static 'white-logo.png' %}" rel="icon">
+	<link href="https://fonts.googleapis.com/css?family=Oswald:400,700|Dancing+Script:400,700|Muli:300,400" rel="stylesheet">
+	<link href="{% static 'v1/fonts/icomoon/style.css' %}" rel="stylesheet">
+	<script src="https://js.stripe.com/v3/">
+	</script>
+	<meta content="width=device-width, initial-scale=1" name="viewport"><!-- Ensures optimal rendering on mobile devices. -->
+	<meta content="IE=edge" http-equiv="X-UA-Compatible"><!-- Optimal Internet Explorer compatibility -->
+	<link href="{% static 'v1/css/bootstrap.min.css' %}" rel="stylesheet">
+	<link href="{% static 'v1/css/jquery-ui.css' %}" rel="stylesheet">
+	<link href="{% static 'v1/css/owl.carousel.min.css' %}" rel="stylesheet">
+	<link href="{% static 'v1/css/owl.theme.default.min.css' %}" rel="stylesheet">
+	<link href="{% static 'v1/css/owl.theme.default.min.css' %}" rel="stylesheet">
+	<link href="{% static 'v1/css/jquery.fancybox.min.css' %}" rel="stylesheet">
+	<link href="{% static 'v1/css/bootstrap-datepicker.css' %}" rel="stylesheet">
+	<link href="{% static 'v1/fonts/flaticon/font/flaticon.css' %}" rel="stylesheet">
+	<link href="{% static 'v1/css/aos.css' %}" rel="stylesheet">
+	<link href="{% static 'v1/css/jquery.mb.YTPlayer.min.css' %}" media="all" rel="stylesheet" type="text/css">
+	<link href="{% static 'v1/css/style.css' %}" rel="stylesheet">
+	<link href="{% static 'f/css/all.css' %}" rel='stylesheet'>
+	<script src="{% static 'v1/js/jquery-3.3.1.min.js' %}">
+	</script> 
+	<script src="{% static 'v1/js/jquery-migrate-3.0.1.min.js' %}">
+	</script> 
+	<script src="{% static 'v1/js/jquery-ui.js' %}">
+	</script> 
+	<script src="{% static 'v1/js/popper.min.js' %}">
+	</script> 
+	<script src="{% static 'v1/js/bootstrap.min.js' %}">
+	</script> 
+	<script src="{% static 'v1/js/owl.carousel.min.js' %}">
+	</script> 
+	<script src="{% static 'v1/js/jquery.stellar.min.js' %}">
+	</script> 
+	<script src="{% static 'v1/js/jquery.countdown.min.js' %}">
+	</script> 
+	<script src="{% static 'v1/js/bootstrap-datepicker.min.js' %}">
+	</script> 
+	<script src="{% static 'v1/js/jquery.easing.1.3.js' %}">
+	</script> 
+	<script src="{% static 'v1/js/aos.js' %}">
+	</script> 
+	<script src="{% static 'v1/js/jquery.fancybox.min.js' %}">
+	</script> 
+	<script src="{% static 'v1/js/jquery.sticky.js' %}">
+	</script> 
+	<script src="{% static 'v1/js/jquery.mb.YTPlayer.min.js' %}">
+	</script> 
+	<script src="https://js.braintreegateway.com/web/dropin/1.20.4/js/dropin.min.js">
+	</script> 
+	<script src="https://js.braintreegateway.com/web/3.55.0/js/venmo.min.js">
+	</script> 
+	<script src="https://js.braintreegateway.com/web/3.55.0/js/data-collector.min.js">
+	</script>
+	<style>
+	html, body { 
+	 overflow-x: hidden; 
+	 width: 100%;
+	 height: 100%;
+	 margin: 0px;
+	 padding: 0px;
+
+	}
+
+
+	.avoid-clicks {
+ 	pointer-events: none;
+	}
+
+
+
+
+
+	</style>
+	<script>
+
+	//collapse the navbar
+
+	$(function() {
+	 $(document).click(function (event) {
+	   $('.navbar-collapse').collapse('hide');
+	 });
+	});
+
+
+
+
+	// Set the date we're counting down to
+	var countDownDate = new Date("Jun 21, 2022 12:00:00").getTime();
+
+	// Update the count down every 1 second
+	var x = setInterval(function() {
+
+	 // Get todays date and time
+	 var now = new Date().getTime();
+
+	 // Find the distance between now an the count down date
+	 var distance = countDownDate - now;
+
+	 // Time calculations for days, hours, minutes and seconds
+	 var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+	 var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+	 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+	 // Display the result in an element with id="demo"
+	 document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+	 + minutes + "m " + seconds + "s ";
+
+	 // If the count down is finished, write some text
+	 if (distance < 0) {
+	   clearInterval(x);
+	   document.getElementById("demo").innerHTML = "EXPIRED";
+	 }
+	}, 1000);
+
+	</script> <!--product script-->
+	 
+	<script>
+
+
+	pebbles_counter = 1;
+	egifts_counter = 1;
+
+
+
+	price_owed = 0;
+	window.egiftsprice = 0;
+	window.mydonation = 0;
+	window.filesprice = 0;
+
+
+
+	tab_location = "files";
+	//find which tab the user is on and then use the info to handle forms and payments
+
+	function WhichTab(t) {
+	 if (t.id == "pills-home-tab") {
+	   tab_location = "files";
+	   price_owed = window.filesprice;
+	 } else if (t.id == "pills-profile-tab") {
+	   tab_location = "egift";
+	   price_owed = window.egiftsprice;
+	   $("#egift_email_popup").modal({backdrop: 'static',keyboard: false})
+	 } else if (t.id == "pills-contact-tab") {
+	   tab_location = "donation";
+	   price_owed = window.mydonation;
+
+	 }
+
+	};
+
+
+
+
+
+
+
+
+	//show agreement on pebble tab
+
+	 function showAgreement() {
+	  
+
+
+	   var pebble_files = document.getElementsByClassName("pebble-file-class");
+	   var pebble_texts = document.getElementsByClassName("pebble-text-class");
+	   var i;
+	   var kamkhali_c = true;
+	   var kamlakh_c = true;
+	   for (i = 0; i < pebble_files.length; i++) {
+		   var pfv = pebble_files[i].value;
+		   if (pfv == ""){
+
+		   } else {
+		   	 kamkhali_c = false;
+		   }
+
+		   var ptv = pebble_texts[i].value;
+		   if (pfv != "" && ptv == "") {
+
+		   } else {
+		   	kamlakh_c = false;
+		   }
+
+
+
+	   }
+
+	   if (kamkhali_c == true) {
+	   	$("#no_file_selected_popup").modal({backdrop: 'static',keyboard: false})
+	   	return 1;
+	   }
+
+	   if (kamlakh_c == true) {
+	   	$("#text_not_entered_popup").modal({backdrop: 'static',keyboard: false})
+	   	return 1;
+	   }
+
+
+	   agree.style.display = "block";
+	 }
+
+	 //show agreement on donation tab
+
+	 function showdonationAgreement() {
+	   donationagree.style.display = "block";
+	   showdonationbutton.style.display = "none";
+	   
+	 }
+
+	 //show coupon input 
+	 
+	 function showcoup() {
+	   coupon.style.display = "block";
+	   agree.style.display = "none";
+	   popupbtn.style.display = "none";
+	   payme.style.display = "none";
+	 }
+	 
+	 //hide the edit pebble form button and show the form with donation option as well
+
+	function edit_pebble_form_button_func() {
+	   pebble_main_div.style.display = "block";
+	   pebbledonationskip.style.display = "block";
+	   pebble_edit_payment_options_div.style.display = "none";
+	   coupon.style.display = "none";
+	   payme.style.display = "none";
+	   show_pebble_form_field_div_id_btn.style.display = "block";
+	   show_payme_div_id.style.display = "block";
+	   popupbtn.style.display = "block";
+	   edit_pebbles_form_button_div.style.display = "none";
+	   pebble_agreement_button.style.display = "block";
+	}
+
+
+	//show payment options to the user on pebble tab
+
+	 function showpayme() {
+	   $("#check").prop("checked", false);
+	   coupon.style.display = "none";
+	   agree.style.display = "none";
+	   popupbtn.style.display = "none";
+	   pebble_main_div.style.display = "none";
+	   show_pebble_form_field_div_id_btn.style.display = "none";
+	   edit_pebbles_form_button_div.style.display = "block";
+	   pebbledonationskip.style.display = "block";
+	   payme.style.display = "block";
+	   pebble_edit_payment_options_div.style.display = "block";
+	   show_payme_div_id.style.display = "none";
+	   var pebbles = document.getElementsByClassName("pebble-file-class")
+	   var i;
+	   var dic = ""
+	   for (i = 0; i < pebbles.length; i++) {
+		  var fp = pebbles[i].value;
+		  dic = dic + fp + "xxxfilesnamewithextensionstringxxx"
+	   }
+	   //calculate the price the user owes
+	   $.ajax("{% url 'calculate_price' %}", {
+	     type: 'GET',
+	     data: {lol: dic},
+	     success: function(result) {
+	       var temp_payment_num_store = parseInt(result) + parseInt(random_variable_store)
+	       show_total_charges_pebble.innerHTML = "$" + temp_payment_num_store + " USD";
+	       price_owed = temp_payment_num_store;
+	       window.filesprice = price_owed;
+
+	       
+	     }
+	   }
+	   );
+	   var scrollDiv = document.getElementById("pebble_edit_payment_options_div").offsetTop;
+	   window.scrollTo({top: scrollDiv-200, behavior: 'smooth'});
+
+
+
+
+
+
+	 }
+
+	egifterror = false; 
+
+	//check amount that the user has added in the egifts
+	function checkegiftamount(th) {
+
+	 tid = '#' + th.id
+	 if ($(tid).is(':visible')) {
+	   if (th.value <= 0 ) {
+	     th.style = 'border: 1px solid red'
+	     egifterror = true;
+	   } else {
+	     th.style = ''
+	     egifterror = false;
+	   }
+	 }
+
+	
+
+	 var egiftpriceresult = 0;
+	 var elements = document.getElementsByClassName("egift-amount-class");
+	 var i;
+	 for (i = 0; i < elements.length; i++) {
+	 	var egift_amount = elements[i].value;
+	 	egiftpriceresult += parseInt(egift_amount)
+	 }
+
+
+
+
+	 window.egiftsprice = egiftpriceresult;
+	 var temp_payment_num = parseInt(egiftpriceresult) + parseInt(egift_random_store_variable);
+	 egiftpriceresulttext = "$" + temp_payment_num + " USD";
+	 show_total_charges_egift.innerHTML = egiftpriceresulttext;
+	}
+
+
+
+	donationerror = false;
+	window.mydonation = 0;
+
+	//check donation amount that the user has added
+	function checkdonationamount() {
+	 tv = donation_select_element_donate_tab.value;
+	 if (tv =='one') {
+	   donation_select_element_donate_tab.style = 'border: 1px solid red';
+	   donationerror = true;
+	 } else {
+	   donation_select_element_donate_tab.style = ''
+	   donationerror = false;
+	 }
+	 if (tv == 'three' || tv == 'five' || tv =='ten' || tv == 'twenty' || tv == 'fifty' || tv == 'hundred') {
+	   tv = donation_select_element_donate_tab.value;
+	   if (tv == 'three') {
+	       window.mydonation = 3;
+	   } else if (tv == 'five') {
+	     window.mydonation = 5;
+	   } else if (tv == 'ten') {
+	     window.mydonation = 10;
+	   } else if (tv == 'twenty') {
+	     window.mydonation = 20;
+	   } else if (tv == 'fifty') {
+	     window.mydonation = 50;
+	   } else if (tv == 'hundred') {
+	     window.mydonation = 100;
+	   }
+	 }
+
+	 if (tv =='custom') {
+	     dv = donatethisamount.value;
+	     if (dv < 1) {
+	       donatethisamount.style = 'border: 1px solid red'
+	       donationerror = true;
+	     } else {
+	       donatethisamount.style = ''
+	       donationerror = false;
+	       window.mydonation = dv;
+	       console.log('set me')
+	       console.log(window.mydonation);
+	       console.log('set me')
+	     }
+
+	 }
+
+	}
+
+	random_variable_store = 0;
+
+	//check donation amount added in the pebble tab
+	function checkpebbledonationamount() {
+	   random_variable_store = 0;
+	   tv = pebbledonation.value;
+	   if (tv == 'three' || tv == 'five' || tv =='ten' || tv == 'twenty' || tv == 'fifty' || tv == 'hundred') {
+	   if (tv == 'three') {
+	       random_variable_store = 3;
+	   } else if (tv == 'five') {
+	       random_variable_store = 5;
+	   } else if (tv == 'ten') {
+	       random_variable_store = 10;
+	   } else if (tv == 'twenty') {
+	       random_variable_store = 20;
+	   } else if (tv == 'fifty') {
+	       random_variable_store = 50;
+	   } else if (tv == 'hundred') {
+	       random_variable_store = 100;
+	   }
+	 }
+
+	 if (tv =='custom') {
+	   dv = pebbledonateamount.value;
+	   random_variable_store = dv;
+
+	 }
+	 var temp_payment_num_store = parseInt(price_owed) + parseInt(random_variable_store)
+	 price_owed = temp_payment_num_store;
+	 show_total_charges_pebble.innerHTML = "$" + temp_payment_num_store + " USD";
+	 if ($('#emailforid').is(':hidden')) {
+	       $("#pebble_email_provide_popup").modal({backdrop: 'static',keyboard: false})
+	   }
+	 email_file_id.style.display = "block";
+	 pebble_agreement_button.style.display = "block";
+	 if (random_variable_store > 0){
+		$("#pebble_donation_added").show();	 	
+	 } else {
+	 	price_owed = price_owed - random_variable_store;
+	 	$("#pebble_donation_added").hide();
+	 }
+
+	 $("#pebble_donation_skipped").hide();
+
+
+	}
+
+
+	egift_random_store_variable = 0;
+	//check donation amount added in the egift tab
+	function checkegiftdonationamount() {
+	   egift_random_store_variable = 0;
+	   tv = egiftdonation.value;
+	   if (tv == 'three' || tv == 'five' || tv =='ten' || tv == 'twenty' || tv == 'fifty' || tv == 'hundred') {
+	   if (tv == 'three') {
+	       egift_random_store_variable = 3;
+	   } else if (tv == 'five') {
+	       egift_random_store_variable = 5;
+	   } else if (tv == 'ten') {
+	       egift_random_store_variable = 10;
+	   } else if (tv == 'twenty') {
+	       egift_random_store_variable = 20;
+	   } else if (tv == 'fifty') {
+	       egift_random_store_variable = 50;
+	   } else if (tv == 'hundred') {
+	       egift_random_store_variable = 100;
+	   }
+	 }
+
+	 if (tv =='custom') {
+	   dv = egiftdonateamount.value;
+	   egift_random_store_variable = dv;
+
+	 }
+	 var temp_payment_num_store = parseInt(window.egiftsprice) + parseInt(egift_random_store_variable);
+	 show_total_charges_egift.innerHTML = "$" + temp_payment_num_store + " USD";
+	 showegiftagree.style.display = "block";
+	 if (egift_random_store_variable > 0){
+		$("#egift_donation_added").show();	 	
+	 } else {
+	 	window.egiftsprice = window.egiftsprice - egift_random_store_variable;
+	 	$("#egift_donation_added").hide();
+	 }
+
+	 $("#egift_donation_skipped").hide();
+
+	}
+
+	//show egift payment options after agreement is accepted
+
+	function egiftmoney(emp) {
+	   if (emp == "custom") {
+	       egiftdonateamount.style.display ="block";
+	   }
+	   else {
+	       egiftdonation.style.display = "block";
+	       egiftdonateamount.style.display = "none";
+	   }
+	}
+
+
+
+	function checkegiftemail(th) {
+		return 0;
+	}
+
+
+	
+
+
+
+
+	localegift = false;
+	//check if the user has entered the sender name
+	function checkegiftform() {
+
+	 if (id_sender_email.value == '') {
+	    localegift = true;
+	  }
+
+
+	}
+
+
+	//if the user skips the donation on egift tab 
+
+	function skipegiftdonation() {
+	   show_total_charges_egift.innerHTML = "$" + window.egiftsprice + " USD";
+	   egiftdonation.selectedIndex = 0;
+	   egift_random_store_variable = 0;
+	   showegiftagree.style.display = "block";
+	   $("#egift_donation_skipped").show();
+	   $("#egift_donation_added").hide();
+	}
+
+
+	//if the user skips the donation on pebble tab
+
+	function skippebbledonation() {
+	    if ($('#emailforid').is(':hidden')) {
+	       $("#pebble_email_provide_popup").modal({backdrop: 'static',keyboard: false})
+	   }
+	   email_file_id.style.display = "block";
+	   pebble_agreement_button.style.display = "block";
+	   price_owed = parseInt(price_owed) - parseInt(random_variable_store)
+	   show_total_charges_pebble.innerHTML = "$" + price_owed + " USD";
+	   pebbledonation.selectedIndex = 0;
+	   $("#pebble_donation_skipped").show();
+	   $("#pebble_donation_added").hide();
+
+
+	}
+
+	//if the user clicks on edit egift form button then show the egift form and donation and hide everything else
+
+	function edit_egift_form_button_func() {
+	   $("#egiftcheck").prop("checked", false);
+	   egiftagree.style.display = "none";
+	   edit_pay_egift_div.style.display = "none";
+	   egifts_main_div.style.display = "block";
+	   sender_name_email.style.display = "block";
+	   egiftdonationskip.style.display = "block";
+	   show_egift_form_field_div.style.display = "block"; 
+	   showegiftagree.style.display = "block";
+	   egiftpopupbtn.style.display = "block";
+	   edit_egift_form_div_id.style.display = "none";
+
+	}
+
+
+
+
+	//show egift agreement
+	function show_egift_agree_button_func() {
+	 checkegiftform();
+	 if (egifterror) {
+	   return 0;
+	 }
+
+	 edit_egift_form_div_id.style.display = "block";
+	 egiftagree.style.display = "block";
+	 showegiftagree.style.display = "none";
+	 show_egift_form_field_div.style.display = "none";
+
+	 
+
+	}
+
+
+	//show egift payment required and options
+	function showegiftpayme() {
+	 egiftagree.style.display = "none";
+	 var egiftpriceresult = 0;
+	 var elements = document.getElementsByClassName("egift-amount-class");
+	 var i;
+	 for (i = 0; i < elements.length; i++) {
+	 	var egift_amount = elements[i].value;
+	 	egiftpriceresult += parseInt(egift_amount)
+	 }
+
+
+
+	 window.egiftsprice = egiftpriceresult;
+	 var temp_payment_num_store = window.egiftsprice + egift_random_store_variable;
+	 egiftpriceresulttext = "$" + temp_payment_num_store + " USD";
+	 show_total_charges_egift.innerHTML = egiftpriceresulttext;
+	 egiftdonationskip.style.display = "none";
+	 egifts_main_div.style.display = "none";
+	 sender_name_email.style.display = "none";
+	 edit_pay_egift_div.style.display = "block";
+
+	}
+
+
+	//show and hide the pebble delete button on different pebbe form fields
+
+	function ShowHidePebbleDelete() {
+		var pebbles = document.getElementsByClassName("pebble-delete-class")
+		var i;
+		for (i = 0; i < pebbles_counter; i++) {
+			if (pebbles_counter == 1) {
+				pebbles[i].style.display = "none";
+			} else {
+				pebbles[i].style.display = "block";
+			}
+		}
+	}
+
+
+	//show and hide the egift delete button on different egift form fields
+	function ShowHideEgiftDelete() {
+		var egifts = document.getElementsByClassName("egift-delete-class")
+		var i;
+		for (i=0; i < egifts_counter; i++) {
+			if (egifts_counter == 1) {
+				egifts[i].style.display = "none";
+			} else {
+				egifts[i].style.display = "block";
+			}
+		}
+	}
+
+
+
+	//show fields for a new pebble form
+	 function ShowPebbleFormField(th) {
+	 	var pebbles = document.getElementsByClassName("pebble-delete-class")
+
+	 	$.ajax("{% url 'get_pebble_fields' %}", {
+                type: 'GET',
+                success: function (result) {
+                    var element = document.getElementById("pebble_main_div");
+                    $('#pebble_main_div').append(result);
+                }
+            });
+	 	pebbles_counter += 1;
+	   	ShowHidePebbleDelete();
+
+	 }
+	 
+	 
+	 
+
+	 //delete the given pebble form fields
+	function DeleteThisFile(firstid) {
+	 var element = document.getElementById(firstid)
+	 element.parentNode.removeChild(element);
+
+	 var pebbles = document.getElementsByClassName("pebble-file-class")
+	 var i;
+	 var dic = ""
+	 for (i = 0; i < pebbles.length; i++) {
+		var fp = pebbles[i].value;
+		dic = dic + fp + "xxxfilesnamewithextensionstringxxx"
+	 }
+
+	 //calculate the price after deleting the form fields
+	 
+	 $.ajax("{% url 'calculate_price' %}", {
+	   type: 'GET',
+	   data: {lol: dic},
+	   success: function(result) {
+	     show_total_charges_pebble.innerHTML = "$" + result + " USD";
+	     price_owed = result;
+
+	     
+	   }
+	 }
+	 );
+	 pebbles_counter -= 1;
+	 ShowHidePebbleDelete();
+	 show_pebble_form_field_button.style.display = "block";
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	 $("#coupig").submit(function(event) {
+	   event.preventDefault();
+	   var munna = document.getElementById("couponinput").value;
+	   var posting = $.get("{% url 'check_coupon' %}", {'c':munna})
+	   posting.done(function(result) {
+	   });
+	 
+	 })
+	 
+
+
+	 //check the coupon validity and show related messages
+	 function coupon_checker() {
+	   var munna = document.getElementById("couponinput").value;
+	   $.ajax("{% url 'check_coupon' %}", {
+	     type: 'GET',
+	     data: {c: munna,papa:price_owed},
+	     success: function(data, status, xhr) {
+	       if (data.startsWith("valid")) {
+	         var dd = data.split(" ")
+	         valid_coupon_upload_success.innerHTML = "Your remaining eGift credit is $" + dd[1] + "."
+
+	         optnlinfo.style.display = "block";
+	         coupon.style.display = "none";
+	         pebble_edit_payment_options_div.style.display = "none";
+	         main_handler_func();
+	         $("#valid_coupon_modal_popup").modal({backdrop: 'static',keyboard: false})
+
+	       } else if (data == 'invalid') {
+	           $("#invalid_egift_coupon_modal").modal({backdrop: 'static',keyboard: false})
+	           couponinput.value = couponinput.defaultValue;
+	       } else {
+	           low_on_egift_popup_title.innerHTML = "You are $" + data + " short on eGift credit";
+	           $("#low_on_egift_popup").modal({backdrop: 'static',keyboard: false})
+	           price_owed = data;
+	           window.filesprice = price_owed;
+	           show_remaining_charges_pebble.innerHTML = "$" + data + " USD";
+	           show_remaining_charges_pebble_div.style.display = "block";
+	           couponinput.value = couponinput.defaultValue;
+	           coupon.style.display = "none";
+	           payme.style.display = "block";
+
+
+
+	       }
+	       
+	     }
+	   }
+	   );
+	 }
+
+
+	 //upload the file once the payment or egift validity is done
+	function handle_file_upload() {
+	   var form = document.getElementById("pebble_form_id");
+	   var formData = new FormData(form);
+	   var xhr = new XMLHttpRequest();
+	   xhr.open("POST",'/product/', true);
+	   xhr.send(formData);
+
+	   xhr.onreadystatechange = function() {
+	       if (this.readyState == 4 && this.status == 200) {
+	           console.log(this.responseText);
+	           humterey = this.responseText;
+	           idoffileform.value = this.responseText;
+
+	           var ld = document.getElementById('loaderdiv');
+	           var kukur1 = "<p style='text-align: center; font-weight: 700; font-size: 150%;'><b>ORDER: " + humterey + "<\/p>"
+	           var kukur2 = "<p style='text-align: center;'>If you did not previously provide your correct email address, <b>you must keep this order number.<\/b> Please save it.<\/p><p style='text-align: center;'>The order number is the only way Apito can locate your pebbles, in case any issues arise. It is also the only way for you to find your pebbles when the time capsule gets reopened.<\/p><p style='text-align: center;'>If you did provide your correct email address, we have sent you this order number through email. Keep this email. Make sure to check your spam folder if you cannot find the email.<\/p>"
+	           var finalkukur = kukur1 + kukur2
+	           ld.innerHTML = finalkukur
+	           upload_pebbles_after_payment_title_modal.innerHTML = "Pebbles Uploaded!"
+	           uploadingpebblesdisplaybuttonok.style.display = "block";
+
+	       }
+	   };
+
+	   
+
+	   return false;
+	}
+
+
+
+
+	//handle the pebble upload, egifts creation or donation based upon the tab selected
+	 function main_handler_func() {     
+	   if (tab_location == "files") {
+	       $('#payment_form_main').modal('hide')
+	       optnlinfo.style.display = "block";
+	       coupon.style.display = "none";
+	       payme.style.display = "none";
+	       pebble_edit_payment_options_div.style.display = "none";
+	       $("#uploading_pebbles_after_payment_modal").modal({backdrop: 'static',keyboard: false})
+
+	      
+	       $("#optional_survey_popup").modal({backdrop: 'static',keyboard: false})
+	       handle_file_upload();
+
+	       fileTypeImage = 0;
+	       fileTypeImage1 = 0;
+	       fileTypeImage2 = 0;
+	       fileTypeImage3 = 0;
+	       fileTypeImage4 = 0
+	       fileTypeVideo = 0;
+	       fileTypeVideo1 = 0;
+	       fileTypeVideo2 = 0;
+	       fileTypeVideo3 = 0;
+	       filetypeVideo4 = 0;
+
+	   } else if (tab_location == "egift") {
+
+	           var form = document.getElementById("eGiftForm");
+	           var formData = new FormData(form);
+	           var xhr = new XMLHttpRequest();
+	           xhr.open("POST",'/create_coupon/', true);
+	           xhr.send(formData);
+
+	           xhr.onreadystatechange = function() {
+	               if (this.readyState == 4 && this.status == 200) {
+	                   console.log(this.responseText);
+	                   humterey = this.responseText;
+	                   email_not_provided_egift_popup.innerHTML = this.responseText;
+	                   $('#payment_form_main').modal('hide');
+	                   $("#egift_success_popup_modal").modal({backdrop: 'static',keyboard: false})
+
+
+	               }
+	           };
+	   } else if (tab_location == "donation") {
+	       $('#payment_form_main').modal('hide')
+	       window.location.replace('/donation_success')
+	   }
+
+
+	 }
+
+
+	 //show the custom donation input box in donation tab
+	 function show_donate_amount_block(emp) {
+	 if (emp == "custom") {
+	   donatethisamount.style.display = "block";
+	 
+	 }
+	 else {
+	   donation_select_element_donate_tab.style.display = "block";
+	   donatethisamount.style.display = "none";
+	 }
+	}
+
+	//handle the donation form
+	function pebblemoney(emp) {
+	   if (emp == "custom") {
+	       pebbledonateamount.style.display ="block";
+	   }
+	   else {
+	       pebbledonation.style.display = "block";
+	       pebbledonateamount.style.display = "none";
+	   }
+	}
+
+	</script> 
+	<script>
+
+	//show the egifts form fields 
+	function ShowEgiftFormField(th) {
+	  var egifts = document.getElementsByClassName("egift-delete-class")
+
+	  $.ajax("{% url 'get_egift_fields' %}", {
+                type: 'GET',
+                success: function (result) {
+                    var element = document.getElementById("egifts_main_div");
+                    $('#egifts_main_div').append(result);
+                }
+            });
+	  egifts_counter += 1;
+
+	  // show or hide egift delete button on respective forms
+	  ShowHideEgiftDelete();
+
+	 
+	}
+
+
+	//delete a given egift form
+	function DeleteEgift(firstid) {
+		   var element = document.getElementById(firstid)
+		   element.parentNode.removeChild(element);
+
+	       
+	       
+	       egifts_counter -= 1;
+	       ShowHideEgiftDelete();
+	       show_egift_form_fields_button.style.display = "block";
+	   
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+	//function runs after select an image
+	function image_selection_func(th) {
+
+	 return 0;
+
+
+	}
+
+	//function runs after selecting a video
+	function vid_selection_func(th) {
+	 return 0;
+	}
+
+	//upload files after user clicks skip or next on pebble tab after adding optional information
+	function uploadfilesforme () {
+	 extra_options_form.submit();
+	}
+
+
+	//checks the extension of the file
+	function hasExtension(inputID, exts) {
+	   var fileName = document.getElementById(inputID).value;
+	   return (new RegExp('(' + exts.join('|').replace(/\./g, '\\.') + ')$',"i")).test(fileName);
+	}
+
+
+
+
+
+	//checks the file size of the image/video
+	function checkFileSize(th, ft) {
+
+	 var file_value = ft.value;
+	 if (file_value == "") {
+	   th.value = th.defaultValue;
+	   $("#file_not_selected_popup").modal({backdrop: 'static',keyboard: false})
+	   return 0;
+	 }  
+	 if (file_value == "im" && !hasExtension(th.id,['.png','.jpg','.jpeg','.heic','.gif'])) {
+	   th.value = th.defaultValue;
+	   $("#file_type_and_file_not_same_popup").modal({backdrop: 'static',keyboard: false})
+	   return 0;
+	 }
+	 if (file_value == "vid" && !hasExtension(th.id,['.mp4','.mkv','.avi','.wmv','.mov','.flv'])) {
+	   th.value = th.defaultValue;
+	   $("#file_type_and_file_not_same_popup").modal({backdrop: 'static',keyboard: false})
+	   return 0;
+	 }
+
+
+
+	 var fiLesiZe = th.files[0].size/1024/1024;
+	 console.log(fiLesiZe)
+	 if (hasExtension(th.id,['.png','.jpg','.jpeg','.heic','.gif'])) {
+	   if (fiLesiZe > 33 ) {
+	       th.value = th.defaultValue;
+	       $("#image_size_limit_warning").modal("show");
+	       return 0;
+	   }
+	 }
+	  if (hasExtension(th.id,['.mp4','.mkv','.avi','.wmv','.mov','.flv'])) {
+	   if (fiLesiZe > 100) {
+	       th.value = th.defaultValue;
+	       $("#video_size_limit_warning").modal({backdrop: 'static',keyboard: false})
+	       return 0;
+	 }
+	 }
+	 
+
+	 if (!hasExtension(th.id,['.png','.jpg','.jpeg','.heic','.gif','.mp4','.mkv','.avi','.wmv','.mov','.flv'])) {
+	   th.value = th.defaultValue;
+	 }
+
+
+	 
+	 var pebbles = document.getElementsByClassName("pebble-file-class")
+	 var i;
+	 var dic = ""
+	 for (i = 0; i < pebbles.length; i++) {
+		var fp = pebbles[i].value;
+		dic = dic + fp + "xxxfilesnamewithextensionstringxxx"
+	 }
+
+
+	 $.ajax("{% url 'calculate_price' %}", {
+	   type: 'GET',
+	   data: {lol: dic},
+	   success: function(result) {
+	     var rr = parseInt(result) + parseInt(random_variable_store)
+	     show_total_charges_pebble.innerHTML = "$" + rr + " USD";
+	     price_owed = result;
+	     window.filesprice = price_owed;
+	    
+
+	     
+	   }
+	 }
+	 );
+
+
+	}
+
+
+
+	//show pebble payment form
+	function showfilespay() {
+	 price_owed = window.filesprice;
+	 var meriprice = parseInt(price_owed)
+	 $.ajax("{% url 'set_price' %}", {
+	     type: 'GET',
+	     data: {mprice: meriprice},
+	     success: function(result) {
+	       console.log("price set")
+	       console.log(result)
+	       
+	     }
+	   }
+	   );
+
+	   var response = fetch('/secret').then(function(response) {
+	       return response.json();
+	   }).then(function(responseJson) {
+	       clientSecret = responseJson.client_secret;
+	       console.log(clientSecret)
+	   // Call stripe.confirmCardPayment() with the client secret.
+	   });
+
+	 payment_form_modal_title.innerHTML = "Pebbles Payment Form"
+	 $('#payment_form_main').modal('show');
+	 if ($('#payment-request-button').is(':visible')) {
+	       google_apple_pay_switch_h6.style.display = "block";
+	   }
+
+	}
+
+
+	//show egift payment form
+	function showegiftspayme() {
+	 price_owed = window.egiftsprice;
+	 checkegiftform();
+	 if (egifterror) {
+	   return 0;
+	 }
+	 price_owed = window.egiftsprice;
+	 var meriprice = parseInt(price_owed) + parseInt(egift_random_store_variable)
+	 $.ajax("{% url 'set_price' %}", {
+	     type: 'GET',
+	     data: {mprice: meriprice},
+	     success: function(result) {
+	       console.log("price set")
+	       console.log(result)
+	       
+	     }
+	   }
+	   );
+
+	   var response = fetch('/secret').then(function(response) {
+	       return response.json();
+	   }).then(function(responseJson) {
+	       clientSecret = responseJson.client_secret;
+	       console.log(clientSecret)
+	   // Call stripe.confirmCardPayment() with the client secret.
+	   });
+	 payment_form_modal_title.innerHTML = "eGift Payment Form"
+	 $('#payment_form_main').modal('show');
+	 if ($('#payment-request-button').is(':visible')) {
+	       google_apple_pay_switch_h6.style.display = "block";
+	   }
+	}
+
+
+
+	//show donation payment form
+	function showdonationpay() {
+	 checkdonationamount();
+	 if (donationerror) {
+	   return 0;
+	 }
+	 price_owed = window.mydonation;
+	 console.log('price_owed')
+	 console.log(price_owed)
+	  $.ajax("{% url 'set_price' %}", {
+	     type: 'GET',
+	     data: {mprice: price_owed},
+	     success: function(result) {
+	       console.log("price set")
+	       console.log(result)
+	       
+	     }
+	   }
+	   );
+
+	   var response = fetch('/secret').then(function(response) {
+	       return response.json();
+	   }).then(function(responseJson) {
+	       clientSecret = responseJson.client_secret;
+	       console.log(clientSecret)
+	   // Call stripe.confirmCardPayment() with the client secret.
+	   });
+	 payment_form_modal_title.innerHTML = "Donation Payment Form"
+	 $('#payment_form_main').modal('show')
+	 if ($('#payment-request-button').is(':visible')) {
+	       google_apple_pay_switch_h6.style.display = "block";
+	   }
+	}
+
+
+	</script> <!--text counter-->
+	 
+	<script>
+
+
+	//check text count 
+	function textCountFunction(th,bul) {
+	 used = th.value.length;
+	 bul.innerHTML = used + "/4000"
+	}
+
+
+	//check text count for receiver message in egift tab
+	function textCountFunctionE(th,bul) {
+	 used = th.value.length;
+	 bul.innerHTML = used + "/250"
+	}
+
+
+
+	</script> <!--braintree-->
+	<style>
+	/*sticky header position*/
+	.sticky.is-sticky {
+	   position: fixed;
+	   left: 0;
+	   right: 0;
+	   top: 0;
+	   z-index: 1000;
+	   width: 100%;
+	}
+
+	nav {
+	 background: #1089ff;
+	 min-height: 85px;
+	}
+
+	#show_total_charges_pebble_div.hover {
+	 text-decoration: none;
+	 transition: none;
+	}
+
+	</style>
+	<div class="site-wrap">
+		<div class="site-mobile-menu site-navbar-target">
+			<div class="site-mobile-menu-header">
+				<div class="site-mobile-menu-close mt-3">
+					<span class="icon-close2 js-menu-toggle"></span>
+				</div>
+			</div>
+			<div class="site-mobile-menu-body"></div>
+		</div>
+		<div class="modal" id="payment_form_main" role="dialog" tabindex="-1">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="payment_form_modal_title" style="text-align: center; width: 100%;">Pebbles Payment Form</h5>
+					</div>
+					<div class="modal-body" style="align-content: center; align-items: center; text-align: center;">
+						<div id="DivPaymentForm">
+							<form id="payment-form" name="payment-form">
+								<div id="card-element">
+									<!-- Elements will create input elements here -->
+								</div><!-- We'll put the error messages in this element -->
+								<div id="card-errors" role="alert"></div><br>
+								<h6 id="google_apple_pay_switch_h6" style="display: none;">You can also use the button below to pay with Google pay or Apple pay</h6>
+								<div id="payment-request-button">
+									<!-- A Stripe Element will be inserted here. -->
+								</div><br>
+								<button class="btn-primary" id="submit" style="align-self: center;">Pay</button>
+							</form>
+							<script>
+							var response = fetch('/secret').then(function(response) {
+							 return response.json();
+							}).then(function(responseJson) {
+							 clientSecret = responseJson.client_secret;
+							 console.log(clientSecret)
+							// Call stripe.confirmCardPayment() with the client secret.
+							});
+
+							var stripe = Stripe('pk_test_WvVSGCY0eJrVqWS72dIhnUTF00cs0kEOlY');
+							var elements = stripe.elements();
+							var style = {
+							base: {
+							color: "#32325d",
+							}
+							};
+
+							var card = elements.create("card", {hidePostalCode: true, style: style });
+
+							card.mount("#card-element");
+
+							card.addEventListener('change', function(event) {
+							var displayError = document.getElementById('card-errors');
+							if (event.error) {
+							displayError.textContent = event.error.message;
+							} else {
+							displayError.textContent = '';
+							}
+							});
+
+
+							var paymentRequest = stripe.paymentRequest({
+							country: 'US',
+							currency: 'usd',
+							total: {
+							label: 'Extra Charges',
+							amount: 0,
+							},
+							requestPayerName: true,
+							requestPayerEmail: true,
+							});
+
+							var prButton = elements.create('paymentRequestButton', {
+							paymentRequest: paymentRequest,
+							});
+
+							// Check the availability of the Payment Request API first.
+							paymentRequest.canMakePayment().then(function(result) {
+							if (result) {
+							prButton.mount('#payment-request-button');
+							} else {
+							document.getElementById('payment-request-button').style.display = 'none';
+							}
+							});
+
+
+
+
+							var form = document.getElementById('payment-form');
+
+							form.addEventListener('submit', function(ev) {
+							ev.preventDefault();
+							stripe.confirmCardPayment(clientSecret, {
+							payment_method: {
+							card: card,
+							billing_details: {
+							 name: 'Random Name'
+							}
+							}
+							}).then(function(result) {
+							if (result.error) {
+							// Show error to your customer (e.g., insufficient funds)
+							console.log(result.error.message);
+							} else {
+							// The payment has been processed!
+							if (result.paymentIntent.status === 'succeeded') {
+							 console.log("yahooo")
+							 main_handler_func();
+
+							 $.ajax("{% url 'save_price' %}", {
+							 type: 'GET',
+							 success: function(result) {
+							   console.log("price saved")
+
+							   
+							 }
+							}
+							);
+
+
+							paymentRequest.on('paymentmethod', function(ev) {
+							// Confirm the PaymentIntent without handling potential next actions (yet).
+							stripe.confirmCardPayment(
+							clientSecret,
+							{payment_method: ev.paymentMethod.id},
+							{handleActions: false}
+							).then(function(confirmResult) {
+							if (confirmResult.error) {
+							// Report to the browser that the payment failed, prompting it to
+							// re-show the payment interface, or show an error message and close
+							// the payment interface.
+							ev.complete('fail');
+							} else {
+							// Report to the browser that the confirmation was successful, prompting
+							// it to close the browser payment method collection interface.
+							ev.complete('success');
+							// Let Stripe.js handle the rest of the payment flow.
+							stripe.confirmCardPayment(clientSecret).then(function(result) {
+							 if (result.error) {
+							   // The payment failed -- ask your customer for a new payment method.
+							 } else {
+							   // The payment has succeeded.
+							   console.log("yahooo")
+							     main_handler_func();
+
+							     $.ajax("{% url 'save_price' %}", {
+							     type: 'GET',
+							     success: function(result) {
+							     console.log("price saved")
+							     }
+							 });
+
+
+
+
+							 }
+							});
+							}
+							});
+							});
+
+							}
+							}
+							});
+							});
+
+
+
+
+
+
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal" id="egift_email_popup" role="dialog" tabindex="-1">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" style="text-align: center; width: 100%;">Before you continue...</h5>
+					</div>
+					<div class="modal-body">
+						<p style="text-align: center;">When generating eGifts, we give you the option to provide the emails of the recipients and your email as well.</p>
+						<p style="text-align: center;">If you provide correct email addresses, your friends and family will receive the eGifts that you sent them through email. You will also receive an email with all the eGifts you generated, for your own reference.</p>
+						<p style="text-align: center;">If you do not provide correct email addresses, then we will still provide you with the eGift codes, but you will have to make sure to save these eGift codes and send them to your friends and family using an alternate method of your choosing.</p>
+					</div>
+					<div style="display: block; align-self: center;">
+						<div class="modal-footer">
+							<button class="btn btn-primary" data-dismiss="modal" type="button">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal" id="egift_success_popup_modal" role="dialog" tabindex="-1">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" style="text-align: center; width: 100%;">eGifts Created!</h5>
+					</div>
+					<div class="modal-body">
+						<p id="email_not_provided_egift_popup" style="text-align: center;"></p>
+						<p style="text-align: center;">If you did not previously provide correct email addresses, you must keep these eGift codes. Please save them.</p>
+						<p style="text-align: center;">These eGift codes are what your friends and family can use to upload pebbles. They are also the only way for Apito to identify the eGifts, in case any issues arise. Please keep them safe.</p>
+						<p style="text-align: center;">If you did provide correct email addresses, we have sent the eGifts through email. Keep the email. Make sure to check your spam folder if you cannot find the email.</p>
+					</div>
+					<div style="display: block; align-self: center;">
+						<div class="modal-footer">
+							<button class="btn btn-primary" data-dismiss="modal" type="button">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+		          $('#egift_success_popup_modal').on('hide.bs.modal', function (e) {
+		              window.location.replace('/create_coupon')
+		          })
+		</script>
+		<div class="modal" id="donation_success_modal_id" role="dialog" tabindex="-1">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" style="text-align: center; width: 100%;">Donation Successful</h5>
+					</div>
+					<div class="modal-body">
+						<p style="text-align: center;">We have received your donation. Thank you very much for supporting us!</p>
+					</div>
+					<div style="display: block; align-self: center;">
+						<div class="modal-footer">
+							<button class="btn btn-primary" data-dismiss="modal" type="button">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal" id="video_size_limit_warning" role="dialog" tabindex="-1">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" style="text-align: center; width: 100%;">File Size Exceeds Limit</h5>
+					</div>
+					<div class="modal-body">
+						<p style="text-align: center;">Video exceeds maximum size of 100MB.</p>
+					</div>
+					<div style="display: block; align-self: center;">
+						<div class="modal-footer">
+							<button class="btn btn-primary" data-dismiss="modal" type="button">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal" id="image_size_limit_warning" role="dialog" tabindex="-1">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" style="text-align: center; width: 100%;">File Size Exceeds Limit</h5>
+					</div>
+					<div class="modal-body">
+						<p style="text-align: center;">Image exceeds maximum size of 33MB.</p>
+					</div>
+					<div style="display: block; align-self: center;">
+						<div class="modal-footer">
+							<button class="btn btn-primary" data-dismiss="modal" type="button">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal" id="low_on_egift_popup" role="dialog" tabindex="-1">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="low_on_egift_popup_title" style="text-align: center; width: 100%;">You are low on eGift credit</h5>
+					</div>
+					<div class="modal-body">
+						<p style="text-align: center;">Please pay the remaining amount before uploading the files.</p>
+					</div>
+					<div style="display: block; align-self: center;">
+						<div class="modal-footer">
+							<button class="btn btn-primary" data-dismiss="modal" type="button">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal" style="z-index: 1060;" id="valid_coupon_modal_popup" role="dialog" tabindex="-1">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" style="text-align: center; width: 100%;">Valid Coupon</h5>
+					</div>
+					<div class="modal-body">
+						<p id="valid_coupon_upload_success" style="text-align: center;">You entered a valid coupon. You can upload this file now. Your remaining balance is</p>
+					</div>
+					<div style="display: block; align-self: center;">
+						<div class="modal-footer">
+							<button class="btn btn-primary" data-dismiss="modal" type="button">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal" id="optional_survey_popup" role="dialog" tabindex="-1">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" style="text-align: center; width: 100%;">But Wait!</h5>
+					</div>
+					<div class="modal-body">
+						<p style="text-align: center;">You are not done yet! Please answer the following two questions to finish.</p>
+					</div>
+					<div style="display: block; align-self: center;">
+						<div class="modal-footer">
+							<button class="btn btn-primary" data-dismiss="modal" type="button">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal" id="pebble_email_provide_popup" role="dialog" tabindex="-1">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" style="text-align: center; width: 100%;">Before you continue...</h5>
+					</div>
+					<div class="modal-body">
+						<p style="text-align: center;">We want to give you the option to provide your email address</p>
+						<p style="text-align: center;">If you provide a correct email address, you will receive an email after uploading your pebbles that contains your order number, for your own reference.</p>
+						<p style="text-align: center;">If you do not provide a correct email address, then we will still provide you with the order number, but you will have to make sure to save the order number in a safe place using an alternate method of your choosing.</p>
+					</div>
+					<div style="display: block; align-self: center;">
+						<div class="modal-footer">
+							<button class="btn btn-primary" data-dismiss="modal" type="button">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal" id="text_not_entered_popup" role="dialog" tabindex="-1">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" style="text-align: center; width: 100%;">Text not entered</h5>
+					</div>
+					<div class="modal-body">
+						<p style="text-align: center;">Please write text before clicking continue.</p>
+					</div>
+					<div style="display: block; align-self: center;">
+						<div class="modal-footer">
+							<button class="btn btn-primary" data-dismiss="modal" type="button">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal" id="file_not_selected_popup" role="dialog" tabindex="-1">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" style="text-align: center; width: 100%;">No file type selected</h5><!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button> -->
+					</div>
+					<div class="modal-body">
+						<p style="text-align: center;">Please select a file type by clicking image or video icon before selecting a file.</p>
+					</div>
+					<div style="display: block; align-self: center;">
+						<div class="modal-footer">
+							<button class="btn btn-primary" data-dismiss="modal" type="button">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal" id="file_type_and_file_not_same_popup" role="dialog" tabindex="-1">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" style="text-align: center; width: 100%;">Selected file type and selected file not same</h5>
+					</div>
+					<div class="modal-body">
+						<p style="text-align: center;">Please select the same file type that you selected above.</p>
+					</div>
+					<div style="display: block; align-self: center;">
+						<div class="modal-footer">
+							<button class="btn btn-primary" data-dismiss="modal" type="button">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal" id="no_file_selected_popup" role="dialog" tabindex="-1">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" style="text-align: center; width: 100%;">No File Selected</h5>
+					</div>
+					<div class="modal-body">
+						<p style="text-align: center;">Please select at least one file before proceeding further.</p>
+					</div>
+					<div style="display: block; align-self: center;">
+						<div class="modal-footer">
+							<button class="btn btn-primary" data-dismiss="modal" type="button">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<nav class="navbar navbar-expand-lg navbar-light top-navbar" data-toggle="sticky-onscroll">
+			<div class="container">
+				<a class="navbar-brand" href="#"></a> <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+				<div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a href="/" style="padding-right: 20px;"><img height="75" src="{% static 'white-logo.png' %}" width="75"></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="/" style="font-size: 20px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 17px;padding-right: 20px;padding-bottom: 15px;padding-left: 20px;"><b><u>HOME</u></b></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'thisabout' %}" style="font-size: 20px; letter-spacing: .05rem; text-decoration: none; text-decoration-line: none; text-decoration-style: initial; text-decoration-color: initial; display: inline-block; font-weight: 900; color: white; padding-top: 17px;padding-right: 20px;padding-bottom: 15px;padding-left: 20px;"><b>FAQ</b></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div><!-- Card -->
+	<style>
+	 
+	.img-wrapper {
+	 position: relative;
+	}
+
+	.img-wrapper img {
+	 width: 100%;
+	}
+
+	.img-wrapper .overlay {
+	 position: absolute;
+	 top: 90; left: 0; right: 0; bottom: 0;
+	 display: flex;
+	 flex-direction: column;
+	 align-items: center;
+	 justify-content: center;
+	 text-align: center;
+	}
+
+	.img-wrapper h2 {
+	 margin-bottom: 1px;
+	 color: black;
+	 font-size: 6vw;
+	 font-weight: 800;
+	}
+
+
+	#remaining_time_for_capsule_p {
+	 color: black;
+	 font-weight: 800;
+	 margin-bottom: 14%;
+	}
+
+
+
+
+	@media screen and (max-width: 600px) {
+	 #remaining_time_for_capsule_p {
+	   margin-bottom: 12%;
+	   font-size: 10px;
+	 }
+
+	}
+
+
+
+
+	@media screen and (max-width: 400px) {
+	/*  .img-wrapper h2 {
+	   margin-bottom: 1px;
+	   color: black;
+	   font-size: 22px;
+	 } */
+
+
+	 #remaining_time_for_capsule_p {
+	   margin-bottom: 12%;
+	   font-size: 10px;
+	 }
+	}
+
+
+
+
+
+	</style>
+	<div class="img-wrapper" style="width: 100%;">
+		<img src="{% static 'shutterstock.jpg' %}" width="100%">
+		<div class="overlay fixed-bottom">
+			<h2 id="demo"></h2>
+			<p id="remaining_time_for_capsule_p">Remaining time until time capsule is locked</p>
+		</div>
+	</div>
+	<p style="text-align: center; color: red; font-size: 16px;">Note: Actual time remaining may differ slightly between devices. Official cutoff date is June 21, 2022 at 12:00am.</p><!-- END slider -->
+	<br>
+	<br>
+	<br>
+	<br>
+	<div class='container'>
+		{% if bleach %}
+		<p style="text-align: center; color: black; font-weight: 600;">Occupied space in time capsule</p>
+		<div class="progress" style="height:100px;">
+			<div aria-valuemax="100" aria-valuemin="0" aria-valuenow="{{AllPaymentProgress}}" class="progress-bar progress-bar-info" role="progressbar" style="width:{{AllPaymentProgress}}%">
+				<p style="font-size: 30px; margin-left: 10px; color: black; font-weight: 600;">{{AllPaymentProgress}}%</p>
+			</div>
+		</div>{% else %}
+		<p style="text-align: center; color: black; font-weight: 600;">Amount of pebbles remaining</p>
+		<div class="progress" style="height:100px;">
+			<div aria-valuemax="100" aria-valuemin="0" aria-valuenow="99" class="progress-bar progress-bar-info" role="progressbar" style="width:99%">
+				<p style="font-size: 30px; margin-left: 10px; color: black; font-weight: 600;">{{remaining_pebbles}}</p>
+			</div>
+		</div>{% endif %}
+	</div><br>
+	<br>
+	<div class='container'>
+		<div class="row d-flex justify-content-center">
+			<div class="col-md-6">
+				<span class="row text-serif text-primary d-flex justify-content-center mx-auto" style="font-size: 50px;"><img height="100%" src="{% static 'apitog.png' %}" width="100%"></span>
+				<h6 class="text-black d-flex justify-content-center" style="font-size: 25px; font-weight: 400;"><b>Be a part of history.</b></h6>
+				<h6 class="heading-92913 text-black d-flex justify-content-center" style="font-size: 25px; font-weight: 400; text-align: center;"><b>Throw your pebble into the ocean.</b></h6>
+				<div style="font-size: 20px;">
+					<p><mark>Time is not measured by clocks or by the breaths that we take. It is measured by those moments that take our breath away, the ones that stay in our memories forever.</mark></p>
+					<p><mark>Apito is a project that hopes to collect and store our favorite captured moments to share with our communities years from now. Our hope is that the Apito project will be able to send a positive message worldwide, that people, regardless of who they are or where they come from, are able to come together and collaborate in a meaningful way. We hope to remind people that special moments still do exist, to inspire individuals to do good in the world, and to show everyone that there still is faith in humanity.</mark></p>
+					<p><mark>You can upload pebbles directly through the upload pebbles option to help us fill up the time capsule.</mark></p>
+					<p><mark>You can also buy eGifts to send to your loved ones so that they too can be a part of history.</mark></p>
+					<p><mark>Or, you could send a donation to us so that we can provide other people the opportunity to contribute as well and spread our message throughout the community.</mark></p>
+					<p><mark>To learn more about the Apito project, please visit our <a href="{% url 'thisabout' %}">FAQ</a> page.</mark></p>
+				</div>
+			</div>
+		</div>
+	</div><br>
+	<div class="container">
+		<ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
+			<li class="nav-item">
+				<a aria-controls="pills-home" aria-selected="true" class="nav-link active" data-toggle="pill" href="#pills-home" id="pills-home-tab" onclick="WhichTab(this);" role="tab"><span class="fas fa-photo-video"></span> Upload Pebbles</a>
+			</li>
+			{% ifnotequal remaining_pebbles 0 %}
+			<li class="nav-item">
+				<a aria-controls="pills-profile" aria-selected="false" class="nav-link" data-toggle="pill" href="#pills-profile" id="pills-profile-tab" onclick="WhichTab(this);" role="tab"><span class="fas fa-gift"></span> Buy eGifts</a>
+			</li>
+			<li class="nav-item">
+				<a aria-controls="pills-contact" aria-selected="false" class="nav-link" data-toggle="pill" href="#pills-contact" id="pills-contact-tab" onclick="WhichTab(this);" role="tab"><span class="fas fa-donate"></span> Donate</a>
+			</li>
+			{% else %}
+			<li class="nav-item">
+				<a aria-controls="pills-profile" aria-selected="false" class="nav-link disabled" id="pills-profile-tab" role="tab"><span class="fas fa-gift"></span> Buy eGifts</a>
+			</li>
+			<li class="nav-item">
+				<a aria-controls="pills-contact" aria-selected="false" class="nav-link disabled" id="pills-contact-tab" role="tab"><span class="fas fa-donate"></span> Donate</a>
+			</li>
+			{% endifnotequal %}
+
+		</ul>
+		<div class="tab-content" id="pills-tabContent">
+			<div aria-labelledby="pills-home-tab" class="tab-pane fade show active" id="pills-home" role="tabpanel">
+				<br>
+				<br>
+				<div id="deletethisafterupload">
+					<h3 style="text-align: center;">Upload Pebbles</h3><br>
+					<div class="alert alert-success" role="alert">
+						Pebbles consist of a picture or video and a story that describes the memory you are choosing to share with us. Create your pebbles below to upload them to the time capsule.
+					</div><br>
+					<br>
+					<form action="/product/" enctype="multipart/form-data" id="pebble_form_id" method="post" name="pebble_form_id">
+						<div id="pebble_main_div">
+							<div id="pebble_num_0" class="pebbles-class" style="display: block;">
+								<label class="control-label" for="file_type">1) Select File Type</label>
+								<div class="container">
+									<div class="text-center">
+										<input id="file_type" name="file_type" type="hidden"><br>
+										<div id="fileTypeArea"><img height="90" id="fileTypeImage" onclick="javascript:image_selection_func(this);" src="{% static 'imig.png' %}" width="90"> <span class="mx-4"></span> <img height="90" id="fileTypeVideo" onclick="javascript:vid_selection_func(this);" src="{% static 'vidig.png' %}" width="90"></div>
+									</div>
+								</div>
+								<script>
+
+								        
+								          var fileTypeImage = document.getElementById('fileTypeImage');
+								          var fileTypeVideo = document.getElementById('fileTypeVideo');
+								        
+								          fileTypeImage.addEventListener('click', function() {
+								              id_file_here.value = id_file_here.defaultValue;
+								              fileTypeImage.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;"
+								              fileTypeVideo.style = "none";
+								              document.getElementById('file_type').value = "im";
+								              select_file_note_p.innerHTML = "Note: Compatible file types include .jpg, .png, .heic and .gif (maximum size of 33MB)"
+								              
+								          }, false);
+								        
+								          fileTypeVideo.addEventListener('click', function() {
+								              id_file_here.value = id_file_here.defaultValue;
+								              fileTypeVideo.style = "border-radius: 50%; border: 10px solid #4b77ff; color: #4b77ff;";
+								              fileTypeImage.style = "none";
+								              document.getElementById('file_type').value = "vid";
+								              select_file_note_p.innerHTML = "Note: Compatible file types include .mp4, .mkv, .avi, .mov and .flv (maximum size of 100MB)"
+
+								          }, false);
+								</script>
+								<div class="form-group">
+									<label class="control-label" for="id_file_here" id="select_file_label_id">2) Select File</label>
+									<p id='select_file_note_p' style="font-size: 16px; color: red;"></p>
+									<div class="">
+										<input id="id_file_here" name="file_here" class="pebble-file-class" onchange="checkFileSize(this,file_type);" required="" type="file">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="id_text">3) Add Your Story</label>
+									<div class="">
+										<textarea class=" form-control pebble-text-class" cols="40" id="id_text" maxlength="4000" name="text" oninput="javascript:textCountFunction(this,textcounter);" required="" rows="10"></textarea>
+										<div id="textcounter">
+											0/4000
+										</div>
+										<div id="pebble_delete_div" class="pebble-delete-class" style="text-align: right; padding-right: 0px; display: none;">
+											<a href="#" onclick="javascript:DeleteThisFile('pebble_num_0');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+<br>
+						<hr>
+						
+
+						{% csrf_token %}
+						<div id="show_pebble_form_field_div_id_btn">
+							<!--This button had id showDilbar1-->
+							<button class="btn btn-primary" id="show_pebble_form_field_button" onclick="ShowPebbleFormField(this)" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;" type="button"><span class="fas fa-plus" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"></span></button><br>
+													<div id="pebbledonationskip" style="display: block;">
+							<br>
+							<div class="pebblesdonation">
+								<label for="pebbledonation">Would you like to add a donation?</label> <select class="form-control" id="pebbledonation" name="pebbledonation" onchange="pebblemoney(this.value)">
+									<option value="one">
+										Select amount to donate
+									</option>
+									<option value="three">
+										$3 USD
+									</option>
+									<option value="five">
+										$5 USD
+									</option>
+									<option value="ten">
+										$10 USD
+									</option>
+									<option value="twenty">
+										$20 USD
+									</option>
+									<option value="fifty">
+										$50 USD
+									</option>
+									<option value="hundred">
+										$100 USD
+									</option>
+									<option value="custom">
+										Enter custom amount
+									</option>
+								</select><br>
+								<input class="form-control" id="pebbledonateamount" min="1.00" placeholder="Amount" step="1.00" style="display: none;" type="number" value="1.00">
+							</div><br>
+							<button class="btn btn-primary" id="pebbledonationbutton" onclick="checkpebbledonationamount();" type="button">&nbsp;&nbsp;&nbsp;&nbsp;Donate&nbsp;&nbsp;&nbsp;&nbsp;</button> <button class="btn btn-primary" onclick="skippebbledonation();" type="button">Skip</button>
+							<p id="pebble_donation_added" style="display: none">Donation successfully added.</p>
+							<p id="pebble_donation_skipped" style="display: none">Donation successfully skipped</p>
+							<br>
+							<div id="email_file_id" style="display: none;">
+								<br>
+								<label for="emailforid">Email Address (Optional):</label> <input id="emailforid" name="emailforid" type="email">
+							</div>
+
+						</div>
+						<br>
+
+
+
+							<br>
+							<button class="btn btn-primary" id="pebble_agreement_button" style="display: none;" onclick="showAgreement()" type="button">&nbsp;&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;&nbsp;</button>
+						</div>
+						<div id="agree" style="display: none;">
+							<p>You will need to accept our <a href="{% url 't' %}" target='_blank'>terms and conditions.</a></p>
+							<h3>Summary of Important Terms & Conditions</h3>
+							<p>You understand and accept that we will reveal your pictures or videos and corresponding descriptions to the public, according to the functioning of the project. We will however only do this after we have gathered all of the uploaded content, stored it in a secure time capsule underground, and after a specified amount of time, have dug up and reopened the time capsule. Please note that only the pictures or videos and corresponding descriptions uploaded by our users will be revealed for the public to see.</p>
+							<p>All other information provided to us by our users is kept strictly confidential. The data and information provided by our users is only used for the purposes of this project.</p>
+							<p>You understand and accept that any inappropriate content that is uploaded, via the media file or the description, will result in the removal of both the uploaded file and description pair from the time capsule without notice and that there will be no refunds to you after such a removal.</p>
+							<p>We cannot perform any refunds, returns, exchanges, or order cancellations/changes for any finalized purchase as we offer a customized service and thus do not currently support these functions. Once your purchase is complete, we are not be able to track your order as each order is made anonymously. Therefore, please review all instructions and your inputted information carefully before finalizing any payment as it cannot be undone once the payment has been processed. Make sure that you are fully satisfied with the purchase you are making before finalizing the transaction.</p><label for="tandc" style="font-weight: 500; font-size: 19;">I accept</label> <input id="check" onchange="document.getElementById('popupbtn').disabled = !this.checked;" type="checkbox"><br>
+							<br>
+							<div id="show_payme_div_id">
+								<button class="btn btn-primary" disabled="disabled" id="popupbtn" name="popup-btn" onclick="showpayme()" type="button">Continue</button>
+							</div>
+						</div>
+
+						<div id="pebble_edit_payment_options_div" style="display:none;">
+							<br>
+							<div id='edit_pebbles_form_button_div' style="text-align: center; display: none;">
+								<hr>
+								<button class="btn btn-primary" onclick="edit_pebble_form_button_func();" style="text-align: right;" type="button">Edit Pebbles Form</button>
+								<hr>
+							</div>
+							<br>
+							<div class='form-control total btn btn-success' id="show_total_charges_pebble_div" style="text-decoration: none; transition: none;">
+								Total Charges: <span class='amount' id="show_total_charges_pebble">$0 USD</span>
+							</div><br>
+							<br>
+							<div class='form-control total btn btn-warning' id="show_remaining_charges_pebble_div" style="text-decoration: none; transition: none; display: none;">
+								Remaining Charges: <span class='amount' id="show_remaining_charges_pebble">$0 USD</span><br>
+								<br>
+							</div>
+						</div><br>
+						<br>
+						<div id="payme" style="display: none;">
+							<p style="font-weight: 600; text-align: center;"><a href="javascript:showcoup()">Have an eGift?</a> {% ifnotequal remaining_pebbles 0 %} or <a href="javascript:showfilespay();">Pay</a></p>{% endifnotequal %}
+						</div>
+						<style>
+						      @keyframes spin {
+						          0% { transform: rotate(0deg); }
+						          100% { transform: rotate(360deg); }
+						      }
+						</style>
+						<div class="modal" id="uploading_pebbles_after_payment_modal" role="dialog" tabindex="-1">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="upload_pebbles_after_payment_title_modal" style="text-align: center; width: 100%;">Uploading Pebbles</h5>
+									</div>
+									<div class="modal-body" id="loaderdiv" style="text-align: center; align-content: center; align-items: center;">
+										<div class="loader" style="text-align: center; border: 16px solid #f3f3f3; border-top: 16px solid #3498db; border-radius: 50%; width:120px; height: 120px; animation: spin 2s linear infinite; margin: 0 auto;"></div>
+									</div>
+									<div style="display: block; align-self: center;">
+										<div class="modal-footer">
+											<button class="btn btn-primary" data-dismiss="modal" id="uploadingpebblesdisplaybuttonok" style="display: none;" type="button">OK</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<script>
+						      $('#uploading_pebbles_after_payment_modal').on('hide.bs.modal', function (e) {
+						          document.getElementById('deletethisafterupload').remove();
+						      })
+						</script>
+						<div id="coupon" style="display: none;">
+							<br>
+							<div style="text-align: center;">
+								<input id="couponinput" name="couponinput" style="height: 30px; font-size: 14px;" type="input"> <button class="btn btn-primary" id="coupig" onclick="coupon_checker()" style="line-height: 30px; font-size:12px" type="button">Enter eGift</button>
+							</div>
+							<div class="modal" id="invalid_egift_coupon_modal" role="dialog" tabindex="-1">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" style="text-align: center; width: 100%;">Invalid eGift Coupon</h5>
+										</div>
+										<div class="modal-body">
+											<p style="text-align: center;">You entered an invalid coupon. Please use a correct eGift coupon or pay.</p>
+										</div>
+										<div style="display: block; align-self: center;">
+											<div class="modal-footer">
+												<button class="btn btn-primary" data-dismiss="modal" type="button">OK</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>{% ifnotequal remaining_pebbles 0 %}
+							<p style="font-weight: 600; text-align: center;"><a href="javascript:showfilespay()">or Pay</a></p><br>
+							{% endifnotequal %}
+						</div>
+					</form>
+				</div><br>
+				<div class="optional-info" id='optnlinfo' style="display: none;">
+					<form action="/success/" id="extra_options_form" method="post" name="extra_options_form">
+						<h3 style="text-align: center;">Final Survey</h3><br>
+						<p style="font-size: 16px; color: red;">Note: The information you provide in the following section will not be shared with anyone and will be completely anonymous. Your information and identity are safe with us.</p><br>
+						<p>We want you to choose for how long the time capsule will be stored. We will store the time capsule for the amount of time that is most popular, according to the survey below.</p>
+						<div class="form-group">
+							<div class="optional_selection_div_class">
+								<label for="timeframe">For how long would you want the time capsule to be stored?</label> <select class="form-control" id="timeframe" name="info">
+									<option value="none">
+										Rather Not Say
+									</option>
+									<option value="ten">
+										10 Years
+									</option>
+									<option value="twenty">
+										20 Years
+									</option>
+									<option value="thirty">
+										30 Years
+									</option>
+									<option value="fourty">
+										40 Years
+									</option>
+									<option value="fifty">
+										50 Years
+									</option>
+								</select>
+							</div>
+						</div><!-- Default checked -->
+						<br>
+						<p>In order to determine the impact of the Apito project, we want to see from what parts of the world people are uploading pebbles into our time capsule</p>
+						<div class="form-group">
+							<div class="country-select">
+								<label for="country">Where are you from?</label> <select class="form-control" id="country" name="country">
+									<option value="none">
+										Rather Not Say
+									</option>
+									<option value="Afghanistan">
+										Afghanistan
+									</option>
+									<option value="Åland Islands">
+										Åland Islands
+									</option>
+									<option value="Albania">
+										Albania
+									</option>
+									<option value="Algeria">
+										Algeria
+									</option>
+									<option value="American Samoa">
+										American Samoa
+									</option>
+									<option value="Andorra">
+										Andorra
+									</option>
+									<option value="Angola">
+										Angola
+									</option>
+									<option value="Anguilla">
+										Anguilla
+									</option>
+									<option value="Antarctica">
+										Antarctica
+									</option>
+									<option value="Antigua and Barbuda">
+										Antigua and Barbuda
+									</option>
+									<option value="Argentina">
+										Argentina
+									</option>
+									<option value="Armenia">
+										Armenia
+									</option>
+									<option value="Aruba">
+										Aruba
+									</option>
+									<option value="Australia">
+										Australia
+									</option>
+									<option value="Austria">
+										Austria
+									</option>
+									<option value="Azerbaijan">
+										Azerbaijan
+									</option>
+									<option value="Bahamas">
+										Bahamas
+									</option>
+									<option value="Bahrain">
+										Bahrain
+									</option>
+									<option value="Bangladesh">
+										Bangladesh
+									</option>
+									<option value="Barbados">
+										Barbados
+									</option>
+									<option value="Belarus">
+										Belarus
+									</option>
+									<option value="Belgium">
+										Belgium
+									</option>
+									<option value="Belize">
+										Belize
+									</option>
+									<option value="Benin">
+										Benin
+									</option>
+									<option value="Bermuda">
+										Bermuda
+									</option>
+									<option value="Bhutan">
+										Bhutan
+									</option>
+									<option value="Bolivia">
+										Bolivia
+									</option>
+									<option value="Bosnia and Herzegovina">
+										Bosnia and Herzegovina
+									</option>
+									<option value="Botswana">
+										Botswana
+									</option>
+									<option value="Bouvet Island">
+										Bouvet Island
+									</option>
+									<option value="Brazil">
+										Brazil
+									</option>
+									<option value="British Indian Ocean Territory">
+										British Indian Ocean Territory
+									</option>
+									<option value="Brunei Darussalam">
+										Brunei Darussalam
+									</option>
+									<option value="Bulgaria">
+										Bulgaria
+									</option>
+									<option value="Burkina Faso">
+										Burkina Faso
+									</option>
+									<option value="Burundi">
+										Burundi
+									</option>
+									<option value="Cambodia">
+										Cambodia
+									</option>
+									<option value="Cameroon">
+										Cameroon
+									</option>
+									<option value="Canada">
+										Canada
+									</option>
+									<option value="Cape Verde">
+										Cape Verde
+									</option>
+									<option value="Cayman Islands">
+										Cayman Islands
+									</option>
+									<option value="Central African Republic">
+										Central African Republic
+									</option>
+									<option value="Chad">
+										Chad
+									</option>
+									<option value="Chile">
+										Chile
+									</option>
+									<option value="China">
+										China
+									</option>
+									<option value="Christmas Island">
+										Christmas Island
+									</option>
+									<option value="Cocos (Keeling) Islands">
+										Cocos (Keeling) Islands
+									</option>
+									<option value="Colombia">
+										Colombia
+									</option>
+									<option value="Comoros">
+										Comoros
+									</option>
+									<option value="Congo">
+										Congo
+									</option>
+									<option value="Congo, The Democratic Republic of The">
+										Congo, The Democratic Republic of The
+									</option>
+									<option value="Cook Islands">
+										Cook Islands
+									</option>
+									<option value="Costa Rica">
+										Costa Rica
+									</option>
+									<option value="Cote D'ivoire">
+										Cote D'ivoire
+									</option>
+									<option value="Croatia">
+										Croatia
+									</option>
+									<option value="Cuba">
+										Cuba
+									</option>
+									<option value="Cyprus">
+										Cyprus
+									</option>
+									<option value="Czech Republic">
+										Czech Republic
+									</option>
+									<option value="Denmark">
+										Denmark
+									</option>
+									<option value="Djibouti">
+										Djibouti
+									</option>
+									<option value="Dominica">
+										Dominica
+									</option>
+									<option value="Dominican Republic">
+										Dominican Republic
+									</option>
+									<option value="Ecuador">
+										Ecuador
+									</option>
+									<option value="Egypt">
+										Egypt
+									</option>
+									<option value="El Salvador">
+										El Salvador
+									</option>
+									<option value="Equatorial Guinea">
+										Equatorial Guinea
+									</option>
+									<option value="Eritrea">
+										Eritrea
+									</option>
+									<option value="Estonia">
+										Estonia
+									</option>
+									<option value="Ethiopia">
+										Ethiopia
+									</option>
+									<option value="Falkland Islands (Malvinas)">
+										Falkland Islands (Malvinas)
+									</option>
+									<option value="Faroe Islands">
+										Faroe Islands
+									</option>
+									<option value="Fiji">
+										Fiji
+									</option>
+									<option value="Finland">
+										Finland
+									</option>
+									<option value="France">
+										France
+									</option>
+									<option value="French Guiana">
+										French Guiana
+									</option>
+									<option value="French Polynesia">
+										French Polynesia
+									</option>
+									<option value="French Southern Territories">
+										French Southern Territories
+									</option>
+									<option value="Gabon">
+										Gabon
+									</option>
+									<option value="Gambia">
+										Gambia
+									</option>
+									<option value="Georgia">
+										Georgia
+									</option>
+									<option value="Germany">
+										Germany
+									</option>
+									<option value="Ghana">
+										Ghana
+									</option>
+									<option value="Gibraltar">
+										Gibraltar
+									</option>
+									<option value="Greece">
+										Greece
+									</option>
+									<option value="Greenland">
+										Greenland
+									</option>
+									<option value="Grenada">
+										Grenada
+									</option>
+									<option value="Guadeloupe">
+										Guadeloupe
+									</option>
+									<option value="Guam">
+										Guam
+									</option>
+									<option value="Guatemala">
+										Guatemala
+									</option>
+									<option value="Guernsey">
+										Guernsey
+									</option>
+									<option value="Guinea">
+										Guinea
+									</option>
+									<option value="Guinea-bissau">
+										Guinea-bissau
+									</option>
+									<option value="Guyana">
+										Guyana
+									</option>
+									<option value="Haiti">
+										Haiti
+									</option>
+									<option value="Heard Island and Mcdonald Islands">
+										Heard Island and Mcdonald Islands
+									</option>
+									<option value="Holy See (Vatican City State)">
+										Holy See (Vatican City State)
+									</option>
+									<option value="Honduras">
+										Honduras
+									</option>
+									<option value="Hong Kong">
+										Hong Kong
+									</option>
+									<option value="Hungary">
+										Hungary
+									</option>
+									<option value="Iceland">
+										Iceland
+									</option>
+									<option value="India">
+										India
+									</option>
+									<option value="Indonesia">
+										Indonesia
+									</option>
+									<option value="Iran, Islamic Republic of">
+										Iran, Islamic Republic of
+									</option>
+									<option value="Iraq">
+										Iraq
+									</option>
+									<option value="Ireland">
+										Ireland
+									</option>
+									<option value="Isle of Man">
+										Isle of Man
+									</option>
+									<option value="Israel">
+										Israel
+									</option>
+									<option value="Italy">
+										Italy
+									</option>
+									<option value="Jamaica">
+										Jamaica
+									</option>
+									<option value="Japan">
+										Japan
+									</option>
+									<option value="Jersey">
+										Jersey
+									</option>
+									<option value="Jordan">
+										Jordan
+									</option>
+									<option value="Kazakhstan">
+										Kazakhstan
+									</option>
+									<option value="Kenya">
+										Kenya
+									</option>
+									<option value="Kiribati">
+										Kiribati
+									</option>
+									<option value="Korea, Democratic People's Republic of">
+										Korea, Democratic People's Republic of
+									</option>
+									<option value="Korea, Republic of">
+										Korea, Republic of
+									</option>
+									<option value="Kuwait">
+										Kuwait
+									</option>
+									<option value="Kyrgyzstan">
+										Kyrgyzstan
+									</option>
+									<option value="Lao People's Democratic Republic">
+										Lao People's Democratic Republic
+									</option>
+									<option value="Latvia">
+										Latvia
+									</option>
+									<option value="Lebanon">
+										Lebanon
+									</option>
+									<option value="Lesotho">
+										Lesotho
+									</option>
+									<option value="Liberia">
+										Liberia
+									</option>
+									<option value="Libyan Arab Jamahiriya">
+										Libyan Arab Jamahiriya
+									</option>
+									<option value="Liechtenstein">
+										Liechtenstein
+									</option>
+									<option value="Lithuania">
+										Lithuania
+									</option>
+									<option value="Luxembourg">
+										Luxembourg
+									</option>
+									<option value="Macao">
+										Macao
+									</option>
+									<option value="Macedonia, The Former Yugoslav Republic of">
+										Macedonia, The Former Yugoslav Republic of
+									</option>
+									<option value="Madagascar">
+										Madagascar
+									</option>
+									<option value="Malawi">
+										Malawi
+									</option>
+									<option value="Malaysia">
+										Malaysia
+									</option>
+									<option value="Maldives">
+										Maldives
+									</option>
+									<option value="Mali">
+										Mali
+									</option>
+									<option value="Malta">
+										Malta
+									</option>
+									<option value="Marshall Islands">
+										Marshall Islands
+									</option>
+									<option value="Martinique">
+										Martinique
+									</option>
+									<option value="Mauritania">
+										Mauritania
+									</option>
+									<option value="Mauritius">
+										Mauritius
+									</option>
+									<option value="Mayotte">
+										Mayotte
+									</option>
+									<option value="Mexico">
+										Mexico
+									</option>
+									<option value="Micronesia, Federated States of">
+										Micronesia, Federated States of
+									</option>
+									<option value="Moldova, Republic of">
+										Moldova, Republic of
+									</option>
+									<option value="Monaco">
+										Monaco
+									</option>
+									<option value="Mongolia">
+										Mongolia
+									</option>
+									<option value="Montenegro">
+										Montenegro
+									</option>
+									<option value="Montserrat">
+										Montserrat
+									</option>
+									<option value="Morocco">
+										Morocco
+									</option>
+									<option value="Mozambique">
+										Mozambique
+									</option>
+									<option value="Myanmar">
+										Myanmar
+									</option>
+									<option value="Namibia">
+										Namibia
+									</option>
+									<option value="Nauru">
+										Nauru
+									</option>
+									<option value="Nepal">
+										Nepal
+									</option>
+									<option value="Netherlands">
+										Netherlands
+									</option>
+									<option value="Netherlands Antilles">
+										Netherlands Antilles
+									</option>
+									<option value="New Caledonia">
+										New Caledonia
+									</option>
+									<option value="New Zealand">
+										New Zealand
+									</option>
+									<option value="Nicaragua">
+										Nicaragua
+									</option>
+									<option value="Niger">
+										Niger
+									</option>
+									<option value="Nigeria">
+										Nigeria
+									</option>
+									<option value="Niue">
+										Niue
+									</option>
+									<option value="Norfolk Island">
+										Norfolk Island
+									</option>
+									<option value="Northern Mariana Islands">
+										Northern Mariana Islands
+									</option>
+									<option value="Norway">
+										Norway
+									</option>
+									<option value="Oman">
+										Oman
+									</option>
+									<option value="Pakistan">
+										Pakistan
+									</option>
+									<option value="Palau">
+										Palau
+									</option>
+									<option value="Palestinian Territory, Occupied">
+										Palestinian Territory, Occupied
+									</option>
+									<option value="Panama">
+										Panama
+									</option>
+									<option value="Papua New Guinea">
+										Papua New Guinea
+									</option>
+									<option value="Paraguay">
+										Paraguay
+									</option>
+									<option value="Peru">
+										Peru
+									</option>
+									<option value="Philippines">
+										Philippines
+									</option>
+									<option value="Pitcairn">
+										Pitcairn
+									</option>
+									<option value="Poland">
+										Poland
+									</option>
+									<option value="Portugal">
+										Portugal
+									</option>
+									<option value="Puerto Rico">
+										Puerto Rico
+									</option>
+									<option value="Qatar">
+										Qatar
+									</option>
+									<option value="Reunion">
+										Reunion
+									</option>
+									<option value="Romania">
+										Romania
+									</option>
+									<option value="Russian Federation">
+										Russian Federation
+									</option>
+									<option value="Rwanda">
+										Rwanda
+									</option>
+									<option value="Saint Helena">
+										Saint Helena
+									</option>
+									<option value="Saint Kitts and Nevis">
+										Saint Kitts and Nevis
+									</option>
+									<option value="Saint Lucia">
+										Saint Lucia
+									</option>
+									<option value="Saint Pierre and Miquelon">
+										Saint Pierre and Miquelon
+									</option>
+									<option value="Saint Vincent and The Grenadines">
+										Saint Vincent and The Grenadines
+									</option>
+									<option value="Samoa">
+										Samoa
+									</option>
+									<option value="San Marino">
+										San Marino
+									</option>
+									<option value="Sao Tome and Principe">
+										Sao Tome and Principe
+									</option>
+									<option value="Saudi Arabia">
+										Saudi Arabia
+									</option>
+									<option value="Senegal">
+										Senegal
+									</option>
+									<option value="Serbia">
+										Serbia
+									</option>
+									<option value="Seychelles">
+										Seychelles
+									</option>
+									<option value="Sierra Leone">
+										Sierra Leone
+									</option>
+									<option value="Singapore">
+										Singapore
+									</option>
+									<option value="Slovakia">
+										Slovakia
+									</option>
+									<option value="Slovenia">
+										Slovenia
+									</option>
+									<option value="Solomon Islands">
+										Solomon Islands
+									</option>
+									<option value="Somalia">
+										Somalia
+									</option>
+									<option value="South Africa">
+										South Africa
+									</option>
+									<option value="South Georgia and The South Sandwich Islands">
+										South Georgia and The South Sandwich Islands
+									</option>
+									<option value="Spain">
+										Spain
+									</option>
+									<option value="Sri Lanka">
+										Sri Lanka
+									</option>
+									<option value="Sudan">
+										Sudan
+									</option>
+									<option value="Suriname">
+										Suriname
+									</option>
+									<option value="Svalbard and Jan Mayen">
+										Svalbard and Jan Mayen
+									</option>
+									<option value="Swaziland">
+										Swaziland
+									</option>
+									<option value="Sweden">
+										Sweden
+									</option>
+									<option value="Switzerland">
+										Switzerland
+									</option>
+									<option value="Syrian Arab Republic">
+										Syrian Arab Republic
+									</option>
+									<option value="Taiwan, Province of China">
+										Taiwan, Province of China
+									</option>
+									<option value="Tajikistan">
+										Tajikistan
+									</option>
+									<option value="Tanzania, United Republic of">
+										Tanzania, United Republic of
+									</option>
+									<option value="Thailand">
+										Thailand
+									</option>
+									<option value="Timor-leste">
+										Timor-leste
+									</option>
+									<option value="Togo">
+										Togo
+									</option>
+									<option value="Tokelau">
+										Tokelau
+									</option>
+									<option value="Tonga">
+										Tonga
+									</option>
+									<option value="Trinidad and Tobago">
+										Trinidad and Tobago
+									</option>
+									<option value="Tunisia">
+										Tunisia
+									</option>
+									<option value="Turkey">
+										Turkey
+									</option>
+									<option value="Turkmenistan">
+										Turkmenistan
+									</option>
+									<option value="Turks and Caicos Islands">
+										Turks and Caicos Islands
+									</option>
+									<option value="Tuvalu">
+										Tuvalu
+									</option>
+									<option value="Uganda">
+										Uganda
+									</option>
+									<option value="Ukraine">
+										Ukraine
+									</option>
+									<option value="United Arab Emirates">
+										United Arab Emirates
+									</option>
+									<option value="United Kingdom">
+										United Kingdom
+									</option>
+									<option value="United States">
+										United States
+									</option>
+									<option value="United States Minor Outlying Islands">
+										United States Minor Outlying Islands
+									</option>
+									<option value="Uruguay">
+										Uruguay
+									</option>
+									<option value="Uzbekistan">
+										Uzbekistan
+									</option>
+									<option value="Vanuatu">
+										Vanuatu
+									</option>
+									<option value="Venezuela">
+										Venezuela
+									</option>
+									<option value="Viet Nam">
+										Viet Nam
+									</option>
+									<option value="Virgin Islands, British">
+										Virgin Islands, British
+									</option>
+									<option value="Virgin Islands, U.S.">
+										Virgin Islands, U.S.
+									</option>
+									<option value="Wallis and Futuna">
+										Wallis and Futuna
+									</option>
+									<option value="Western Sahara">
+										Western Sahara
+									</option>
+									<option value="Yemen">
+										Yemen
+									</option>
+									<option value="Zambia">
+										Zambia
+									</option>
+									<option value="Zimbabwe">
+										Zimbabwe
+									</option>
+								</select> <input id="idoffileform" name="idoffileform" type="hidden" value="">
+							</div>
+						</div><!-- /.container -->
+						<br>
+						<button class="btn btn-primary" onclick="uploadfilesforme();" type="submit">Submit</button> <button class='btn btn-primary' onclick="uploadfilesforme();" type="button">Skip</button>
+					</form>
+				</div><br>
+				<br>
+			</div><!--tab2-->
+			<div aria-labelledby="pills-profile-tab" class="tab-pane fade" id="pills-profile" role="tabpanel">
+				<br>
+				<br>
+				<h3 style="text-align: center;">Buy eGifts</h3><br>
+				<div class="alert alert-success" role="alert">
+					Help us spread the word and share this opportunity with your family and friends. Buy them an eGift so that they can be part of this movement as well.
+				</div><br>
+				<form action="/create_coupon/" id="eGiftForm" method="post" name="eGiftForm">
+					<div id="egifts_main_div">
+						<div id="egift_num_0" class="egift-class" style="display: block;">
+							<div class="form-group">
+								<div class="input-group-addon">
+									eGift Credit ($ USD)
+								</div><input class="form-control egift-amount-class" id="exampleInputAmount" min="1.00" name="amount" onchange="checkegiftamount(this);" placeholder="Amount" step="1.00" type="number" value="1.00">
+							</div>
+							<div class="form-group">
+								<label class="control-label egift-receiver-class" for="receiveremail1">Receiver&#39;s Email (Optional)</label>
+								<div class="">
+									<input class=" form-control" id="receiveremail1" maxlength="150" name="receiveremail1" onchange="checkegiftemail(this);" type="email">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="receivermessage1">Message for Receiver (Optional)</label>
+								<div class="">
+									<textarea class=" form-control egift-message-class" cols="40" id="receivermessage1" maxlength="250" name="receivermessage1" oninput="javascript:textCountFunctionE(this,textcounter5);" rows="10"></textarea>
+									<div id="textcounter5">
+										0/250
+									</div>
+									<div id="egift_delete_0" class="egift-delete-class" style="text-align: right; padding-right: 0px; display: none;">
+										<a href="#" onclick="javascript:DeleteEgift('egift_num_0');"><span class="fas fa-trash-alt fa-lg" title="Delete it"></span></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br>
+					</div><br>
+					<br>
+					<div id="show_egift_form_field_div">
+						<button class="btn btn-primary" id="show_egift_form_fields_button" onclick="ShowEgiftFormField(this);" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;" type="button"><span class="fas fa-plus" style="margin-left: 2px; margin-right: 0px; margin-top: 1px; margin-bottom: 1px;"></span></button>
+					</div><br>
+					<br>
+					<div id="sender_name_email">
+					<div class="form-group">
+						<label class="control-label" for="id_sender_name">Your Name (Optional)</label>
+						<div class="">
+							<input class=" form-control" id="id_sender_name" maxlength="200" name="sender_name" type="text">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="id_sender_email">Your Email (Optional)</label>
+						<div class="">
+							<input class=" form-control" id="id_sender_email" maxlength="150" name="sender_email" onchange="checkegiftemail(this);" type="email">
+						</div>
+					</div>
+					</div>
+						<div id="egiftdonationskip" style="display: block;">
+						<br>
+						<div class="egiftsdonation">
+							<label for="egiftdonation">Would you like to add a donation?</label> <select class="form-control" id="egiftdonation" name="egiftdonation" onchange="egiftmoney(this.value)">
+								<option value="one">
+									Select amount to donate
+								</option>
+								<option value="three">
+									$3 USD
+								</option>
+								<option value="five">
+									$5 USD
+								</option>
+								<option value="ten">
+									$10 USD
+								</option>
+								<option value="twenty">
+									$20 USD
+								</option>
+								<option value="fifty">
+									$50 USD
+								</option>
+								<option value="hundred">
+									$100 USD
+								</option>
+								<option value="custom">
+									Enter custom amount
+								</option>
+							</select><br>
+							<input class="form-control" id="egiftdonateamount" min="1.00" placeholder="Amount" step="1.00" style="display: none;" type="number" value="1.00">
+						</div><br>
+						<button class="btn btn-primary" id="pebbledonationbutton" onclick="checkegiftdonationamount();" type="button">&nbsp;&nbsp;&nbsp;&nbsp;Donate&nbsp;&nbsp;&nbsp;&nbsp;</button> <button class="btn btn-primary" onclick="skipegiftdonation();" type="button">Skip</button>
+						<p id="egift_donation_added" style="display: none">Donation successfully added.</p>
+						<p id="egift_donation_skipped" style="display: none">Donation successfully skipped</p>
+						<br>
+					</div>
+					<br>
+
+
+					{% csrf_token %} <button class="btn btn-primary" id="showegiftagree" style="display: none;" onclick="show_egift_agree_button_func()" type="button">&nbsp;&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;&nbsp;</button><br>
+					<div id="egiftagree" style="display: none;">
+						<p>You will need to accept our <a href="{% url 't' %}" target='_blank'>terms and conditions.</a></p>
+						<h3>Summary of Important Terms & Conditions</h3>
+						<p>We cannot perform any refunds, returns, exchanges, or order cancellations/changes for any finalized purchase as we offer a customized service and thus do not currently support these functions. Once your purchase is complete, we are not be able to track your order as each order is made anonymously. Therefore, please review all instructions and your inputted information carefully before finalizing any payment as it cannot be undone once the payment has been processed. Make sure that you are fully satisfied with the purchase you are making before finalizing the transaction.</p><label for="tandc" style="font-weight: 500; font-size: 19;">I accept</label> <input id="egiftcheck" onchange="document.getElementById('egiftpopupbtn').disabled = !this.checked;" type="checkbox"><br>
+						<br>
+						<div id="eigft_payme_show_button_div">
+							<button class="btn btn-primary" disabled="disabled" id="egiftpopupbtn" name="egift-popup-btn" onclick="showegiftpayme()" type="button">Continue</button>
+						</div>
+					</div>
+					<div id="edit_pay_egift_div" style="display:none;">
+						<hr>
+					<div id='edit_egift_form_div_id' style="text-align: center; display: none;">
+						<button class="btn btn-primary" onclick="edit_egift_form_button_func();" style="text-align: center;" type="button">Edit eGifts Form</button>
+					</div>
+					<hr>
+					<br>
+
+						<br>
+						<div class='form-control total btn btn-success' id="show_total_charges_egift_div" style="text-decoration: none; transition: none;">
+							Total Charges: <span class='amount' id="show_total_charges_egift">$0 USD</span>
+						</div><br>
+						<br>
+						<div class="text-center">
+							<button class="btn btn-primary" onclick='showegiftspayme();' style="text-align: center;" type="button">PAY</button>
+						</div>
+					</div>
+				</form>
+			</div><!--tab3-->
+			<div aria-labelledby="pills-contact-tab" class="tab-pane fade" id="pills-contact" role="tabpanel">
+				<br>
+				<br>
+				<h3 style="text-align: center;">Donate</h3><br>
+				<div class="alert alert-success" role="alert">
+					If you do not want to upload your own pebbles to our time capsule but still want to support this cause, you can send us a donation. Donations will be used to give other people the opportunity to participate in this movement by uploading their own pebbles. The more pebbles that get uploaded, the closer we get to reaching our goal and the larger impact we can have in our communities.
+				</div><br>
+				<br>
+				<div class="ramea">
+					<label for="donation_select_element_donate_tab">Donation Amount</label> <select class="form-control" id="donation_select_element_donate_tab" name="donation_select_element_donate_tab" onchange="show_donate_amount_block(this.value);">
+						<option value="one">
+							Select amount to donate
+						</option>
+						<option value="three">
+							$3 USD
+						</option>
+						<option value="five">
+							$5 USD
+						</option>
+						<option value="ten">
+							$10 USD
+						</option>
+						<option value="twenty">
+							$20 USD
+						</option>
+						<option value="fifty">
+							$50 USD
+						</option>
+						<option value="hundred">
+							$100 USD
+						</option>
+						<option value="custom">
+							Enter custom amount
+						</option>
+					</select><br>
+					<input class="form-control" id="donatethisamount" min="1.00" placeholder="Amount" step="1.00" style="display: none;" type="number" value="1.00">
+				</div><br>
+				<button class="btn btn-primary" id="showdonationbutton" onclick="showdonationAgreement()" type="button">&nbsp;&nbsp;&nbsp;&nbsp;Continue&nbsp;&nbsp;&nbsp;&nbsp;</button><br>
+				<div id="donationagree" style="display: none;">
+					<p>You will need to accept our <a href="{% url 't' %}" target='_blank'>terms and conditions.</a></p>
+					<h3>Summary of Important Terms & Conditions</h3>
+					<p>We cannot perform any refunds, returns, exchanges, or order cancellations/changes for any finalized purchase as we offer a customized service and thus do not currently support these functions. Once your purchase is complete, we are not be able to track your order as each order is made anonymously. Therefore, please review all instructions and your inputted information carefully before finalizing any payment as it cannot be undone once the payment has been processed. Make sure that you are fully satisfied with the purchase you are making before finalizing the transaction.</p><label for="tandc" style="font-weight: 500; font-size: 19;">I accept</label> <input id="donationcheck" onchange="document.getElementById('donationpopupbtn').disabled = !this.checked;" type="checkbox"><br>
+					<br>
+					<div id="show_donation_pay_btn_div_id">
+						<button class="btn btn-primary" disabled="disabled" id="donationpopupbtn" name="donation-popup-btn" onclick="showdonationpay()" type="button">PAY</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><br>
+	<br>
+	<br>
+	<div class="footer bg-light">
+		<div class="container">
+			<div class="row text-center">
+				<div class="col-lg-3 ml-auto padding-0 mb-5">
+					<h3 class="footer-heading"><span>Site Links</span></h3>
+					<ul class="list-unstyled">
+						<li>
+							<a href="mailto:apito.help.center@gmail.com">Contact us</a>
+						</li>
+						<li>
+							<a href="{% url 't' %}">Terms and Conditions</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-lg-3 mr-auto padding-0 mb-5">
+					<h3 class="footer-heading"><span>Social Media</span></h3>
+					<ul class="list-unstyled">
+						<li>
+							<a href="https://www.facebook.com/Apito-106229387484222/"><span class="fab fa-facebook fa-lg"></span> Facebook</a>
+						</li>
+						<li>
+							<a href="https://www.instagram.com/apebbleintheocean/"><span class="fab fa-instagram fa-lg"></span> Instagram</a>
+						</li>
+						<li>
+							<a href="https://www.youtube.com/channel/UCRLnvpXOc8nwdwNYaLU6nJA"><span class="fab fa-youtube fa-lg"></span> YouTube</a>
+						</li>
+						<li>
+							<a href="https://twitter.com/apito_project"><span class="fab fa-twitter fa-lg"></span> Twitter</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="row" style="margin-bottom: 0;">
+				<div class="center mx-auto"><img height="170" src="{% static 'footer.png' %}" width="150"></div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<div>
+						<p class="text-center">Copyright &copy;
+						<script>
+						document.write(new Date().getFullYear());
+						</script> All rights reserved</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- .site-wrap -->
+	<!-- loader -->
+	<div class="show fullscreen" id="loader">
+		<svg class="circular" height="48px" width="48px">
+		<circle class="path-bg" cx="24" cy="24" fill="none" r="22" stroke="#eeeeee" stroke-width="4"></circle>
+		<circle class="path" cx="24" cy="24" fill="none" r="22" stroke="#ff5e15" stroke-miterlimit="10" stroke-width="4"></circle></svg>
+	</div>
+	<script src="{% static 'v1/js/main.js' %}">
+	</script>
+</body>
+</html>

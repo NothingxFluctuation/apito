@@ -40,14 +40,6 @@ def main(request):
     request.session['foo'] = 'bar'
     request.session['pebble_form_count'] = 1
     request.session['egift_form_count'] = 1
-    """Need to replace these with live keys in production for apple pay to work"""
-    # stripe.api_key = ""
-
-    # stripe.ApplePayDomain.create(
-    #     domain_name='apebbleintheocean.com',
-    # )
-
-
     coupon_form = CouponModelForm()
     pp_objects = PaymentProgress.objects.all()
     if pp_objects:
@@ -55,6 +47,7 @@ def main(request):
         PaymentProgressAmount = PaymentProgressObject.amount_paid
         fund = Funds.objects.latest('id')
         funding_required = fund.funds_required
+        #calculate the payment progress in percentage
         AllPaymentProgress = int(PaymentProgressAmount * 100 / funding_required)
         print("APP: ",AllPaymentProgress)
         if AllPaymentProgress >= 99:
@@ -70,16 +63,16 @@ def main(request):
         AllPaymentProgress = int(PaymentProgressAmount * 100 / funding_required)
         bleach = True
         remaining_pebbles = None
-
+    #add information into a dict and send it in response
     context = {'coupon_form':coupon_form, 'AllPaymentProgress':AllPaymentProgress,'bleach':bleach,'remaining_pebbles':remaining_pebbles}
-    return render(request, 'i.html',context)
+    return render(request, 'index.html',context)
 
 
 
 
 #serve faq page
 def faq(request):
-    return render(request,'thisabout.html')
+    return render(request,'faq.html')
 
 
 #create stripe client secret and send it to client side to receive money
@@ -91,6 +84,7 @@ def secret(request):
             metadata={'integration_check':'accept_a_payment'},)
 
         return JsonResponse({'client_secret':intent.client_secret})
+    #if payable key exists in the session then retrieve the value and create a stripe client secret
     amount = request.session['payable']
     amount = amount * 100
     intent = stripe.PaymentIntent.create(
@@ -116,6 +110,7 @@ def set_price(request):
 #save the price in the PaymentProgress model in order to track the progress of funds
 def save_price(request):
     payable = request.session['payable']
+    #retrieve the payable from session and add it into payment progress
     pf = PaymentProgress.objects.filter(id=1)
     if pf:
         pp = PaymentProgress.objects.get(id=1)
@@ -124,6 +119,7 @@ def save_price(request):
     pp.amount_paid = pp.amount_paid + payable
     pp.save()
     PaymentProgressAmount = pp.amount_paid
+    #update the funds object based upon newly received funds
     fund = Funds.objects.latest('id')
     funding_required = fund.funds_required
     AllPaymentProgress = int(PaymentProgressAmount * 100 / funding_required)
@@ -157,14 +153,13 @@ def home(request):
 def get_pebble_fields(request):
     fields_count = request.session['pebble_form_count']
     request.session['pebble_form_count'] = fields_count + 1
-
-
     PaymentProgressObject = PaymentProgress.objects.latest('id')
     PaymentProgressAmount = PaymentProgressObject.amount_paid
     fund = Funds.objects.latest('id')
     funding_required = fund.funds_required
     AllPaymentProgress = int(PaymentProgressAmount * 100 / funding_required)
     print("APP: ",AllPaymentProgress)
+    #if no more pebbles are available then don't send any new fields
     if AllPaymentProgress >= 99:
         bleach = False #Random name
         remaining_pebbles = fund.limited_pebbles
@@ -201,6 +196,7 @@ def index(request):
                     text_variable = 'text' + key_num
                     file_type = request.POST[file_type_variable]
                     text = request.POST[text_variable]
+                #save the data in the database
                 file_model = FileModel.objects.create(file_type=file_type, text=text,file_here=file, order_no=order_no)
                 cnt += 1
                 print(file_model.id)
@@ -213,6 +209,7 @@ def index(request):
             if len(cpni) > 0:
                 cpna = CouponModel.objects.get(coupon=cpn)
                 print(cpna)
+            #manage paymentprogress object
             pf = PaymentProgress.objects.filter(id=1)
             if pf:
                 pp = PaymentProgress.objects.get(id=1)
@@ -232,6 +229,7 @@ def index(request):
             rsp = order_no
             em = request.POST.get('emailforid',None)
             print(em)
+            #if email is provided then send the order number
             if em:
                 subject = "Your Apito Order Number"
                 text_content = "Apito Order Number Notification"
@@ -314,13 +312,13 @@ def get_survey_result(request):
 #calculate the price for the selected pebble items
 def calculate_price(request):
     b = request.GET.get('lol')
-    fileslist = b.split("xxxhumkohumhisaychuraloxxx")
+    fileslist = b.split("xxxfilesnamewithextensionstringxxx")
     fileslist.pop()
     print('ff: ',fileslist)
     image_ext = ['png','jpg','jpeg','heic','gif']
     video_ext = ['avi','flv','wmv','mov','mp4','mkv']
     price = 0
-    
+    #price for each file must be calculated
     for f in fileslist:
         print('FFF:', f)
         f = f.lower()
@@ -347,7 +345,7 @@ def egifts_admin(request):
         qnt = request.GET.get('quantity')
         if qnt:
             qnt = int(qnt)
-
+        #get the amount and quantity from the admin and generate egifts
         if amount and qnt:
             if amount > 0 and qnt > 0:
                 counter = 0
@@ -359,7 +357,7 @@ def egifts_admin(request):
                     counter +=1
                 return HttpResponse(codes, content_type="text/plain")
                 
-        return render(request,'razi.html')
+        return render(request,'admin_egift_generator.html')
     
 
 #check the validity of coupon
@@ -382,6 +380,7 @@ def check_coupon(request):
         cpn.amount = int(new_amount)
         print("new_amount,",new_amount)
         cpn.save()
+        #if coupon's value is 0 then delete it
         if cpn.amount == 0:
             cpn.delete()
         rsp = "valid " + str(new_amount)
@@ -422,6 +421,7 @@ def file_download_url(request):
         else:
             total_orders.append(file.order_no)
     print(total_orders)
+    #do this for every pebble order
     for order in total_orders:
         file_objects = FileModel.objects.filter(order_no=order)
         cnt = 1
@@ -445,6 +445,7 @@ def file_download_url(request):
                 infile.close()
             cnt +=1
     for ff in files:
+        #delete the files after download
         ff.delete()
     mm = settings.MEDIA_ROOT + 'file_content'
     shutil.rmtree(mm)
@@ -468,7 +469,7 @@ def create_coupon(request):
             sender = sender_email
         else:
             sender = 'Someone'
-
+        #store all egift data in this variable
         result_html = ""
 
         for key, val in request.POST.items():
@@ -487,8 +488,10 @@ def create_coupon(request):
                     receiver_message_var = 'receivermessage' + key_num
                     receiver_message = request.POST.get(receiver_message_var, None)
                 coupon = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(15))
+                #create egift and save it into database
                 CouponModel.objects.create(amount=amount, coupon=coupon, receiver_email=receiver_email, msg_for_rcvr=receiver_message, sender_name=sender_name, sender_email=sender_email)
                 if receiver_email:
+                    #send email if email is provided
                     subject = '{} has sent you an Apito eGift'.format(sender)
                     if receiver_message:
                         html_content = '<p>Hello there,</p><p>{} has sent you an apito eGift.</p><p>Code: {}</p><p>Amount: ${}</p><p>{}\'s message: {}</p><p>You can use the eGift to upload your pebbles through the Apito website, linked below:</p><p><a href="https://www.apebbleintheocean.com">www.apebbleintheocean.com</a></p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'.format(sender, coupon,amount, sender, receiver_message)
@@ -504,9 +507,11 @@ def create_coupon(request):
                     msg.send()
                     result_html += "<p>Receiver: {} Coupon: {} Amount: ${}</p>".format(receiver_email,coupon, amount)
                 else:
+                    #email is not provided so only show it in a popup
                     result_html +="<p>Coupon: {} Amount: ${}</p>".format(coupon, amount)
 
         if sender_email:
+            #if sender provided the email then send the codes to the provided email
             subject = "Your Apito eGifts"
             html_content = '<p>Hello there,</p><p>Here are the Apito eGifts you purchased:</p>' + result_html + '<p>On behalf of Apito, thank you for your contribution.</p><br><p>Sincerely,</p><p>The Apito Team</p><br><p style="text-align: center;">Be a part of history.</p><p style="text-align: center;">Throw your pebble into the ocean</p><p style="text-align: center;"><img src="https://i.ibb.co/9YFKxSN/imageedit-8-3140283555.png" width="75" height="75"/></p>'
             from_email = 'admin@apebbleintheocean.com'
