@@ -1,4 +1,4 @@
-import os
+import os, sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +25,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # Application definition
 
 INSTALLED_APPS = [
-	'fileman',
+    'fileman',
     'bootstrapform',
 
     'django.contrib.admin',
@@ -35,28 +35,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import sys
-
 
 
 
@@ -146,15 +124,5 @@ MEDIA_ROOT= os.path.join(BASE_DIR, 'media/')
 MEDIA_URL= "/media/"
 
 
-STRIPE_SECRET_KEY = 'sk_test_qsycRqq1osmqpQAzKHbfGzXR00EwAuNpoH'
-STRIPE_PUBLISHABLE_KEY = 'pk_test_WvVSGCY0eJrVqWS72dIhnUTF00cs0kEOlY'
 
-
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
